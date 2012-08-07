@@ -84,8 +84,8 @@ class _FFT {
     // into one N-point DFT.
     List<Complex> y = new List(N);
     for (var k = 0; k < N/2; k++) {
-      var kth = -2 * k * Math.PI / N;
-      var wk = complex(Math.cos(kth), Math.sin(kth));
+      var kth = -2 * k * PI / N;
+      var wk = complex(cos(kth), sin(kth));
       y[k] = q[k] + (wk * r[k]);
       y[k + (N >> 1)] = q[k] - (wk * r[k]);
       count++;
@@ -107,8 +107,8 @@ class _FFT {
     for (var k = 0; k < N; k++) {
       var q = complex(0, 0);
       for (var j = 0; j < N; j++) {
-        var kth = -2 * k * j * Math.PI / N;
-        var wk = complex(Math.cos(kth), Math.sin(kth));
+        var kth = -2 * k * j * PI / N;
+        var wk = complex(cos(kth), sin(kth));
         q = q + (wk * input[j]);
         count++;
       }

@@ -38,7 +38,7 @@ class InputListHandler {
     //as integers to _buffer and return.
     try {
       _buffin.forEach((element) {
-        if(!element.isEmpty()) _buffer.add(Math.parseInt(element.trim()));
+        if(!element.isEmpty()) _buffer.add(parseInt(element.trim()));
         });
       return _buffer;
     } catch(var error) {

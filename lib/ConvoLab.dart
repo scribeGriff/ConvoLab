@@ -6,6 +6,8 @@
 
 #library('ConvoLab');
 #import('dart:io');
+#import('dart:math');
+
 
 #source('exceptions/ConvoLabException.dart');
 #source('exceptions/DataFormatException.dart');
@@ -30,3 +32,4 @@
 #source('math/Complex.dart');
 #source('math/hyperbolic.dart');
 #source('math/logarithm.dart');
+

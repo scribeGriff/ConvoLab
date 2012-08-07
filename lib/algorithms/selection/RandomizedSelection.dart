@@ -27,9 +27,11 @@ RndSelResults rsel(var fileOrList, int orderStat, [bool highOrder = false]) {
 class _RandomizedSelection {
   int count;
   bool ho;
+  var randNum;
   RndSelResults sel(List<int> inList, int orderStat, bool highOrder) {
     count = 0;
     ho = highOrder;
+    randNum = new Random();
     int selected = rselect(inList, 0, inList.length - 1, orderStat);
     return new RndSelResults(inList, selected, count);
   }
@@ -61,7 +63,7 @@ class _RandomizedSelection {
   }
 
   int partition(List<int> array, int lo, int hi) {
-    int pindex = lo + (Math.random()*(hi - lo + 1)).floor().toInt();
+    int pindex = lo + (randNum.nextDouble()*(hi - lo + 1)).floor().toInt();
     int pivot = array[pindex];
     swap(array, pindex, hi);
     pindex = hi;

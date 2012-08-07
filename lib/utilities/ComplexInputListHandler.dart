@@ -44,7 +44,7 @@ class ComplexInputListHandler {
     //as doubles to _buffer and return.
     try {
       _buffin.forEach((element) {
-        if(!element.isEmpty()) _buffer.add(Math.parseDouble(element.trim()));
+        if(!element.isEmpty()) _buffer.add(parseDouble(element.trim()));
         });
       return _buffer;
     } catch(var error) {

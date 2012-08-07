@@ -4,4 +4,4 @@
  * *************************************************************** */
 
 // log base 2 of x
-num log2(num x) => Math.log(x) / Math.log(2);
+num log2(num x) => log(x) / log(2);

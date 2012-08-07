@@ -99,8 +99,8 @@ class _IFFT {
     for (var k = 0; k < N; k++) {
       var q = complex(0, 0);
       for (var j = 0; j < N; j++) {
-        var kth = 2 * k * j * Math.PI / N;
-        var wk = complex(Math.cos(kth), Math.sin(kth));
+        var kth = 2 * k * j * PI / N;
+        var wk = complex(cos(kth), sin(kth));
         q = q + (wk * input[j]);
         count++;
       }
