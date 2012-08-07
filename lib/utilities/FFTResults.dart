@@ -4,7 +4,10 @@
  * ****************************************************** */
 
 class FFTResults extends ConvoLabResults {
-  FFTResults(List<Complex> data, int value) : super(data, value);
+  // Return input as Complex list.
+  List<Complex> input;
+  FFTResults(List<Complex> data, int value, this.input) : super(data, value);
 
+  // Method: display the results as a string.
   void show() => this.data.forEach((element) => print(element.string));
 }

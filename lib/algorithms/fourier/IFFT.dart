@@ -51,13 +51,15 @@ FFTResults ifft(var fileOrList, [int N]) {
  * **************************************************************** */
 class _IFFT {
   int count = 0;
+  List<Complex> inCopy;
   // Method 1: O(nlogn) radix-2 IFFT
   FFTResults iradix2(List<Complex> input) {
+    inCopy = new List.from(input);
     List<Complex> ifftResults = ifftnlogn(input);
-    return new FFTResults(ifftResults, count);
+    return new FFTResults(ifftResults, count, inCopy);
   }
   // The ifftnlogn() is accomplished in 3 steps.  First, the input data
-  // is conjugated, then a radix-2 fft is performed and finally the  
+  // is conjugated, then a radix-2 fft is performed and finally the
   // data is conjugated again and scaled by 1/N.
   List<Complex> ifftnlogn(List<Complex> input) {
     var N = input.length;
@@ -81,13 +83,14 @@ class _IFFT {
     }
     return y;
   }
-  
+
   // Method 2: O(n^2) IDFT
   FFTResults idft(List<Complex> input, int N) {
+    inCopy = new List.from(input);
     List<Complex> idftResults = idftnxn(input, N);
-    return new FFTResults(idftResults, count);
+    return new FFTResults(idftResults, count, inCopy);
   }
-  
+
   // idftnxn() performs a "brute force" discrete fourier
   // transform of the input data as given by the expression:
   // x(n) = 1/N * sum(k)[X(k) * WN(-nk)]

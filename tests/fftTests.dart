@@ -21,6 +21,10 @@ void fftTests() {
       expect(y.data, equals(auData));
       // Check less than O(n*n).
       expect(y.value, lessThan(samples.length * samples.length));
+      // Recover input list (more relevant for external files) and
+      // compare to samples.
+      List<int> origInput = toReal(y.input);
+      expect(origInput, equals(samples));
     });
     test('ifft of a simple real value list with length power of 2', () {
       List<Complex> auData = [complex(0, 0),
@@ -41,7 +45,7 @@ void fftTests() {
 
   /* This group tests the discrete fourier transform */
   group('Fast Fourier Transform algorithm tests: DFT:', () {
-    List<int> samples = [0, 1, 2, 3, 4, 5];
+    List<double> samples = [0.0, 1.0, 2.0, 3.0, 4.0, 5.0];
     test('fft of a simple real value list of arbitrary length', () {
       List<Complex> auData = [complex(15, 0),
                               complex(-3, 5.2),
@@ -56,6 +60,8 @@ void fftTests() {
       expect(y.data, equals(auData));
       // Check equal to or more than O(n*n).
       expect(y.value, greaterThanOrEqualTo(samples.length * samples.length));
+      List<double> origInput = toReal(y.input);
+      expect(origInput, equals(samples));
     });
     test('ifft of a simple real value list of arbitrary length', () {
       List<Complex> auData = [complex(0, 0),

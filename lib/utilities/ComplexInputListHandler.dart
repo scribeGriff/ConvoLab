@@ -13,15 +13,12 @@ class ComplexInputListHandler {
       } else {
         _numList = listFromFileAsync(fileOrList);
       }
-      for (var i = 0; i < _numList.length; i++) {
-        _complexList.add(complex(_numList[i], 0));
-      }
+      // Convert list to complex.
+      _complexList = toComplex(fileOrList);
     } else if (fileOrList is List) {
       if (fileOrList.every(f(element) => element is num)) {
-        //convert list to complex
-        for (var i = 0; i < fileOrList.length; i++) {
-          _complexList.add(complex(fileOrList[i], 0));
-        }
+        // Convert list to complex.
+        _complexList = toComplex(fileOrList);
       } else if (fileOrList.every(f(element) => element is Complex)) {
         _complexList = new List.from(fileOrList);
       } else {
@@ -58,6 +55,6 @@ class ComplexInputListHandler {
 
   List<int> listFromFileAsync(String filename) {
     //Not implemented yet...
-    List<String> _buffer;
+    return(null);
   }
 }

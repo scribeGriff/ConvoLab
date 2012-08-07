@@ -26,6 +26,7 @@
 #source('algorithms/fourier/FFT.dart');
 #source('algorithms/fourier/IFFT.dart');
 
+#source('math/convertList.dart');
 #source('math/Complex.dart');
 #source('math/hyperbolic.dart');
 #source('math/logarithm.dart');

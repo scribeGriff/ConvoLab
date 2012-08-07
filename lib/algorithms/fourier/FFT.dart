@@ -50,10 +50,12 @@ FFTResults fft(var fileOrList, [int N]) {
  * **************************************************************** */
 class _FFT {
   int count = 0;
+  List<Complex> inCopy;
   // Method 1: O(nlogn) radix-2 FFT
   FFTResults radix2(List<Complex> input) {
+    inCopy = new List.from(input);
     List<Complex> fftResults = fftnlogn(input);
-    return new FFTResults(fftResults, count);
+    return new FFTResults(fftResults, count, inCopy);
   }
   // fftnlogn() is a radix-2 algorithm that divides the input into 2
   // N/2 point sequences of even ordered and odd ordered sequences.
@@ -93,8 +95,9 @@ class _FFT {
 
   // Method 2: O(n^2) DFT
   FFTResults dft(List<Complex> input, int N) {
+    inCopy = new List.from(input);
     List<Complex> dftResults = dftnxn(input, N);
-    return new FFTResults(dftResults, count);
+    return new FFTResults(dftResults, count, inCopy);
   }
   // dftnxn() performs a "brute force" discrete fourier
   // transform of the input data as given by the expression:

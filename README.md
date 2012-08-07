@@ -65,12 +65,23 @@ The fft algorithm is actually comprised of 2 algorithms - an O(nlogn) radix2 fas
 
 returns
 
-    y.data (Complex): the transformed data
+    y.data (Complex): list of the transformed output data.
     y.value (int): represents the computational effort performed by the algorithm.
+    y.input (Complex): list of the input data (this is useful for the case when the data is read from an external file).  
 
-To be added soon:
+Note that y.input returns a complex version of the original input data regardless of the form it was originally in.  If the original list was of type int or double, you can recover the input in its original form as follows:
 
-    y.input (num): the input data (this is useful for the case when the data is read from an external file).
+    List<int> origInput = toReal(y.input);
+
+or, similarly:
+
+    List<double> origInput = toReal(y.input);
+
+To display the transformed data (usually an array of complex numbers) as String, you can simply type:
+
+    y.show();
+
+as in the example above.  
 
 **IFFT:**  Performs an inverse FFT and is similar in performance and requirements as the FFT.
 
@@ -78,12 +89,23 @@ To be added soon:
 
 returns
 
-    x.data (Complex): the inverse transformed data
+    x.data (Complex): list of the inverse transformed output data.
     x.value (int): represents the computational effort performed by the algorithm.
+    x.input (Complex): list of the input data (this is useful for the case when the data is read from an external file). 
 
-To be added soon:
+In the case of the inverse FFT, the input data is likely to be complex.  However, note that the transformed data is returned as complex regardless of the form the original data was in.  As with the FFT, you can convert the inverse transformed output data to a real list as follows:
 
-    x.input (num): the input data (this is useful for the case when the data is read from an external file).
+    List<int> outputData = toReal(x.data);
+
+or, similarly:
+
+    List<double> outputData = toReal(x.data);
+
+To just display the output data as String you can also simply write:
+
+    x.show();
+
+ 
 
 **RandomizedSelection:**  Performs a linear time selection for a certain order statistic from a list of unsorted data.  A thorough description of the algorithm can be found at [the blog entry at scribegriff.com](http://http://www.scribegriff.com/studios/index.php?post/2012/05/31/A-Linear-Time-Randomized-Selection-Algorithm-in-Dart "Linear Time Randomized Selection Algorithm").  A simple example is as follows:
 
