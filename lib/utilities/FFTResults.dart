@@ -5,7 +5,8 @@
 
 class FFTResults extends ConvoLabResults {
   // Return input as Complex list.
-  List<Complex> input;
+  final List<Complex> input;
+
   FFTResults(List<Complex> data, int value, this.input) : super(data, value);
 
   // Method: display the results as a string.

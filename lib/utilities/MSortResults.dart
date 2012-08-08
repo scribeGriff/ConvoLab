@@ -4,5 +4,5 @@
  * ****************************************************** */
 
 class MSortResults extends ConvoLabResults {
-  MSortResults(List<int> data, int value):super(data, value);
+  MSortResults(List<int> data, int value) : super(data, value);
 }

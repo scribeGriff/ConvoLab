@@ -4,5 +4,5 @@
  * ****************************************************** */
 
 class QSortResults extends ConvoLabResults {
-  QSortResults(List<int> data, int value):super(data, value);
+  QSortResults(List<int> data, int value) : super(data, value);
 }

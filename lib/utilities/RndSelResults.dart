@@ -4,8 +4,8 @@
  * ****************************************************** */
 
 class RndSelResults extends ConvoLabResults {
-  List<int> input;
-  int count;
+  final List<int> input;
+  final int count;
 
   RndSelResults(List<int> data, int value, this.count, [this.input]) :
       super(data, value);

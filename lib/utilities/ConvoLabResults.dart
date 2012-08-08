@@ -4,8 +4,8 @@
  * ****************************************************** */
 
 class ConvoLabResults {
-  List data;
-  int value;
+  final List data;
+  final int value;
 
   ConvoLabResults(this.data, this.value);
 }
