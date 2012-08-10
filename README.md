@@ -37,6 +37,10 @@ The variable y is actually an object with several return values.  In addition, t
     -2.00
     -2.00 - 2.00j
 
+You can save this data to an external file using the export(String filename) method of the base results class as follows:
+
+    y.export('pathName/filename.txt');
+
 To perform an inverse fft to recover the original sequence, one can pass the data field of y to ifft():
 
     var x = ifft(y.data);
@@ -81,7 +85,11 @@ To display the transformed data (usually an array of complex numbers) as String,
 
     y.show();
 
-as in the example above.  
+as in the example above.  You can also save the calculated data (ie, y.data) in tab delimited format to an external file as follows:
+
+    y.export('myPath/myExternalFile.txt');
+
+This format allows you to import your data to Matlab, Scilab or other similar tools for plotting, post processing, etc.    
 
 **IFFT:**  Performs an inverse FFT and is similar in performance and requirements as the FFT.
 
@@ -105,7 +113,11 @@ To just display the output data as String you can also simply write:
 
     x.show();
 
- 
+You can also save the calculated data (ie, x.data) in tab delimited format to an external file as follows:
+
+    x.export('myPath/myExternalFile.txt');
+
+This format allows you to import your data to Matlab, Scilab or other similar tools for plotting, post processing, etc.  
 
 **RandomizedSelection:**  Performs a linear time selection for a certain order statistic from a list of unsorted data.  A thorough description of the algorithm can be found at [the blog entry at scribegriff.com](http://http://www.scribegriff.com/studios/index.php?post/2012/05/31/A-Linear-Time-Randomized-Selection-Algorithm-in-Dart "Linear Time Randomized Selection Algorithm").  A simple example is as follows:
 
