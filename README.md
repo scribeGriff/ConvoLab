@@ -37,9 +37,13 @@ The variable y is actually an object with several return values.  In addition, t
     -2.00
     -2.00 - 2.00j
 
-You can save this data to an external file using the export(String filename) method of the base results class as follows:
+You can use the export methods of the base results class to either save this data to an external file:
 
-    y.export('pathName/filename.txt');
+    y.exportToFile('pathName/filename.txt');
+
+or send to a client using a websocket:
+
+    y.exportToWeb('local', 8080);
 
 To perform an inverse fft to recover the original sequence, one can pass the data field of y to ifft():
 
@@ -87,9 +91,11 @@ To display the transformed data (usually an array of complex numbers) as String,
 
 as in the example above.  You can also save the calculated data (ie, y.data) in tab delimited format to an external file as follows:
 
-    y.export('myPath/myExternalFile.txt');
+    y.exportToFile('myPath/myExternalFile.txt');
 
-This format allows you to import your data to Matlab, Scilab or other similar tools for plotting, post processing, etc.    
+This format allows you to import your data to Matlab, Scilab or other similar tools for plotting, post processing, etc.  You can also arrange to send the data to a client over a websocket:
+
+    y.exportToWeb('local', 8080);    
 
 **IFFT:**  Performs an inverse FFT and is similar in performance and requirements as the FFT.
 
@@ -115,9 +121,11 @@ To just display the output data as String you can also simply write:
 
 You can also save the calculated data (ie, x.data) in tab delimited format to an external file as follows:
 
-    x.export('myPath/myExternalFile.txt');
+    x.exportToFile('myPath/myExternalFile.txt');
 
-This format allows you to import your data to Matlab, Scilab or other similar tools for plotting, post processing, etc.  
+This format allows you to import your data to Matlab, Scilab or other similar tools for plotting, post processing, etc.  You can also arrange to send the data to a client over a websocket:
+
+    y.exportToWeb('local', 8080);  
 
 **RandomizedSelection:**  Performs a linear time selection for a certain order statistic from a list of unsorted data.  A thorough description of the algorithm can be found at [the blog entry at scribegriff.com](http://http://www.scribegriff.com/studios/index.php?post/2012/05/31/A-Linear-Time-Randomized-Selection-Algorithm-in-Dart "Linear Time Randomized Selection Algorithm").  A simple example is as follows:
 

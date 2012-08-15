@@ -7,7 +7,7 @@
 #library('ConvoLab');
 #import('dart:io');
 #import('dart:math');
-
+#import('dart:json');
 
 #source('exceptions/ConvoLabException.dart');
 #source('exceptions/DataFormatException.dart');
