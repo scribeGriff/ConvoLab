@@ -125,7 +125,7 @@ You can also save the calculated data (ie, x.data) in tab delimited format to an
 
 This format allows you to import your data to Matlab, Scilab or other similar tools for plotting, post processing, etc.  You can also arrange to send the data to a client over a websocket:
 
-    y.exportToWeb('local', 8080);  
+    x.exportToWeb('local', 8080);  
 
 **RandomizedSelection:**  Performs a linear time selection for a certain order statistic from a list of unsorted data.  A thorough description of the algorithm can be found at [the blog entry at scribegriff.com](http://http://www.scribegriff.com/studios/index.php?post/2012/05/31/A-Linear-Time-Randomized-Selection-Algorithm-in-Dart "Linear Time Randomized Selection Algorithm").  A simple example is as follows:
 

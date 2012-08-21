@@ -5,7 +5,7 @@
 
 #import('../lib/ConvoLab.dart');
 
-#import('/C:/Users/Richard/Documents/development/Dart-Editor/dart/dart-sdk/lib/unittest/unittest.dart');
+#import('package:unittest/unittest.dart');
 
 #source('hyperbolicTests.dart');
 #source('randomSelectTests.dart');

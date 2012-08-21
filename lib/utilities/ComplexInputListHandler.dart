@@ -14,7 +14,7 @@ class ComplexInputListHandler {
         _numList = listFromFileAsync(fileOrList);
       }
       // Convert list to complex.
-      _complexList = toComplex(fileOrList);
+      _complexList = toComplex(_numList);
     } else if (fileOrList is List) {
       if (fileOrList.every(f(element) => element is num)) {
         // Convert list to complex.
