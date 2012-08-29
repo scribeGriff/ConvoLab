@@ -57,7 +57,7 @@ class _FFT {
 
   // Method 1: O(nlogn) radix-2 FFT
   FFTResults radix2(List<Complex> input) {
-    //inCopy = new List.from(input);
+    inCopy = new List.from(input);
     List<Complex> fftResults = fftnlogn(input);
     return new FFTResults(fftResults, count, inCopy);
   }
