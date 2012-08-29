@@ -25,13 +25,17 @@ RndSelResults rsel(var fileOrList, int orderStat, [bool highOrder = false]) {
 }
 
 class _RandomizedSelection {
+  var randNum;
   int count;
   bool ho;
-  var randNum;
+
+  _RandomizedSelection()
+      : randNum = new Random(),
+        count = 0;
+
   RndSelResults sel(List<int> inList, int orderStat, bool highOrder) {
-    count = 0;
     ho = highOrder;
-    randNum = new Random();
+
     int selected = rselect(inList, 0, inList.length - 1, orderStat);
     return new RndSelResults(inList, selected, count);
   }

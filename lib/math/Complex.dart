@@ -8,27 +8,26 @@ Complex complex(num a, num b) => new Complex(a, b);
 
 // Complex class
 class Complex {
-  final num real;
-  final num imag;
+  final num real, imag;
+  final int sigDig;
 
-  final int sigDig = 2;
-
-  const Complex(this.real, [this.imag = 0]);
+  const Complex(this.real, [this.imag = 0])
+      : sigDig = 2;
 
   // Getters
-  String  get string()    => _compToString();
-  num     get magnitude() => sqrt(real*real + imag*imag);
-  num     get phase()     => atan2(imag, real);
-  Complex get cround2()   => _calcCompRound2();
-  Complex get conj()      => new Complex(real, -imag);
-  Complex get recip()     => _calcReciprocal();
-  Complex get cexp()      => new Complex(exp(real) * cos(imag),
+  String  get string    => _compToString();
+  num     get magnitude => sqrt(real*real + imag*imag);
+  num     get phase     => atan2(imag, real);
+  Complex get cround2   => _calcCompRound2();
+  Complex get conj      => new Complex(real, -imag);
+  Complex get recip     => _calcReciprocal();
+  Complex get cexp      => new Complex(exp(real) * cos(imag),
       exp(real) * sin(imag));
-  Complex get csin()      => new Complex(sin(real) * cosh(imag),
+  Complex get csin      => new Complex(sin(real) * cosh(imag),
       cos(real) * sinh(imag));
-  Complex get ccos()      => new Complex(cos(real) * cosh(imag),
+  Complex get ccos      => new Complex(cos(real) * cosh(imag),
       -sin(real) * sinh(imag));
-  Complex get ctan()      => csin / ccos;
+  Complex get ctan      => csin / ccos;
 
   // Convert complex number to string.
   String _compToString() {

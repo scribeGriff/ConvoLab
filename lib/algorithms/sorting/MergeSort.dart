@@ -18,8 +18,10 @@ MSortResults msort(var fileOrList) {
 class _MergeSort {
   int count;
 
+  _MergeSort()
+      : count = 0;
+
   MSortResults sort(List<int> myArray) {
-    count = 0;
     mergesort(myArray, 0, myArray.length-1);
     return new MSortResults(myArray, count);
   }

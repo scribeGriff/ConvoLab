@@ -32,3 +32,12 @@
 #source('math/Complex.dart');
 #source('math/hyperbolic.dart');
 #source('math/logarithm.dart');
+
+void main() {
+  List<int> dataList = [75, 22, 84, 121, 16, 3, 67, 42, 17, 91];
+  int order = 5;
+  var topFive = rsel(dataList, order, true);
+  print(topFive.value);
+  var a = complex(1,1);
+  print(a.string);
+}

@@ -49,11 +49,15 @@ FFTResults fft(var fileOrList, [int N]) {
  * as well as a numerical value of relative computational effort.   *
  * **************************************************************** */
 class _FFT {
-  int count = 0;
+  int count;
   List<Complex> inCopy;
+
+  _FFT()
+      : count = 0;
+
   // Method 1: O(nlogn) radix-2 FFT
   FFTResults radix2(List<Complex> input) {
-    inCopy = new List.from(input);
+    //inCopy = new List.from(input);
     List<Complex> fftResults = fftnlogn(input);
     return new FFTResults(fftResults, count, inCopy);
   }

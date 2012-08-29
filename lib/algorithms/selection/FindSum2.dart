@@ -18,11 +18,14 @@ FSum2Results fsum2(var fileOrList, var sum2find) {
 
 class _FindSum2 {
   int addend, sumValue;
+  bool match;
+
+  _FindSum2()
+      : match = false;
 
   FSum2Results findMatch(List<int> sumArray, var sum2find) {
     HashMap sumHashMap = new HashMap();
     List<List<int>> sumResults = [];
-    bool match = false;
     bool found;
     //Build a hash table of input array
     for(int i = 0; i < sumArray.length; i++) {

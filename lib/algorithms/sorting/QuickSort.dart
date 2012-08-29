@@ -19,11 +19,14 @@ QSortResults qsort(var fileOrList, [String pivotType = 'median']) {
 class _QuickSort {
   String pt;
   int count;
+
+  _QuickSort()
+      : count = 0;
+
   // Calls recursive algorithm quicksort() and passes array, size and
   // pivot method.
   QSortResults sort(List<int> myArray, String pivotType) {
     pt = pivotType;
-    count = 0;
     quicksort(myArray, 0, myArray.length-1);
     return new QSortResults(myArray, count);
   }
