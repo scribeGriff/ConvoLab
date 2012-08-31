@@ -6,7 +6,7 @@
 void mergeSortTests() {
   // MergeSort
   // number of inversions = n chose 2 = n(n-1)/2
-  String filename = "tests/samples/inversionList.txt";
+  String filename = "tests/samples/inversion_list.txt";
   int inversions;
   MSortResults msResults;
   List<int> list10;

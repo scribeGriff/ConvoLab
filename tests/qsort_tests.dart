@@ -6,7 +6,7 @@
 void quickSortTests() {
   // QuickSort
   // number of inversions = n chose 2 = n(n-1)/2 this might be mergesort
-  String filename = "tests/samples/unsortedList.txt";
+  String filename = "tests/samples/unsorted_list.txt";
   int comparisons;
   QSortResults qsResults;
   List<int> list10;

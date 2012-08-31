@@ -36,7 +36,7 @@ class ComplexInputListHandler {
     File fileHandle = new File(filename);
     try {
       _buffin = fileHandle.readAsLinesSync();
-    } catch(var error) {
+    } catch(error) {
       print("There was an error opening the file:\n$error");
       return(null);
     }
@@ -47,7 +47,7 @@ class ComplexInputListHandler {
         if(!element.isEmpty()) _buffer.add(parseDouble(element.trim()));
         });
       return _buffer;
-    } catch(var error) {
+    } catch(error) {
       print("There was an error reading the input data:\n$error");
       return(null);
     }

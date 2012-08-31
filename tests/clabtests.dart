@@ -3,17 +3,17 @@
  *   Library: ConvoLab (c) 2012 scribeGriff                        *
  * *************************************************************** */
 
-#import('../lib/ConvoLab.dart');
+#import('../lib/convolab.dart');
 
 #import('package:unittest/unittest.dart');
 
-#source('hyperbolicTests.dart');
-#source('randomSelectTests.dart');
-#source('complexTests.dart');
-#source('findSum2Tests.dart');
-#source('mergeSortTests.dart');
-#source('quickSortTests.dart');
-#source('fftTests.dart');
+#source('hyperbolic_tests.dart');
+#source('rsel_tests.dart');
+#source('complex_tests.dart');
+#source('fsum2_tests.dart');
+#source('msort_tests.dart');
+#source('qsort_tests.dart');
+#source('fft_tests.dart');
 
 void main() {
   group('All Tests:', (){
