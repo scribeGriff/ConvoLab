@@ -19,6 +19,7 @@
 #source('utilities/rsel_results.dart');
 #source('utilities/fft_results.dart');
 #source('utilities/input_handler.dart');
+#source('utilities/double_input_handler.dart');
 #source('utilities/complex_input_handler.dart');
 
 #source('algorithms/sorting/quicksort.dart');
@@ -33,11 +34,10 @@
 #source('math/hyperbolic.dart');
 #source('math/logarithm.dart');
 
+#source('signals/waveforms.dart');
+
 void main() {
-  List<int> dataList = [75, 22, 84, 121, 16, 3, 67, 42, 17, 91];
-  int order = 5;
-  var topFive = rsel(dataList, order, true);
-  print(topFive.value);
-  var a = complex(1,1);
-  print(a.string);
+  var sqwave = pulse(4);
+  print(sqwave.data.length);
+  sqwave.exportToWeb('local', 8080);
 }

@@ -1,33 +1,27 @@
 /* ****************************************************** *
- *   Complex InputListHandler returns Complex list        *
+ *   Double InputListHandler returns Double list          *
  *   Library: ConvoLab (c) 2012 scribeGriff               *
  * ****************************************************** */
 
-class ComplexInputListHandler {
+class DoubleInputListHandler {
   List prepareList(var fileOrList, [String syncOrAsync = 'sync']) {
     List<num> _numList;
-    List<Complex> _complexList = [];
     if (fileOrList is String) {
       if (syncOrAsync == 'sync') {
         _numList = listFromFileSync(fileOrList);
       } else {
         _numList = listFromFileAsync(fileOrList);
       }
-      // Convert list to complex.
-      _complexList = toComplex(_numList);
     } else if (fileOrList is List) {
       if (fileOrList.every(f(element) => element is num)) {
-        // Convert list to complex.
-        _complexList = toComplex(fileOrList);
-      } else if (fileOrList.every(f(element) => element is Complex)) {
-        _complexList = new List.from(fileOrList);
+        _numList = new List.from(fileOrList);
       } else {
         print("The input data is not formatted correctly.");
         print("Elements must be type num or complex.");
         return(null);
       }
     }
-    return _complexList;
+    return _numList;
   }
 
   List<num> listFromFileSync(String filename) {
