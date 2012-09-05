@@ -37,7 +37,6 @@
 #source('signals/waveforms.dart');
 
 void main() {
-  var sqwave = pulse(4);
-  print(sqwave.data.length);
-  sqwave.exportToWeb('local', 8080);
+  var waveform = sound(4);
+  waveform.exportToWeb('local', 8080);
 }
