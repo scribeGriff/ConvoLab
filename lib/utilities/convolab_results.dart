@@ -7,7 +7,7 @@ class ConvoLabResults {
   final List data;
   final int value;
 
-  ConvoLabResults(this.data, this.value);
+  ConvoLabResults(this.data, [this.value]);
 
   // Method: export writes data list to a file.  If the data is complex,
   // the external file is tab delimited.  Data can then be read into
@@ -15,14 +15,14 @@ class ConvoLabResults {
   void exportToFile(String filename) {
     File fileHandle = new File(filename);
     RandomAccessFile dataFile = fileHandle.openSync(FileMode.WRITE);
-    if (this.data.every(f(element) => element is Complex)) {
-      for (var i = 0; i < this.data.length; i++) {
-        this.data[i] = this.data[i].cround2;
-        dataFile.writeStringSync("${this.data[i].real}\t${this.data[i].imag}\n");
+    if (data.every(f(element) => element is Complex)) {
+      for (var i = 0; i < data.length; i++) {
+        data[i] = data[i].cround2;
+        dataFile.writeStringSync("${data[i].real}\t${data[i].imag}\n");
       }
     } else {
-      for (var i = 0; i < this.data.length; i++) {
-        dataFile.writeStringSync("${this.data[i]}\n");
+      for (var i = 0; i < data.length; i++) {
+        dataFile.writeStringSync("${data[i]}\n");
       }
     }
     dataFile.closeSync();
@@ -34,14 +34,14 @@ class ConvoLabResults {
     //connect with ws://localhost:8080/ws
     //for echo - http://www.websocket.org/echo.html
     if (host == 'local') host = '127.0.0.1';
-    List _real = new List(this.data.length);
-    List _imag = new List(this.data.length);
+    List _real = new List(data.length);
+    List _imag = new List(data.length);
     bool _isComplex;
-    if (this.data.every(f(element) => element is Complex)) {
-      for (var i = 0; i < this.data.length; i++) {
-        this.data[i] = this.data[i].cround2;
-        _real[i] = this.data[i].real;
-        _imag[i] = this.data[i].imag;
+    if (data.every(f(element) => element is Complex)) {
+      for (var i = 0; i < data.length; i++) {
+        data[i] = data[i].cround2;
+        _real[i] = data[i].real;
+        _imag[i] = data[i].imag;
       }
       _isComplex = true;
     } else {
@@ -64,7 +64,7 @@ class ConvoLabResults {
         if(_isComplex) {
           wsConn.send(JSON.stringify({"real": _real, "imag": _imag}));
         } else {
-          wsConn.send(JSON.stringify({"real": this.data, "imag": null}));
+          wsConn.send(JSON.stringify({"real": data, "imag": null}));
         }
       };
 
@@ -72,11 +72,10 @@ class ConvoLabResults {
       wsConn.onClosed = (int status, String reason) {
         print('Connection closed: Status - $status : Reason - $reason');
       };
-
-      // Handle a connection error.
-      wsConn.onError = (err) {
-        print('There was an error with the connection: $err');
-      };
+//      // onError is no longer a method in WebSocketConnection
+//      wsConn.onError = (err) {
+//        print('There was an error with the connection: $err');
+//      };
     };
 
     _server.listen(host, port);

@@ -1,7 +1,18 @@
 /* ************************************************************************ *
- *   Top level functions to implement complex <--> real list conversions    *
+ *   Top level functions to implement a number of computations              *
+ *   involving lists, including:                                            *
+ *   toReal() complex --> real list conversion                              *
+ *   toComplex() real --> complex list conversion                           *
+ *   sum() sums all elements of a real list                                 *
  *   Library: ConvoLab (c) 2012 scribeGriff                                 *
  * ************************************************************************ */
+
+// Sum all the elements in a List.
+num sum(List<num> inputList) {
+  var result = 0;
+  for (final element in inputList) result += element;
+  return result;
+}
 
 // Convert a list from complex to real.
 List<num> toReal(List<Complex> complexList) {
