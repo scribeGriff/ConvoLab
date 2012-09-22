@@ -1,0 +1,6 @@
+name: convolab
+version: 0.0.0
+description: Signal Processing Library
+dependencies:
+  unittest:
+    sdk: unittest

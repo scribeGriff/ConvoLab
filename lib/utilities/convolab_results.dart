@@ -72,10 +72,6 @@ class ConvoLabResults {
       wsConn.onClosed = (int status, String reason) {
         print('Connection closed: Status - $status : Reason - $reason');
       };
-//      // onError is no longer a method in WebSocketConnection
-//      wsConn.onError = (err) {
-//        print('There was an error with the connection: $err');
-//      };
     };
 
     _server.listen(host, port);

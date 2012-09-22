@@ -18,25 +18,41 @@ class _PartialSums {
   _PartialSums(this.waveform, this.kArray);
 
   FSPSResults sum(num fraction) {
-    var N = waveform.length;
-    var period = (N / fraction).toInt();
-    var coeff = fft(waveform.getRange(0, period));
+    //Store results as a map with k value as the key K
+    //and the partial sum list as the value V.
     var psums = new Map();
-
-    for (var i = 0; i < kArray.length; i++) {
-      List<Complex> y = new List(N);
-      for (var j = 0; j < N; j++) {
-        var q = complex(0, 0);
-        for (var k = 1; k < kArray[i]; k++) {
-          var kth = 2 * j * k * PI / period;
-          var wk = complex(cos(kth), sin(kth));
-          q = q + (wk * coeff.data[k]);
+    //Create a map for sending as a json string.
+    var jsonData = new Map();
+    //Add the waveform to the jsonData.
+    jsonData["Waveform"] = {"real": waveform, "imag": null};
+    var L = waveform.length;
+    //User may define a period less than the length of the waveform.
+    var N = (L / fraction).toInt();
+    //The Fourier series coefficients are computed using a FFT.
+    var coeff = fft(waveform.getRange(0, N));
+    //If the fft returns the complex coefficients, calculate the partial sums.
+    if (coeff != null) {
+      for (var i = 0; i < kArray.length; i++) {
+        List<Complex> y = new List(L);
+        List real = new List(L);
+        List imag = new List(L);
+        for (var j = 0; j < L; j++) {
+          var q = complex(0, 0);
+          for (var k = 1; k <= kArray[i]; k++) {
+            var kth = 2 * j * k * PI / N;
+            var wk = complex(cos(kth), sin(kth));
+            q = q + (wk * coeff.data[k].scale(1 / N));
+          }
+          y[j] = coeff.data[0].scale(1 / N) + q.scale(2);
+          real[j] = y[j].real;
+          imag[j] = y[j].imag;
         }
-        y[j] = coeff.data[0].scale(1/period) + q.scale(2/period);
+        psums[kArray[i]] = y;
+        jsonData["kval ${i + 1} = ${kArray[i]}"] = {"real": real, "imag": imag};
       }
-      psums[kArray[i].toString()] = y;
+      return new FSPSResults(waveform, psums, jsonData);
+    } else {
+      return null;
     }
-    return new FSPSResults(waveform, psums);
   }
-
 }

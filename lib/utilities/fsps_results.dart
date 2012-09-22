@@ -4,11 +4,11 @@
  * ****************************************************** */
 
 class FSPSResults extends ConvoLabResults {
-  final Map psums;
+  final Map psums, jsonData;
 
   //Return a list of the input waveform and also a Map of the
   //partial sums indexed to the value for k.
-  FSPSResults(List data, this.psums) : super(data);
+  FSPSResults(List data, this.psums, this.jsonData) : super(data);
 
   //Override standard results class methods exportToFile() and exportToWeb().
   void exportToFile(String filename) {
@@ -50,7 +50,7 @@ class FSPSResults extends ConvoLabResults {
         var msg = JSON.parse(message);
         print("Received the following message: \n"
             "${msg["request"]}\n${msg["date"]}");
-          wsConn.send(JSON.stringify(psums));
+          wsConn.send(JSON.stringify(jsonData));
       };
 
       // Close the connection.

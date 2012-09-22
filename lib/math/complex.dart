@@ -3,7 +3,8 @@
  *   Library: ConvoLab (c) 2012 scribeGriff               *
  * ****************************************************** */
 
-// Wrapper to illiminate need for using new keyword.
+// Wrapper to illiminate need for using new/const keyword.
+
 Complex complex(num a, num b) => new Complex(a, b);
 
 // Complex class
