@@ -10,50 +10,31 @@
 #import ('dart:math');
 #import ('dart:json');
 
-#source('exceptions/convolab_exception.dart');
-#source('exceptions/data_format_exception.dart');
+#source('src/exceptions/convolab_exception.dart');
+#source('src/exceptions/data_format_exception.dart');
 
-#source('utilities/convolab_results.dart');
-#source('utilities/qsort_results.dart');
-#source('utilities/msort_results.dart');
-#source('utilities/fsum2_results.dart');
-#source('utilities/rsel_results.dart');
-#source('utilities/fft_results.dart');
-#source('utilities/fsps_results.dart');
-#source('utilities/input_handler.dart');
-#source('utilities/double_input_handler.dart');
-#source('utilities/complex_input_handler.dart');
+#source('src/utilities/convolab_results.dart');
+#source('src/utilities/qsort_results.dart');
+#source('src/utilities/msort_results.dart');
+#source('src/utilities/fsum2_results.dart');
+#source('src/utilities/rsel_results.dart');
+#source('src/utilities/fft_results.dart');
+#source('src/utilities/fsps_results.dart');
+#source('src/utilities/input_handler.dart');
+#source('src/utilities/double_input_handler.dart');
+#source('src/utilities/complex_input_handler.dart');
 
-#source('algorithms/sorting/quicksort.dart');
-#source('algorithms/sorting/mergesort.dart');
-#source('algorithms/selection/find_sum2.dart');
-#source('algorithms/selection/randomized_selection.dart');
-#source('algorithms/fourier/fft.dart');
-#source('algorithms/fourier/ifft.dart');
-#source('algorithms/fourier/partial_sums.dart');
+#source('src/algorithms/sorting/quicksort.dart');
+#source('src/algorithms/sorting/mergesort.dart');
+#source('src/algorithms/selection/find_sum2.dart');
+#source('src/algorithms/selection/randomized_selection.dart');
+#source('src/algorithms/fourier/fft.dart');
+#source('src/algorithms/fourier/ifft.dart');
+#source('src/algorithms/fourier/partial_sums.dart');
 
-#source('math/lists.dart');
-#source('math/complex.dart');
-#source('math/hyperbolic.dart');
-#source('math/logarithm.dart');
+#source('src/math/lists.dart');
+#source('src/math/complex.dart');
+#source('src/math/hyperbolic.dart');
+#source('src/math/logarithm.dart');
 
-#source('signals/waveforms.dart');
-
-void main() {
-  //Example computing partial sums of fourier series.
-  var waveform = ramp(3);
-  var kvals = [2, 10, 40];
-  var fourier = fsps(waveform, kvals);
-  if (fourier != null) {
-    fourier.exportToWeb('local', 8080);
-    //fourier.exportToFile('local/data/fsps.txt');
-    print('We have computed ${fourier.psums.length} Fourier series.');
-    if (fourier.psums[kvals[0]].every(f(element) => element is Complex)) {
-      print('The computed Fourier series is of type Complex.');
-    } else {
-      print('The computed Fourier series is not Complex.');
-    }
-  } else {
-    print('There was an error computing the Fourier series');
-  }
-}
+#source('src/signals/waveforms.dart');

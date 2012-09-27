@@ -45,7 +45,7 @@ class _Waves {
       //Sound sample.  In this case, number of cycles is used to select
       //one of 4 different sound files.  Amplitude is not used.
       if (waveform == 'sound') {
-        String filename = "external/data/sound${cycles.toInt()}.txt";
+        String filename = "lib/external/data/sound${cycles.toInt()}.txt";
         data = new DoubleInputListHandler().prepareList(filename);
       } else {
         //Attempt a 5% edge rate if possible.
