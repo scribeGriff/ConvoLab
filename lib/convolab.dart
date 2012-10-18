@@ -4,37 +4,37 @@
  *   Library: ConvoLab (c) 2012 scribeGriff                    *
  * *********************************************************** */
 
-#library ('convolab');
+library convolab;
 
-#import ('dart:io');
-#import ('dart:math');
-#import ('dart:json');
+import 'dart:io';
+import 'dart:math';
+import 'dart:json';
 
-#source('src/exceptions/convolab_exception.dart');
-#source('src/exceptions/data_format_exception.dart');
+part 'src/exceptions/convolab_exception.dart';
+part 'src/exceptions/data_format_exception.dart';
 
-#source('src/utilities/convolab_results.dart');
-#source('src/utilities/qsort_results.dart');
-#source('src/utilities/msort_results.dart');
-#source('src/utilities/fsum2_results.dart');
-#source('src/utilities/rsel_results.dart');
-#source('src/utilities/fft_results.dart');
-#source('src/utilities/fsps_results.dart');
-#source('src/utilities/input_handler.dart');
-#source('src/utilities/double_input_handler.dart');
-#source('src/utilities/complex_input_handler.dart');
+part 'src/utilities/convolab_results.dart';
+part 'src/utilities/qsort_results.dart';
+part 'src/utilities/msort_results.dart';
+part 'src/utilities/fsum2_results.dart';
+part 'src/utilities/rsel_results.dart';
+part 'src/utilities/fft_results.dart';
+part 'src/utilities/fsps_results.dart';
+part 'src/utilities/input_handler.dart';
+part 'src/utilities/double_input_handler.dart';
+part 'src/utilities/complex_input_handler.dart';
 
-#source('src/algorithms/sorting/quicksort.dart');
-#source('src/algorithms/sorting/mergesort.dart');
-#source('src/algorithms/selection/find_sum2.dart');
-#source('src/algorithms/selection/randomized_selection.dart');
-#source('src/algorithms/fourier/fft.dart');
-#source('src/algorithms/fourier/ifft.dart');
-#source('src/algorithms/fourier/partial_sums.dart');
+part 'src/algorithms/sorting/quicksort.dart';
+part 'src/algorithms/sorting/mergesort.dart';
+part 'src/algorithms/selection/find_sum2.dart';
+part 'src/algorithms/selection/randomized_selection.dart';
+part 'src/algorithms/fourier/fft.dart';
+part 'src/algorithms/fourier/ifft.dart';
+part 'src/algorithms/fourier/partial_sums.dart';
 
-#source('src/math/lists.dart');
-#source('src/math/complex.dart');
-#source('src/math/hyperbolic.dart');
-#source('src/math/logarithm.dart');
+part 'src/math/lists.dart';
+part 'src/math/complex.dart';
+part 'src/math/hyperbolic.dart';
+part 'src/math/logarithm.dart';
 
-#source('src/signals/waveforms.dart');
+part 'src/signals/waveforms.dart';

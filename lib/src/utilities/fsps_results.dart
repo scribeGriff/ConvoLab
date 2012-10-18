@@ -1,3 +1,5 @@
+part of convolab;
+
 /* ****************************************************** *
  *   FSPSResults extends standard results class           *
  *   Library: ConvoLab (c) 2012 scribeGriff               *

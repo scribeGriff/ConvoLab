@@ -6,11 +6,11 @@
  *   the data to a websocket.                                  *
  * *********************************************************** */
 
-#import('../../lib/convolab.dart');
+import 'package:convolab/convolab.dart';
 
 void main() {
   var waveform = triangle(3);
-  var kvals = [1, 16, 80];
+  var kvals = [10, 40, 80];
   var fourier = fsps(waveform, kvals, 0.5);
   if (fourier != null) {
     fourier.exportToWeb('local', 8080);

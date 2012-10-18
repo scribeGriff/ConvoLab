@@ -1,3 +1,5 @@
+part of convolab;
+
 /* *************************************************************** *
  *   Top level functions to implement hyperbolic functions         *
  *   Library: ConvoLab (c) 2012 scribeGriff                        *

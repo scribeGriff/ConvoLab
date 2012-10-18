@@ -1,3 +1,5 @@
+part of convolab;
+
 /* ************************************************************************ *
  *   Top level functions to implement a number of computations              *
  *   involving lists, including:                                            *

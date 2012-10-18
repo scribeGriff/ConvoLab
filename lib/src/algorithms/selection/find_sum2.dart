@@ -1,3 +1,5 @@
+part of convolab;
+
 /* ****************************************************** *
  *   FindSum2 finds two values that sum to a result       *
  *   Library: ConvoLab (c) 2012 scribeGriff               *
@@ -47,8 +49,9 @@ class _FindSum2 {
             if (sumHashMap.containsKey(addend)) {
               match = found = true;
               if (addend == sumArray[i]) {
-                if (sumHashMap[addend] > 1)
+                if (sumHashMap[addend] > 1) {
                   sumResults.add([addend, sumArray[i]]);
+                }
               } else {
                 sumResults.add([addend, sumArray[i]]);
               }

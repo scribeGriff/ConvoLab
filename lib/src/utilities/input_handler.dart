@@ -1,3 +1,5 @@
+part of convolab;
+
 /* ****************************************************** *
  *   InputListHandler returns list                        *
  *   Library: ConvoLab (c) 2012 scribeGriff               *
@@ -38,7 +40,7 @@ class InputListHandler {
     //as integers to _buffer and return.
     try {
       _buffin.forEach((element) {
-        if(!element.isEmpty()) _buffer.add(parseInt(element.trim()));
+        if(!element.isEmpty()) _buffer.add(int.parse(element.trim()));
         });
       return _buffer;
     } catch(error) {

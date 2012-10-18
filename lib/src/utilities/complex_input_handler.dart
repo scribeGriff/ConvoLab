@@ -1,3 +1,5 @@
+part of convolab;
+
 /* ****************************************************** *
  *   Complex InputListHandler returns Complex list        *
  *   Library: ConvoLab (c) 2012 scribeGriff               *
@@ -44,7 +46,7 @@ class ComplexInputListHandler {
     //as doubles to _buffer and return.
     try {
       _buffin.forEach((element) {
-        if(!element.isEmpty()) _buffer.add(parseDouble(element.trim()));
+        if(!element.isEmpty()) _buffer.add(double.parse(element.trim()));
         });
       return _buffer;
     } catch(error) {

@@ -1,3 +1,5 @@
+part of convolab;
+
 /* *********************************************************** *
  *   Data format exception class extends ConvoLabException     *
  *   Library: ConvoLab (c) 2012 scribeGriff                    *

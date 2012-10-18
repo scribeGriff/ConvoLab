@@ -1,3 +1,5 @@
+part of convolab;
+
 /* ****************************************************** *
  *   Complex number calculations                          *
  *   Library: ConvoLab (c) 2012 scribeGriff               *
@@ -34,8 +36,9 @@ class Complex {
   String _compToString() {
     if (imag.round() == 0) return "${real.toStringAsFixed(sigDig)}";
     if (real.round() == 0) return "${imag.toStringAsFixed(sigDig)}j";
-    if (imag <  0) return "${real.toStringAsFixed(sigDig)} - "
+    if (imag <  0) { return "${real.toStringAsFixed(sigDig)} - "
         "${imag.abs().toStringAsFixed(sigDig)}j";
+    }
     return "${real.toStringAsFixed(sigDig)} + "
         "${imag.toStringAsFixed(sigDig)}j";
   }

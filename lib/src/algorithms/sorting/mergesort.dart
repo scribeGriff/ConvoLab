@@ -1,3 +1,5 @@
+part of convolab;
+
 /* ****************************************************** *
  *   MergeSort class returns sorted list and number of    *
  *   computations.                                        *

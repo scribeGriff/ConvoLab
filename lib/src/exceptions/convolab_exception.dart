@@ -1,3 +1,5 @@
+part of convolab;
+
 /* ****************************************************** *
  *   Standard exception class implements Exception        *
  *   Library: ConvoLab (c) 2012 scribeGriff               *

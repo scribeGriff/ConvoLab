@@ -1,3 +1,5 @@
+part of convolab;
+
 /* ****************************************************** *
  *   QuickSort class returns sorted list and number of    *
  *   computations.                                        *
@@ -109,12 +111,15 @@ class _QuickSort {
   //number of comparisons than the median3().
   void median3Alt1(List<int> array, int lo, int hi) {
     int mid = ((lo + hi)/2).toInt();
-    if (array[mid].compareTo(array[lo]) < 0 )
+    if (array[mid].compareTo(array[lo]) < 0 ) {
       swap(array, lo, mid);
-    if (array[hi].compareTo(array[lo]) < 0 )
+    }
+    if (array[hi].compareTo(array[lo]) < 0 ) {
       swap(array,lo, hi);
-    if (array[hi].compareTo(array[mid]) < 0 )
+    }
+    if (array[hi].compareTo(array[mid]) < 0 ) {
       swap(array, mid, hi);
+    }
     swap(array, lo, mid);
   }
   //Or if you prefer, you can write Alt1 as follows:

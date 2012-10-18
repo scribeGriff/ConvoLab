@@ -1,3 +1,5 @@
+part of convolab;
+
 /* ****************************************************** *
  *   Class _Waves: A simple waveform generator.           *
  *   Library: ConvoLab (c) 2012 scribeGriff               *

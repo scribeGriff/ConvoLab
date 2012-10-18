@@ -1,3 +1,5 @@
+part of convolab;
+
 /* **************************************************************** *
  *   Computing the Partial Sums of Fourier Series                   *
  *   usage: var psums = fsps(signal, kArray);                       *

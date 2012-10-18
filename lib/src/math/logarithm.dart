@@ -1,3 +1,5 @@
+part of convolab;
+
 /* *************************************************************** *
  *   Top level functions to implement logarithmic functions        *
  *   Library: ConvoLab (c) 2012 scribeGriff                        *

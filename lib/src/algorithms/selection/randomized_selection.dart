@@ -1,3 +1,5 @@
+part of convolab;
+
 /* ****************************************************** *
  *   Randomized Selection algorithm                       *
  *   Library: ConvoLab (c) 2012 scribeGriff               *
@@ -62,8 +64,9 @@ class _RandomizedSelection {
         return inList[j];
       }
     }
-    else if (order < length) return rselect(inList, lo, j - 1, order);
-    else return rselect(inList, j + 1, hi, order - length);
+    else if (order < length) { return rselect(inList, lo, j - 1, order);
+    } else { return rselect(inList, j + 1, hi, order - length);
+    }
   }
 
   int partition(List<int> array, int lo, int hi) {

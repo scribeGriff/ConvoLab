@@ -1,3 +1,5 @@
+part of convolab;
+
 /* ****************************************************** *
  *   FSum2Results extends standard results class          *
  *   Library: ConvoLab (c) 2012 scribeGriff               *

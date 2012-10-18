@@ -1,3 +1,5 @@
+part of convolab;
+
 /* ****************************************************** *
  *   Double InputListHandler returns Double list          *
  *   Library: ConvoLab (c) 2012 scribeGriff               *
@@ -38,7 +40,7 @@ class DoubleInputListHandler {
     //as doubles to _buffer and return.
     try {
       _buffin.forEach((element) {
-        if(!element.isEmpty()) _buffer.add(parseDouble(element.trim()));
+        if(!element.isEmpty()) _buffer.add(double.parse(element.trim()));
         });
       return _buffer;
     } catch(error) {

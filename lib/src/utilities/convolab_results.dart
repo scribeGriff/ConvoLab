@@ -1,3 +1,5 @@
+part of convolab;
+
 /* ****************************************************** *
  *   Standard results class                               *
  *   Library: ConvoLab (c) 2012 scribeGriff               *
