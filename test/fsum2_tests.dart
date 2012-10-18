@@ -26,7 +26,7 @@ void findSum2Tests() {
       expect(findSum.match, isTrue);
     });
     test('FindSum2: large external, match a list of sums:', (){
-      String filename = "tests/samples/find_sum_list.txt";
+      String filename = "test/samples/find_sum_list.txt";
       List<List<int>> auData = [[128636, 102916], [null, null],
                                 [295274, 301599], [204524, 443695],
                                 [31264, 695048], [null, null],

@@ -19,7 +19,7 @@ void randomSelectTests() {
     });
     test('12th lowest order from file', (){
       order = 12;
-      String filename = "tests/samples/unsorted_list.txt";
+      String filename = "test/samples/unsorted_list.txt";
       var ostat = rsel(filename, order);
       expect(ostat, isNotNull);
       expect(ostat.value, equals(order));
