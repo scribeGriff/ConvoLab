@@ -17,11 +17,15 @@ num sum(List<num> inputList) {
 }
 
 // Convert a list from complex to real.
-List<num> toReal(List<Complex> complexList) {
+List<num> toReal(List<Complex> complexList, [bool toint = false]) {
   if (complexList.every(f(element) => element is Complex)) {
     List _realList = [];
     for (var i = 0; i < complexList.length; i++) {
+      if (toint) {
+        _realList.add(complexList[i].cround2.real.toInt());
+      } else {
       _realList.add(complexList[i].real);
+      }
     }
     return _realList;
   } else {

@@ -1,3 +1,5 @@
+part of clabtests;
+
 /* *************************************************************** *
  *   Unit testing of randomized selection algorithm                *
  *   Library: ConvoLab (c) 2012 scribeGriff                        *

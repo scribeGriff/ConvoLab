@@ -1,3 +1,5 @@
+library clabtests;
+
 /* *************************************************************** *
  *   Unit testing                                                  *
  *   Library: ConvoLab (c) 2012 scribeGriff                        *

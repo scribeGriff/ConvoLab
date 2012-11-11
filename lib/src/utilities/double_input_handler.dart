@@ -40,7 +40,7 @@ class DoubleInputListHandler {
     //as doubles to _buffer and return.
     try {
       _buffin.forEach((element) {
-        if(!element.isEmpty()) _buffer.add(double.parse(element.trim()));
+        if(!element.isEmpty) _buffer.add(double.parse(element.trim()));
         });
       return _buffer;
     } catch(error) {

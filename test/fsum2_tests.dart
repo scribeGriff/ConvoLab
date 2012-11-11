@@ -1,3 +1,5 @@
+part of clabtests;
+
 /* *************************************************************** *
  *   Unit testing of finding the sum of 2 numbers in a list        *
  *   Library: ConvoLab (c) 2012 scribeGriff                        *

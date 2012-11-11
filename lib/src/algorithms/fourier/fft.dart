@@ -3,7 +3,6 @@ part of convolab;
 /* **************************************************************** *
  *   Fast Fourier Transform algorithm                               *
  *   Partially derived from Sedgewick and Wayne's FFT.java          *
- *   This algorithm may change.                                     *
  *   Library: ConvoLab (c) 2012 scribeGriff                         *
  * **************************************************************** */
 

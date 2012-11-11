@@ -9,7 +9,7 @@ class ConvoLabResults {
   final List data;
   final int value;
 
-  ConvoLabResults(this.data, [this.value]);
+  ConvoLabResults([this.data, this.value]);
 
   // Method: export writes data list to a file.  If the data is complex,
   // the external file is tab delimited.  Data can then be read into

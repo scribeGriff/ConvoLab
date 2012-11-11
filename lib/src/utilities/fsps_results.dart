@@ -13,7 +13,7 @@ class FSPSResults extends ConvoLabResults {
   FSPSResults(List data, this.psums, this.jsonData) : super(data);
 
   //Override standard results class methods exportToFile() and exportToWeb().
-  void exportToFile(String filename) {
+  @override void exportToFile(String filename) {
     List<String> tokens = filename.split(const RegExp(r'\.(?=[^.]+$)'));
     if (tokens.length == 1) tokens.add('txt');
     psums.forEach((k, v) {
@@ -34,7 +34,7 @@ class FSPSResults extends ConvoLabResults {
   }
 
   //Method: export data to web using a web socket.
-  void exportToWeb(String host, int port) {
+  @override void exportToWeb(String host, int port) {
     //connect with ws://localhost:8080/ws
     //for echo - http://www.websocket.org/echo.html
     if (host == 'local') host = '127.0.0.1';

@@ -6,3 +6,5 @@ homepage: http://www.scribegriff.com
 dependencies:
   unittest:
     sdk: unittest
+  meta:
+    sdk: meta
