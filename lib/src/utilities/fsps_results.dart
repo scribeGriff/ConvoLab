@@ -14,7 +14,7 @@ class FSPSResults extends ConvoLabResults {
 
   //Override standard results class methods exportToFile() and exportToWeb().
   @override void exportToFile(String filename) {
-    List<String> tokens = filename.split(const RegExp(r'\.(?=[^.]+$)'));
+    List<String> tokens = filename.split(new RegExp(r'\.(?=[^.]+$)'));
     if (tokens.length == 1) tokens.add('txt');
     psums.forEach((k, v) {
       File fileHandle = new File('${tokens[0]}_k$k.${tokens[1]}');
