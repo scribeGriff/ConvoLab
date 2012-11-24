@@ -5,7 +5,7 @@ part of clabtests;
  *   Library: ConvoLab (c) 2012 scribeGriff                        *
  * *************************************************************** */
 void fftTests() {
-  FFTResults x, y;
+  FftResults x, y;
   // Constant factor fudge for small values of N with ifft.
   int cf = 2;
   /* This group tests the radix-2 fast fourier transform */

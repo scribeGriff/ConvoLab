@@ -7,11 +7,11 @@ part of convolab;
  * ****************************************************** */
 
 /************************  Mergesort *****************************/
-MSortResults msort(var fileOrList) {
-  List<int> unsortedList = new InputListHandler().prepareList(fileOrList);
+MsortResults msort(List<int> unsortedList) {
+  //List<int> unsortedList = new InputListHandler().prepareList(fileOrList);
   if (unsortedList != null) {
-    MSortResults sortedData = new _MergeSort().sort(unsortedList);
-    return new MSortResults(sortedData.data, sortedData.value);
+    MsortResults sortedData = new _MergeSort().sort(unsortedList);
+    return new MsortResults(sortedData.data, sortedData.value);
   } else {
     return(null);
   }
@@ -23,14 +23,14 @@ class _MergeSort {
   _MergeSort()
       : count = 0;
 
-  MSortResults sort(List<int> myArray) {
+  MsortResults sort(List<int> myArray) {
     mergesort(myArray, 0, myArray.length-1);
-    return new MSortResults(myArray, count);
+    return new MsortResults(myArray, count);
   }
 
   void mergesort(List<int> inArray, int lo, int hi){
     if(hi <= lo) return;
-    int mid = lo + ((hi - lo)/2).toInt();
+    int mid = lo + ((hi - lo) >> 1);
     mergesort(inArray, lo, mid);
     mergesort(inArray, mid+1, hi);
     count += merge(inArray, lo, mid, hi);
@@ -71,4 +71,13 @@ class _MergeSort {
     return counter;
   }
 
+}
+
+/* ****************************************************** *
+ *   MsortResults extends standard results class          *
+ *   Library: ConvoLab (c) 2012 scribeGriff               *
+ * ****************************************************** */
+
+class MsortResults extends ConvoLabResults {
+  MsortResults(List<int> data, int value) : super(data, value);
 }

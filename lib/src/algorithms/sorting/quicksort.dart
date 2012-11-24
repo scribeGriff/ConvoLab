@@ -8,11 +8,10 @@ part of convolab;
 
 /************************** QuickSort *****************************/
 
-QSortResults qsort(var fileOrList, [String pivotType = 'median']) {
-  List<int> unsortedList = new InputListHandler().prepareList(fileOrList);
+QsortResults qsort(List<int> unsortedList, [String pivotType = 'median']) {
   if (unsortedList != null) {
-    QSortResults sortedData = new _QuickSort().sort(unsortedList, pivotType);
-    return new QSortResults(sortedData.data, sortedData.value);
+    QsortResults sortedData = new _QuickSort().sort(unsortedList, pivotType);
+    return new QsortResults(sortedData.data, sortedData.value);
   } else {
     return(null);
   }
@@ -27,10 +26,10 @@ class _QuickSort {
 
   // Calls recursive algorithm quicksort() and passes array, size and
   // pivot method.
-  QSortResults sort(List<int> myArray, String pivotType) {
+  QsortResults sort(List<int> myArray, String pivotType) {
     pt = pivotType;
     quicksort(myArray, 0, myArray.length-1);
-    return new QSortResults(myArray, count);
+    return new QsortResults(myArray, count);
   }
 
   //Recursive calls through quicksort keep track of # of comparisons.
@@ -44,8 +43,8 @@ class _QuickSort {
 
   int partition(List<int> array, int lo, int hi) {
     //Preprocess pivot depending on method
-    //using a switch list (default is 'first').
-    //Need to add random pivot but need a decent RNG.
+    //using a switch list (if 'first' => no need to swap).
+    //Need to add random pivot.
     switch (pt) {
       case 'last':
         swap(array, lo, hi);
@@ -88,7 +87,7 @@ class _QuickSort {
   //first uses a different number of comparisons than
   //the second two.
   void median3(List<int> array, int lo, int hi) {
-    int mid = ((lo + hi)/2).toInt();
+    int mid = ((lo + hi) >> 1);
     int small, median, large;
     if (array[lo] > array[mid]) {
       large = lo;
@@ -110,7 +109,7 @@ class _QuickSort {
   //The more common approach but one that will provide a different
   //number of comparisons than the median3().
   void median3Alt1(List<int> array, int lo, int hi) {
-    int mid = ((lo + hi)/2).toInt();
+    int mid = ((lo + hi) >> 1);
     if (array[mid].compareTo(array[lo]) < 0 ) {
       swap(array, lo, mid);
     }
@@ -124,10 +123,19 @@ class _QuickSort {
   }
   //Or if you prefer, you can write Alt1 as follows:
   void median3Alt2(List<int> array, int lo, int hi) {
-    int mid = ((lo + hi)/2).toInt();
+    int mid = ((lo + hi) >> 1);
     if (array[mid] < array[lo]) swap(array, lo, mid);
     if (array[hi] < array[lo]) swap(array,lo, hi);
     if (array[hi] < array[mid]) swap(array, mid, hi);
     swap(array, mid, lo);
   }
+}
+
+/* ****************************************************** *
+ *   QsortResults extends standard results class          *
+ *   Library: ConvoLab (c) 2012 scribeGriff               *
+ * ****************************************************** */
+
+class QsortResults extends ConvoLabResults {
+  QsortResults(List<int> data, int value) : super(data, value);
 }

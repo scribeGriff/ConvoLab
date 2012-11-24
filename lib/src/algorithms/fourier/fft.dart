@@ -7,37 +7,38 @@ part of convolab;
  * **************************************************************** */
 
 /* **************************************************************** *
- * Static function fft() preprocesses the input data.               *
- * Usage model: var y = fft(data, [N]) where data can be a real     *
- * list, complex list or the file path to a list of real numbers.   *
- * N specifies the number of points of the fft to calculate.  N     *
- * values that are powers of 2 use the O(nlogn) radix 2 algorithm,  *
- * otherwise the much slower O(n^2) dft is performed.               *
+ *   Static function fft() preprocesses the input data.             *
+ *   Usage model: var y = fft(data, [N]) where data is a List of    *
+ *   samples.  N specifies the number of points of the fft to       *
+ *   calculate.  N values that are powers of 2 use the O(nlogn)     *
+ *   radix 2 algorithm, otherwise the much slower O(n^2) dft is     *
+ *   performed.                                                     *
  * **************************************************************** */
-FFTResults fft(var fileOrList, [int N]) {
-  List<Complex> inList = new ComplexInputListHandler().prepareList(fileOrList);
-  if (inList != null) {
+
+FftResults fft(List samples, [int N]) {
+  List<Complex> _inList = toComplex(samples);
+  if (_inList != null) {
     if (N == null) {
       // If N is not specified, set N equal to length of data.
-      N = inList.length;
+      N = _inList.length;
     } else {
       // N is specified by user.
-      if (inList.length > N) {
+      if (_inList.length > N) {
         // Truncate list to length = N.
-        inList.removeRange(N, inList.length - N);
-      } else if (inList.length < N) {
+        _inList.removeRange(N, _inList.length - N);
+      } else if (_inList.length < N) {
         // Pad with zeros to length = N.
-        inList.insertRange(inList.length, N - inList.length, complex(0, 0));
+        _inList.insertRange(_inList.length, N - _inList.length, complex(0, 0));
       }
     }
     // Now check to see if N is a power of 2.  The case where N = 0 is
     // not checked.
     if ((N & -N) == N) {
       // If true, use O(nlogn) algorithm,
-      return new _FFT().radix2(inList);
+      return new _FFT().radix2(_inList);
     } else {
       // else use O(n^2) algorithm.
-      return new _FFT().dft(inList, N);
+      return new _FFT().dft(_inList, N);
     }
   } else {
     return(null);
@@ -57,10 +58,10 @@ class _FFT {
       : count = 0;
 
   // Method 1: O(nlogn) radix-2 FFT
-  FFTResults radix2(List<Complex> input) {
+  FftResults radix2(List<Complex> input) {
     inCopy = new List.from(input);
-    List<Complex> fftResults = fftnlogn(input);
-    return new FFTResults(fftResults, count, inCopy);
+    List<Complex> fftSoln = fftnlogn(input);
+    return new FftResults(fftSoln, count, inCopy);
   }
   // fftnlogn() is a radix-2 algorithm that divides the input into 2
   // N/2 point sequences of even ordered and odd ordered sequences.
@@ -99,10 +100,10 @@ class _FFT {
   }
 
   // Method 2: O(n^2) DFT
-  FFTResults dft(List<Complex> input, int N) {
+  FftResults dft(List<Complex> input, int N) {
     inCopy = new List.from(input);
-    List<Complex> dftResults = dftnxn(input, N);
-    return new FFTResults(dftResults, count, inCopy);
+    List<Complex> dftSoln = dftnxn(input, N);
+    return new FftResults(dftSoln, count, inCopy);
   }
   // dftnxn() performs a "brute force" discrete fourier
   // transform of the input data as given by the expression:
@@ -120,5 +121,24 @@ class _FFT {
       y[k] = q;
     }
     return y;
+  }
+}
+
+/* ****************************************************** *
+ *   FftResults extends standard results class            *
+ *   Library: ConvoLab (c) 2012 scribeGriff               *
+ * ****************************************************** */
+
+class FftResults extends ConvoLabResults {
+  // Return input as Complex list.
+  final List<Complex> input;
+
+  FftResults(List<Complex> data, int value, this.input) : super(data, value);
+
+  void show([String header]) {
+    if(header != null) {
+      print("$header");
+    }
+    this.data.forEach((element) => print(element.string));
   }
 }

@@ -8,9 +8,8 @@ part of clabtests;
 void quickSortTests() {
   // QuickSort
   // number of inversions = n chose 2 = n(n-1)/2 this might be mergesort
-  String filename = "test/samples/unsorted_list.txt";
   int comparisons;
-  QSortResults qsResults;
+  QsortResults qsResults;
   List<int> list10;
   List<int> auData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   group('QuickSort algorithm tests:', (){
@@ -21,30 +20,6 @@ void quickSortTests() {
       expect(qsResults, isNotNull);
       expect(qsResults.value, equals(comparisons));
       expect(qsResults.data, equals(auData));
-    });
-    test('Quicksort of external file - first element pivot', (){
-      comparisons = 162085;
-      qsResults = qsort(filename, 'first');
-      list10 = qsResults.data.getRange(0, 10);
-      expect(qsResults, isNotNull);
-      expect(qsResults.value, equals(comparisons));
-      expect(list10, equals(auData));
-    });
-    test('Quicksort of external file - last element pivot', (){
-      comparisons = 164123;
-      qsResults = qsort(filename, 'last');
-      list10 = qsResults.data.getRange(0, 10);
-      expect(qsResults, isNotNull);
-      expect(qsResults.value, equals(comparisons));
-      expect(list10, equals(auData));
-    });
-    test('Quicksort of external file - median of 3 element pivot', (){
-      comparisons = 138382;
-      qsResults = qsort(filename);  // defaults to median3
-      list10 = qsResults.data.getRange(0, 10);
-      expect(qsResults, isNotNull);
-      expect(qsResults.value, equals(comparisons));
-      expect(list10, equals(auData));
     });
   });
 }

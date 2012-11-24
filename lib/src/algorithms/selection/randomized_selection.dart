@@ -5,21 +5,20 @@ part of convolab;
  *   Library: ConvoLab (c) 2012 scribeGriff               *
  * ****************************************************** */
 
-RndSelResults rsel(var fileOrList, int orderStat, [bool highOrder = false]) {
+RselResults rsel(List<int> inList, int orderStat, [bool highOrder = false]) {
   if (orderStat == 0) {
     print("Can not evaluate a zero order statistic.");
     return(null);
   }
-  List<int> inList = new InputListHandler().prepareList(fileOrList);
   if (inList != null) {
     // Make a copy of the input list to return with the results.
     List<int> input = new List.from(inList);
     orderStat.abs() > inList.length ? orderStat = inList.length :
         orderStat = orderStat.abs();
     if (highOrder) orderStat = inList.length + 1 - orderStat;
-    RndSelResults selectData =
+    RselResults selectData =
         new _RandomizedSelection().sel(inList, orderStat, highOrder);
-    return new RndSelResults
+    return new RselResults
         (selectData.data, selectData.value, selectData.count, input);
   } else {
     return(null);
@@ -35,11 +34,11 @@ class _RandomizedSelection {
       : randNum = new Random(),
         count = 0;
 
-  RndSelResults sel(List<int> inList, int orderStat, bool highOrder) {
+  RselResults sel(List<int> inList, int orderStat, bool highOrder) {
     ho = highOrder;
 
     int selected = rselect(inList, 0, inList.length - 1, orderStat);
-    return new RndSelResults(inList, selected, count);
+    return new RselResults(inList, selected, count);
   }
 
   int rselect(List<int> inList, int lo, int hi, int order) {
@@ -90,4 +89,17 @@ class _RandomizedSelection {
     array[i] = array[j];
     array[j] = temp;
   }
+}
+
+/* ****************************************************** *
+ *   RselResults extends standard results class           *
+ *   Library: ConvoLab (c) 2012 scribeGriff               *
+ * ****************************************************** */
+
+class RselResults extends ConvoLabResults {
+  final List<int> input;
+  final int count;
+
+  RselResults(List<int> data, int value, this.count, [this.input]) :
+      super(data, value);
 }

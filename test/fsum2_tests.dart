@@ -27,20 +27,5 @@ void findSum2Tests() {
       expect(findSum.results, equals(auData));
       expect(findSum.match, isTrue);
     });
-    test('FindSum2: large external, match a list of sums:', (){
-      String filename = "test/samples/find_sum_list.txt";
-      List<List<int>> auData = [[128636, 102916], [null, null],
-                                [295274, 301599], [204524, 443695],
-                                [31264, 695048], [null, null],
-                                [259160, 729171], [null, null],
-                                [null, null]];
-      List<int> targetSums = [231552, 234756, 596873, 648219, 726312,
-                              981237, 988331, 1277361, 1283379];
-      var findSum = fsum2(filename, targetSums);
-      expect(findSum, isNotNull);
-      expect(findSum.results.length, equals(targetSums.length));
-      expect(findSum.results, equals(auData));
-      expect(findSum.match, isTrue);
-    });
   });
 }

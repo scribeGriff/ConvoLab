@@ -6,7 +6,6 @@
 
 library convolab;
 
-import 'dart:io';
 import 'dart:math';
 import 'dart:json';
 
@@ -16,15 +15,6 @@ part 'src/exceptions/convolab_exception.dart';
 part 'src/exceptions/data_format_exception.dart';
 
 part 'src/utilities/convolab_results.dart';
-part 'src/utilities/qsort_results.dart';
-part 'src/utilities/msort_results.dart';
-part 'src/utilities/fsum2_results.dart';
-part 'src/utilities/rsel_results.dart';
-part 'src/utilities/fft_results.dart';
-part 'src/utilities/fsps_results.dart';
-part 'src/utilities/input_handler.dart';
-part 'src/utilities/double_input_handler.dart';
-part 'src/utilities/complex_input_handler.dart';
 
 part 'src/algorithms/sorting/quicksort.dart';
 part 'src/algorithms/sorting/mergesort.dart';
@@ -41,5 +31,6 @@ part 'src/math/complex.dart';
 part 'src/math/hyperbolic.dart';
 part 'src/math/logarithm.dart';
 part 'src/math/row_vector.dart';
+part 'src/math/find_min_max.dart';
 
 part 'src/signals/waveforms.dart';

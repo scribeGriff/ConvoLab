@@ -5,8 +5,7 @@ library clabtests;
  *   Library: ConvoLab (c) 2012 scribeGriff                        *
  * *************************************************************** */
 
-import '../lib/convolab.dart';
-
+import 'package:convolab/convolab.dart';
 import 'package:unittest/unittest.dart';
 
 part 'hyperbolic_tests.dart';

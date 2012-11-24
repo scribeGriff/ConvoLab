@@ -7,38 +7,39 @@ part of convolab;
  * **************************************************************** */
 
 /* **************************************************************** *
- * Static function ifft() preprocesses the input data.              *
- * Usage model: var y = ifft(data, [N]) where data can be a real    *
- * list, complex list or the file path to a list of real numbers.   *
- * N specifies the number of points of the ifft to calculate.  N    *
- * values that are powers of 2 use the O(nlogn) radix 2 fft         *
- * algorithm to compute the inverse transform, otherwise the much   *
- * slower O(n^2) idft is performed.                                 *
+ *   Static function ifft() preprocesses the input data.            *
+ *   Usage model: var y = ifft(data, [N]) where data can be a real  *
+ *   or complex list.                                               *
+ *   N specifies the number of points of the ifft to calculate.  N  *
+ *   values that are powers of 2 use the O(nlogn) radix 2 fft       *
+ *   algorithm to compute the inverse transform, otherwise the much *
+ *   slower O(n^2) idft is performed.                               *
  * **************************************************************** */
-FFTResults ifft(var fileOrList, [int N]) {
-  List<Complex> inList = new ComplexInputListHandler().prepareList(fileOrList);
-  if (inList != null) {
+FftResults ifft(List samples, [int N]) {
+  //List<Complex> inList = new ComplexInputListHandler().prepareList(fileOrList);
+  List<Complex> _inList = toComplex(samples);
+  if (_inList != null) {
     if (N == null) {
       // If N is not specified, set N equal to length of data.
-      N = inList.length;
+      N = _inList.length;
     } else {
       // N is specified by user.
-      if (inList.length > N) {
+      if (_inList.length > N) {
         // Truncate list to length = N.
-        inList.removeRange(N, inList.length - N);
-      } else if (inList.length < N) {
+        _inList.removeRange(N, _inList.length - N);
+      } else if (_inList.length < N) {
         // Pad with zeros to length = N.
-        inList.insertRange(inList.length, N - inList.length, complex(0, 0));
+        _inList.insertRange(_inList.length, N - _inList.length, complex(0, 0));
       }
     }
     // Now check to see if N is a power of 2.  The case where N = 0 is
     // not checked.
     if ((N & -N) == N) {
       // If true, use O(nlogn) algorithm,
-      return new _IFFT().iradix2(inList);
+      return new _IFFT().iradix2(_inList);
     } else {
       // else use O(n^2) algorithm.
-      return new _IFFT().idft(inList, N);
+      return new _IFFT().idft(_inList, N);
     }
   } else {
     return(null);
@@ -58,10 +59,10 @@ class _IFFT {
       : count = 0;
 
   // Method 1: O(nlogn) radix-2 IFFT
-  FFTResults iradix2(List<Complex> input) {
+  FftResults iradix2(List<Complex> input) {
     inCopy = new List.from(input);
-    List<Complex> ifftResults = ifftnlogn(input);
-    return new FFTResults(ifftResults, count, inCopy);
+    List<Complex> ifftSoln = ifftnlogn(input);
+    return new FftResults(ifftSoln, count, inCopy);
   }
   // The ifftnlogn() is accomplished in 3 steps.  First, the input data
   // is conjugated, then a radix-2 fft is performed and finally the
@@ -90,10 +91,10 @@ class _IFFT {
   }
 
   // Method 2: O(n^2) IDFT
-  FFTResults idft(List<Complex> input, int N) {
+  FftResults idft(List<Complex> input, int N) {
     inCopy = new List.from(input);
-    List<Complex> idftResults = idftnxn(input, N);
-    return new FFTResults(idftResults, count, inCopy);
+    List<Complex> idftSoln = idftnxn(input, N);
+    return new FftResults(idftSoln, count, inCopy);
   }
 
   // idftnxn() performs a "brute force" discrete fourier

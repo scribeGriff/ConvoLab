@@ -7,11 +7,10 @@ part of convolab;
 
 /*********************  Sum of Two Search ***************************/
 
-FSum2Results fsum2(var fileOrList, var sum2find) {
-  List<int> addendList = new InputListHandler().prepareList(fileOrList);
+Fsum2Results fsum2(List<int> addendList, var sum2find) {
   if (addendList != null) {
-    FSum2Results fsum2Data = new _FindSum2().findMatch(addendList, sum2find);
-    return new FSum2Results(addendList, fsum2Data.value, fsum2Data.results,
+    Fsum2Results fsum2Data = new _FindSum2().findMatch(addendList, sum2find);
+    return new Fsum2Results(addendList, fsum2Data.value, fsum2Data.results,
         fsum2Data.match);
   } else {
     return(null);
@@ -25,7 +24,7 @@ class _FindSum2 {
   _FindSum2()
       : match = false;
 
-  FSum2Results findMatch(List<int> sumArray, var sum2find) {
+  Fsum2Results findMatch(List<int> sumArray, var sum2find) {
     HashMap sumHashMap = new HashMap();
     List<List<int>> sumResults = [];
     bool found;
@@ -91,6 +90,19 @@ class _FindSum2 {
 
     // The null value is the input array and is handled by the
     // static function call fsum2().
-    return new FSum2Results(null, sumValue, sumResults, match);
+    return new Fsum2Results(null, sumValue, sumResults, match);
   }
+}
+
+/* ****************************************************** *
+ *   Fsum2Results extends standard results class          *
+ *   Library: ConvoLab (c) 2012 scribeGriff               *
+ * ****************************************************** */
+
+class Fsum2Results extends ConvoLabResults {
+  final List<List<int>> results;
+  final bool match;
+
+  Fsum2Results(List<int> data, int value, this.results, this.match) :
+      super(data, value);
 }

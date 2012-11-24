@@ -8,7 +8,7 @@ part of convolab;
  * **************************************************************** */
 
 // Wrapper to illiminate need for using new keyword.
-FSPSResults fsps(List waveform, List kArray, [num fraction = 1])
+FspsResults fsps(List waveform, List kArray, [num fraction = 1])
     => new _PartialSums(waveform, kArray).sum(fraction);
 
 // Computes the partial sums of Fourier series on waveform.
@@ -19,7 +19,7 @@ class _PartialSums {
 
   _PartialSums(this.waveform, this.kArray);
 
-  FSPSResults sum(num fraction) {
+  FspsResults sum(num fraction) {
     //Store results as a map with k value as the key K
     //and the partial sum list as the value V.
     var psums = new Map();
@@ -52,9 +52,23 @@ class _PartialSums {
         psums[kArray[i]] = y;
         jsonData["kval ${i + 1} = ${kArray[i]}"] = {"real": real, "imag": imag};
       }
-      return new FSPSResults(waveform, psums, jsonData);
+      return new FspsResults(waveform, psums, jsonData);
     } else {
       return null;
     }
   }
 }
+
+/* ****************************************************** *
+ *   FspsResults extends standard results class           *
+ *   Library: ConvoLab (c) 2012 scribeGriff               *
+ * ****************************************************** */
+
+class FspsResults extends ConvoLabResults {
+  final Map psums, jsonData;
+
+  //Return a list of the input waveform and also a Map of the
+  //partial sums indexed to the value for k.
+  FspsResults(List data, this.psums, this.jsonData) : super(data);
+}
+

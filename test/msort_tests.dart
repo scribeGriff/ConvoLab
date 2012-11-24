@@ -8,9 +8,8 @@ part of clabtests;
 void mergeSortTests() {
   // MergeSort
   // number of inversions = n chose 2 = n(n-1)/2
-  String filename = "test/samples/inversion_list.txt";
   int inversions;
-  MSortResults msResults;
+  MsortResults msResults;
   List<int> list10;
   List<int> auData = [1, 2, 3, 4, 5, 6, 7,8, 9, 10];
   group('MergeSort algorithm tests:', (){
@@ -29,14 +28,6 @@ void mergeSortTests() {
       expect(msResults, isNotNull);
       expect(msResults.value, equals(inversions));
       expect(msResults.data, equals(auData));
-    });
-    test('MergeSort of a large external array', (){
-      inversions = 2407905288;
-      msResults = msort(filename);
-      list10 = msResults.data.getRange(0, 10);
-      expect(msResults, isNotNull);
-      expect(msResults.value, equals(inversions));
-      expect(list10, equals(auData));
     });
   });
 }

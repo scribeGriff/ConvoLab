@@ -43,9 +43,11 @@ List<Complex> toComplex(List realList) {
       _complexList.add(complex(realList[i], 0));
     }
     return _complexList;
+  } else if (realList.every(f(element) => element is Complex)) {
+    // List is already complex so just return the list.
+    return realList;
   } else {
     print("The input data is not formatted correctly.");
-    print("Elements must be type num.");
     return(null);
   }
 }
