@@ -7,21 +7,29 @@ part of convolab;
 
 // Wrapper to illiminate need for using new keyword.
 List vec(num start, num end, [num increment = 1])
-    => new RowVector(start, end, increment).newVector;
+    => new _RowVector(start, end, increment).createVec(false);
 
-class RowVector {
+// Generates a vector of all 1s.
+List ones(num length) => new _RowVector(0, length, 1).createVec(true);
+
+// Generates a vector of all 0s.
+List zeros(num length) => new _RowVector(0, length, 0).createVec(true);
+
+class _RowVector {
   final num start;
   final num end;
   final num increment;
 
-  const RowVector(this.start, this.end, this.increment);
+  const _RowVector(this.start, this.end, this.increment);
 
-  List get newVector => _create();
-
-  List _create() {
+  List createVec(bool unit) {
     List a = [];
-    for (var i = this.start; i <= this.end; i += this.increment) {
-      a.add(i);
+    if (unit) {
+      a.insertRange(start, end, increment);
+    } else {
+      for (var i = start; i <= end; i += increment) {
+        a.add(i);
+      }
     }
     return a;
   }
