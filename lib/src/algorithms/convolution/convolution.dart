@@ -26,12 +26,16 @@ ConvResults conv(List xdata, List hdata, [int xindex = 0, int hindex = 0])
     => new _Convolution(xdata, hdata).convolve(xindex, hindex);
 
 class _Convolution {
-  final List xdata;
-  final List hdata;
+  final xdata;
+  final hdata;
 
   _Convolution(this.xdata, this.hdata);
 
   ConvResults convolve(int xindex, int hindex) {
+    // Create a local copy of each list.  This is necessary
+    // in case xdata and hdata are the same object.
+    List xdata = new List.from(this.xdata);
+    List hdata = new List.from(this.hdata);
     bool isInt = false;
     final xLength = xdata.length;
     final hLength = hdata.length;
@@ -74,15 +78,111 @@ class _Convolution {
   }
 }
 
-/* ****************************************************** *
- *   ConvResults extends standard results class           *
- *   Library: ConvoLab (c) 2012 scribeGriff               *
- * ****************************************************** */
+/* ************************************************************************* *
+ *   ConvResults extends standard results class and implements private       *
+ *   class PolyString.                                                       *
+ *                                                                           *
+ *   PolyString converts a list of numbers into a polynomial string in       *
+ *   one of three formats: text, html or latex.                              *
+ *   Example:                                                                *
+ *     List x = [2, 3, 4];                                                   *
+ *     List h = [3, 4, 5, 6];                                                *
+ *     var y = conv(x1, x2);                                                 *
+ *     print(y.format());                                                    *
+ *   prints:                                                                 *
+ *     $$y(n) = 6 + 17n^{-1} + 34n^{-2} + 43n^{-3} + 38n^{-4} + 24n^{-5}$$   *
+ *   Accepts optional positional parameters formatType ('text', 'html',      *
+ *   'latex'), baseVar and fname.                                            *
+ *   Example from above but with optional parameters defined:                *
+ *     print(y.format('html', 'z', 'f'));                                    *
+ *   prints:                                                                 *
+ *     f(z) = 6 + 17z<sup>-1</sup> + 34z<sup>-2</sup> +                      *
+ *         43z<sup>-3</sup> + 38z<sup>-4</sup> + 24z<sup>-5</sup>            *
+ *   To add to an element on a webpage:                                      *
+ *     query("#myDiv").addHtml(y.format());                                  *
+ *   Library: ConvoLab (c) 2012 scribeGriff                                  *
+ * ************************************************************************* */
 
-class ConvResults extends ConvoLabResults {
-  final List y;
-  final int yindex;
-  final List<int> ytime;
+class ConvResults extends ConvoLabResults implements _PolyString {
+  final int index;
+  final List<int> time;
 
-  ConvResults(this.y, this.yindex, this.ytime) : super();
+  List<num> coeffs;
+  List<int> exponents;
+  bool isText = false,
+      isHtml = false,
+      isTex = false;
+  String variable;
+
+  var exponent;
+  var coeff;
+
+  ConvResults(List data, this.index, this.time) : super(data);
+
+  String format([var formatType, var baseVar, var fname]) {
+    var sb = new StringBuffer();
+    String polystring;
+
+    if (formatType == 'text') {
+      isText = true;
+    } else if (formatType == 'html') {
+      isHtml = true;
+    } else {
+      isTex = true;
+    }
+
+    if (baseVar == null) {
+      variable = baseVar = 'n';
+    } else {
+      variable = baseVar;
+    }
+
+    if (fname == null) fname = 'y';
+
+    formatExponent(time[0]);
+
+    if (isTex) sb.add(r'$$');
+    sb.add('$fname($baseVar) = ');
+    if (data[0] != 0) {
+      data[0] = data[0] > 0 ? data[0] : data[0].abs();
+      coeff = data[0] == 1 ? '' : data[0];
+      sb.add('$coeff$variable$exponent');
+    }
+
+    for (var i = 1; i < time.length; i++) {
+      variable = baseVar;
+
+      formatExponent(time[i]);
+
+      if (data[i] != 0) {
+        if (data[i] > 0) {
+          coeff = data[i] == 1 ? '' : data[i];
+          sb.add(' + $coeff$variable$exponent');
+        } else if (data[i] < 0){
+          coeff = data[i] == -1 ? '' : data[i].abs();
+          sb.add(' - $coeff$variable$exponent');
+        }
+      }
+    }
+    if (isTex) sb.add(r'$$');
+
+    return polystring = sb.toString();
+  }
+
+  void formatExponent(var element) {
+    if (element == 0) {
+      exponent = '';
+      variable = '';
+    } else if (element == -1) {
+      exponent = '';
+    } else {
+      if (isTex) {
+        exponent = '^{${-1 * element}}';
+      } else if (isText) {
+        exponent = '^${-1 * element}';
+      } else if (isHtml) {
+        exponent = '<sup>${-1 * element}</sup>';
+      }
+    }
+  }
 }

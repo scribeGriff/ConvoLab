@@ -16,10 +16,10 @@ void main() {
   var hdata = [2, 3, 0, -5, 2, 1];
 
   // Compute y = x * h
-  var ydata = conv(xdata, hdata, xindex, hindex);
-  print(ydata.y);
-  print(ydata.ytime);
-  print('The time zero index for the results is ${ydata.yindex}.');
+  var y = conv(xdata, hdata, xindex, hindex);
+  print(y.data);
+  print(y.time);
+  print('The time zero index for the results is ${y.index}.');
 
   // Prints:
   // [6, 31, 47, 6, -51, -5, 41, 18, -22, -3, 8, 2]

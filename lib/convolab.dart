@@ -15,6 +15,7 @@ part 'src/exceptions/convolab_exception.dart';
 part 'src/exceptions/data_format_exception.dart';
 
 part 'src/utilities/convolab_results.dart';
+part 'src/utilities/poly_string.dart';
 
 part 'src/algorithms/sorting/quicksort.dart';
 part 'src/algorithms/sorting/mergesort.dart';
