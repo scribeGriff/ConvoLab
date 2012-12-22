@@ -40,7 +40,7 @@ class _FindSum2 {
     //If sum2find is a list, then only return first
     //pair of matched addends for each element in the hash.
     if (sum2find is List) {
-      if (sum2find.every(f(item) => item is int)) {
+      if (sum2find.every((item) => item is int)) {
         sum2find.forEach((element) {
           found = false;
           for (int i = 0; i < sumArray.length; i++) {

@@ -1,8 +1,23 @@
-/* *********************************************************** *
- *   ConvoLab: A signal processing library in Dart             *
- *   https://github.com/scribeGriff/ConvoLab                   *
- *   Library: ConvoLab (c) 2012 scribeGriff                    *
- * *********************************************************** */
+// Copyright (c) 2012, scribeGriff (Richard Griffith)
+// https://github.com/scribeGriff/ConvoLab
+// All rights reserved.  Please see the LICENSE.md file.
+
+/**
+ * ConvoLab is a library of mostly signal processing algorithms.
+ *
+ * To use the library, add the following to your pubspec.yaml:
+ *
+ *     convolab:
+ *       git: git://github.com/scribeGriff/ConvoLab.git
+ *
+ * After successfully running pub install, import the library as follows:
+ *
+ *     import 'package:convolab/convolab.dart';
+ *
+ * Library access is largely through top level function calls rather than
+ * constructor methods.
+ *
+ */
 
 library convolab;
 
@@ -26,9 +41,12 @@ part 'src/algorithms/fourier/ifft.dart';
 part 'src/algorithms/fourier/partial_sums.dart';
 part 'src/algorithms/convolution/convolution.dart';
 part 'src/algorithms/convolution/deconvolution.dart';
+part 'src/algorithms/graphs/union_find.dart';
+part 'src/algorithms/graphs/prims_mst.dart';
 
 part 'src/math/lists.dart';
 part 'src/math/complex.dart';
+
 part 'src/math/hyperbolic.dart';
 part 'src/math/logarithm.dart';
 part 'src/math/row_vector.dart';

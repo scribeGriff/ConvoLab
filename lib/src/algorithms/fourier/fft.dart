@@ -1,25 +1,49 @@
+// Copyright (c) 2012, scribeGriff (Richard Griffith)
+// https://github.com/scribeGriff/ConvoLab
+// All rights reserved.  Please see the LICENSE.md file.
+
 part of convolab;
 
-/* **************************************************************** *
- *   Fast Fourier Transform algorithm                               *
- *   Partially derived from Sedgewick and Wayne's FFT.java          *
- *   Library: ConvoLab (c) 2012 scribeGriff                         *
- * **************************************************************** */
+/**
+ * Computes the Fourier Transform of an input array.
+ *
+ * Usage model:
+ *     FftResults y;
+ *     List<int> samples = [0, 1, 2, 3];
+ *     y = fft(samples, [N]);
+ *
+ * where data is a List of samples.  N specifies the number of points
+ * of the fft to calculate.  If N is not specified, it is set to the
+ * length of data.  N values that are powers of 2 use the O(nlogn)
+ * radix 2 algorithm, otherwise the much slower O(n^2) dft is
+ * performed.
+ *
+ * Returns an object of FftResults if successful and null otherwise.
+ * The object contains a complex array of the transformed input as well as
+ * an integer value of relative computational effort.
+ *
+ * FftResults contains method show() to allow a more readable format for the
+ * complex results.  Example usage:
+ *
+ *     y.show("The fft is:");
+ *     // prints:
+ *     //The fft is:
+ *     //6.00
+ *     //-2.00 + 2.00j
+ *     //-2.00
+ *     //-2.00 - 2.00j
+ *
+ * The header string is optional.
+ *
+ * Reference: Sedgewick and Wayne's FFT.java
+ */
 
-/* **************************************************************** *
- *   Static function fft() preprocesses the input data.             *
- *   Usage model: var y = fft(data, [N]) where data is a List of    *
- *   samples.  N specifies the number of points of the fft to       *
- *   calculate.  N values that are powers of 2 use the O(nlogn)     *
- *   radix 2 algorithm, otherwise the much slower O(n^2) dft is     *
- *   performed.                                                     *
- * **************************************************************** */
-
+/// The top level function fft() returns the object FftResults.
 FftResults fft(List samples, [int N]) {
   List<Complex> _inList = toComplex(samples);
   if (_inList != null) {
     if (N == null) {
-      // If N is not specified, set N equal to length of data.
+      /// If N is not specified, set N equal to length of data.
       N = _inList.length;
     } else {
       // N is specified by user.
@@ -31,8 +55,8 @@ FftResults fft(List samples, [int N]) {
         _inList.insertRange(_inList.length, N - _inList.length, complex(0, 0));
       }
     }
-    // Now check to see if N is a power of 2.  The case where N = 0 is
-    // not checked.
+    /// Check to see if N is a power of 2.
+    /// The case where N = 0 is not checked.
     if ((N & -N) == N) {
       // If true, use O(nlogn) algorithm,
       return new _FFT().radix2(_inList);
@@ -45,11 +69,7 @@ FftResults fft(List samples, [int N]) {
   }
 }
 
-/* **************************************************************** *
- * Private class FFT contains the methods to implement the two      *
- * algorithms.  Returns a complex array of the transformed input    *
- * as well as a numerical value of relative computational effort.   *
- * **************************************************************** */
+/// The private class _FFT.
 class _FFT {
   int count;
   List<Complex> inCopy;
@@ -57,20 +77,20 @@ class _FFT {
   _FFT()
       : count = 0;
 
-  // Method 1: O(nlogn) radix-2 FFT
+  /// Method 1: O(nlogn) radix-2 FFT
   FftResults radix2(List<Complex> input) {
     inCopy = new List.from(input);
     List<Complex> fftSoln = fftnlogn(input);
     return new FftResults(fftSoln, count, inCopy);
   }
-  // fftnlogn() is a radix-2 algorithm that divides the input into 2
-  // N/2 point sequences of even ordered and odd ordered sequences.
+  /// fftnlogn() is a radix-2 algorithm that divides the input into 2
+  /// N/2 point sequences of even ordered and odd ordered sequences.
   List<Complex> fftnlogn(List<Complex> input) {
     var N = input.length;
     // Base case at N = 1.
     if (N == 1) return new List<Complex>.from(input);
 
-    // Perform fft of even terms recursively
+    // Perform fft of even terms recursively.
     List<Complex> even = new List(N >> 1);
     for (var k = 0; k < N/2; k++) {
       even[k] = input[2*k];
@@ -78,7 +98,7 @@ class _FFT {
     }
     List<Complex> q = fftnlogn(even);
 
-    // Perform fft of odd terms recursively
+    // Perform fft of odd terms recursively.
     List<Complex> odd = new List(N >> 1);
     for (var k = 0; k < N/2; k++) {
       odd[k] = input[2*k + 1];
@@ -99,15 +119,15 @@ class _FFT {
     return y;
   }
 
-  // Method 2: O(n^2) DFT
+  /// Method 2: O(n^2) DFT
   FftResults dft(List<Complex> input, int N) {
     inCopy = new List.from(input);
     List<Complex> dftSoln = dftnxn(input, N);
     return new FftResults(dftSoln, count, inCopy);
   }
-  // dftnxn() performs a "brute force" discrete fourier
-  // transform of the input data as given by the expression:
-  // X(k) = sumN [x(n) * WN(nk)]
+  /// dftnxn() performs a "brute force" discrete fourier
+  /// transform of the input data as given by the expression:
+  /// X(k) = sumN [x(n) * WN(nk)]
   List<Complex> dftnxn(List<Complex> input, int N) {
     List<Complex> y = new List(N);
     for (var k = 0; k < N; k++) {
@@ -124,17 +144,24 @@ class _FFT {
   }
 }
 
-/* ****************************************************** *
- *   FftResults extends standard results class            *
- *   Library: ConvoLab (c) 2012 scribeGriff               *
- * ****************************************************** */
+/**
+ * FftResults extends standard results class.
+ *
+ * Returns the complex results for either the fft() or ifft() function.
+ * Also returns a complex version of the input data as well as a
+ * relative value for computational effort.
+ *
+ * Method show() allows printing of the complex result in a readable
+ * format.
+ */
 
 class FftResults extends ConvoLabResults {
-  // Return input as Complex list.
+  /// Returns input as Complex list.
   final List<Complex> input;
 
   FftResults(List<Complex> data, int value, this.input) : super(data, value);
 
+  /// Shows the complex data in a readable format.
   void show([String header]) {
     if(header != null) {
       print("$header");

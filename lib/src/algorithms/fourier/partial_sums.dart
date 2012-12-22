@@ -1,18 +1,42 @@
+// Copyright (c) 2012, scribeGriff (Richard Griffith)
+// https://github.com/scribeGriff/ConvoLab
+// All rights reserved.  Please see the LICENSE.md file.
+
 part of convolab;
 
-/* **************************************************************** *
- *   Computing the Partial Sums of Fourier Series                   *
- *   usage: var psums = fsps(signal, kArray);                       *
- *   Returns Map<k, list>                                           *
- *   Library: ConvoLab (c) 2012 scribeGriff                         *
- * **************************************************************** */
+/**
+ * Computes the partial sums of Fourier Series.
+ * usage:
+ *     var waveform = square(1);
+ *     var kvals = [1, 16, 80];
+ *     var fourier = fsps(waveform, kArray, [fraction]);
+ *
+ * Computes the partial sums of Fourier series on the waveform for each
+ * value of k given by the elements of list kArray.  The optional parameter
+ * fraction, determines over what period to compute the series.  The default
+ * value is to treat the entire waveform as the period.
+ *
+ * Returns FspsResults object which includes two differently formatted
+ * Map<k, list>.  For example:
+ *     print('We have computed ${fourier.psums.length} Fourier series.');
+ *     // We have computed 3 Fourier series.
+ *     if (fourier.psums[kvals[0]].every((element) => element is Complex)) {
+ *       print('The computed Fourier series is of type Complex.');
+ *     }
+ *     // The computed Fourier series is of type Complex.
+ *
+ * Dependencies:
+ * * waveform()
+ * * complex()
+ * * fft()
+ *
+ */
 
-// Wrapper to illiminate need for using new keyword.
+/// The top level function fsps() returns the object FspsResults.
 FspsResults fsps(List waveform, List kArray, [num fraction = 1])
     => new _PartialSums(waveform, kArray).sum(fraction);
 
-// Computes the partial sums of Fourier series on waveform.
-// The number of sums to compute is defined in each element of list kArray.
+/// The private class _PartialSums.
 class _PartialSums {
   final List waveform;
   final List kArray;
@@ -52,6 +76,7 @@ class _PartialSums {
         psums[kArray[i]] = y;
         jsonData["kval ${i + 1} = ${kArray[i]}"] = {"real": real, "imag": imag};
       }
+      /// return the FspsResults object.
       return new FspsResults(waveform, psums, jsonData);
     } else {
       return null;
@@ -59,10 +84,15 @@ class _PartialSums {
   }
 }
 
-/* ****************************************************** *
- *   FspsResults extends standard results class           *
- *   Library: ConvoLab (c) 2012 scribeGriff               *
- * ****************************************************** */
+/**
+ * FspsResults extends standard results class.
+ *
+ * Returns two Map objects, psums and jsonData where the value of k
+ * in the kArray is the key and the complex list is the value.  Since json
+ * cannot handle complex arrays, the data is formatted into real and imag
+ * arrays.  Also returns the input data as the results field 'data'.
+ *
+ */
 
 class FspsResults extends ConvoLabResults {
   final Map psums, jsonData;

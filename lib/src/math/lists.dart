@@ -12,13 +12,15 @@ part of convolab;
 // Sum all the elements in a List.
 num sum(List<num> inputList) {
   var result = 0;
-  for (final element in inputList) result += element;
+  for (final element in inputList) {
+    if (element != null) result += element;
+  }
   return result;
 }
 
 // Convert a list from complex to real.
 List<num> toReal(List<Complex> complexList, [bool toint = false]) {
-  if (complexList.every(f(element) => element is Complex)) {
+  if (complexList.every((element) => element is Complex)) {
     List _realList = [];
     for (var i = 0; i < complexList.length; i++) {
       if (toint) {
@@ -37,13 +39,13 @@ List<num> toReal(List<Complex> complexList, [bool toint = false]) {
 
 // Convert a list from real to complex.
 List<Complex> toComplex(List realList) {
-  if (realList.every(f(element) => element is num)) {
+  if (realList.every((element) => element is num)) {
     List _complexList = [];
     for (var i = 0; i < realList.length; i++) {
       _complexList.add(complex(realList[i], 0));
     }
     return _complexList;
-  } else if (realList.every(f(element) => element is Complex)) {
+  } else if (realList.every((element) => element is Complex)) {
     // List is already complex so just return the list.
     return realList;
   } else {

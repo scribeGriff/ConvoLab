@@ -13,10 +13,8 @@ void main() {
   var kvals = [1, 16, 80];
   var fourier = fsps(waveform, kvals);
   if (fourier != null) {
-    //fourier.exportToWeb('local', 8080);
-    //fourier.exportToFile('local/data/fsps.txt');
     print('We have computed ${fourier.psums.length} Fourier series.');
-    if (fourier.psums[kvals[0]].every(f(element) => element is Complex)) {
+    if (fourier.psums[kvals[0]].every((element) => element is Complex)) {
       print('The computed Fourier series is of type Complex.');
     } else {
       print('The computed Fourier series is not Complex.');

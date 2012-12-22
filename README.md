@@ -35,20 +35,21 @@ Then import the library to your app:
 
 The library currently supports the following algorithms (more are in development):
 
-1.  fourier transfrom - fft
-2.  inverser fourier transform - ifft
-3.  partial sums of fourier series - fsps()
+1.  Fourier transfrom - fft
+2.  inverser Fourier transform - ifft
+3.  partial sums of Fourier series - fsps()
 4.  convolution - conv()
 5.  deconvolution - deconv()
-6.  block convolution - blconv() => in development
-7.  correlation and autocorrelation - corr() => in development
-8.  randomized selection - rsel()
-9.  minimum in unsorted array - findMin()
-10.  maximum in unsorted array - findMax()
-11.  create a row vectory - vec()
-12.  find sum of two elements in an array - fsum2()
-13.  mergesort - msort()
-14.  quicksort - qsort()
+6.  Prim's minimum spanning tree - primst()
+7.  block convolution - blconv() => in development
+8.  correlation and autocorrelation - corr() => in development
+9.  randomized selection - rsel()
+10.  minimum in unsorted array - findMin()
+11.  maximum in unsorted array - findMax()
+12.  create a row vectory - vec()
+13.  find sum of two elements in an array - fsum2()
+14.  mergesort - msort()
+15.  quicksort - qsort()
 
 The library also supports a simple waveform generator, hyperbolic functions (ie, sinh, cosh, etc), complex numbers, as well as log2(num x) and log10(num x) logarithms.
 
