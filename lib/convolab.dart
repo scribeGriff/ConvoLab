@@ -43,6 +43,7 @@ part 'src/algorithms/convolution/convolution.dart';
 part 'src/algorithms/convolution/deconvolution.dart';
 part 'src/algorithms/graphs/union_find.dart';
 part 'src/algorithms/graphs/prims_mst.dart';
+part 'src/algorithms/graphs/kruskals_mst.dart';
 
 part 'src/math/lists.dart';
 part 'src/math/complex.dart';

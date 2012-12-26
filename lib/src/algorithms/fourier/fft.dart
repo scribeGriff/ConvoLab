@@ -12,7 +12,7 @@ part of convolab;
  *     List<int> samples = [0, 1, 2, 3];
  *     y = fft(samples, [N]);
  *
- * where data is a List of samples.  N specifies the number of points
+ * where the data is a List of samples.  N specifies the number of points
  * of the fft to calculate.  If N is not specified, it is set to the
  * length of data.  N values that are powers of 2 use the O(nlogn)
  * radix 2 algorithm, otherwise the much slower O(n^2) dft is

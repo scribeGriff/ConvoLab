@@ -11,7 +11,7 @@ void mergeSortTests() {
   int inversions;
   MsortResults msResults;
   List<int> list10;
-  List<int> auData = [1, 2, 3, 4, 5, 6, 7,8, 9, 10];
+  List<int> auData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   group('MergeSort algorithm tests:', (){
     test('MergeSort of small internal array - minimum inversions', (){
       List<int> dataList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
