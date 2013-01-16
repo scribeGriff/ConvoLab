@@ -1,9 +1,13 @@
-/* *********************************************************** *
+// Copyright (c) 2013, scribeGriff (Richard Griffith)
+// https://github.com/scribeGriff/ConvoLab
+// All rights reserved.  Please see the LICENSE.md file.
+
+/**
  *   Example using the function deconv() to compute the        *
  *   Deconvoution of two non-casual signals whose polynomial   *
  *   coefficients are defined in num and den and whose         *
  *   zero index is given by nindex and dindex.                 *
- * *********************************************************** */
+ */
 
 import 'package:convolab/convolab.dart';
 
@@ -24,6 +28,8 @@ void main() {
   print(h.qindex);
   print(h.rtime);
   print(h.rindex);
+  print(h.format());
+  print(pstring(h.r, index: h.rindex));
 
   // Prints:
   // The quotient is [1, -1, 2, -2]

@@ -47,7 +47,6 @@ part 'src/algorithms/graphs/kruskals_mst.dart';
 
 part 'src/math/lists.dart';
 part 'src/math/complex.dart';
-
 part 'src/math/hyperbolic.dart';
 part 'src/math/logarithm.dart';
 part 'src/math/row_vector.dart';

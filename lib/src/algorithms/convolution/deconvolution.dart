@@ -1,4 +1,4 @@
-// Copyright (c) 2012, scribeGriff (Richard Griffith)
+// Copyright (c) 2013, scribeGriff (Richard Griffith)
 // https://github.com/scribeGriff/ConvoLab
 // All rights reserved.  Please see the LICENSE.md file.
 
@@ -58,7 +58,7 @@ part of convolab;
  */
 
 /// The top level function deconv() returns the object DeconvResults.
-DeconvResults deconv(List num, List den, [int nindex = 0, int dindex = 0])
+DeconvResults deconv(List num, List den, [int nindex, int dindex])
     => new _Deconvolution(num, den).deconvolve(nindex, dindex);
 
 /// The private class _Deconvolution.
@@ -69,7 +69,12 @@ class _Deconvolution {
   _Deconvolution(this.num, this.den);
 
   DeconvResults deconvolve(int nindex, int dindex) {
-    if (num != null && den != null) {
+    if (num == null || den == null || num.length == 0 || den.length == 0) {
+      print("invalid data");
+      return null;
+    } else {
+      if (nindex == null) nindex = 0;
+      if (dindex == null) dindex = 0;
       final dLength = den.length;
       final nLength = num.length;
       final dDegree = dLength - 1;
@@ -108,15 +113,18 @@ class _Deconvolution {
         return new DeconvResults(q, qindex, r, rindex, qtime, rtime,
             den, dindex);
       }
-    } else {
-      return null;
     }
   }
 
   // Not used but this algorithm accepts coefficients in the opposite
   // order as used by some implementations.
   DeconvResults deconvolve_alternate(int nindex, int dindex) {
-    if (num != null && den != null) {
+    if (num == null || den == null || num.length == 0 || den.length == 0) {
+      print("invalid data");
+      return null;
+    } else {
+      if (nindex == null) nindex = 0;
+      if (dindex == null) dindex = 0;
       final dLength = den.length;
       final nLength = num.length;
       final dDegree = dLength - 1;
@@ -153,8 +161,6 @@ class _Deconvolution {
         return new DeconvResults(q, qindex, r, rindex, qtime, rtime,
             den, dindex);
       }
-    } else {
-      return null;
     }
   }
 }
@@ -166,8 +172,6 @@ class _Deconvolution {
  * PolyString converts a list of numbers into a polynomial string in
  * one of three formats: text, html or latex.
  *
- * PolyString not fully implemented yet for deconvolution.
- * TODO - implement PolyString for remainders.
  */
 
 class DeconvResults extends ConvoLabResults implements _PolyString {
@@ -187,15 +191,17 @@ class DeconvResults extends ConvoLabResults implements _PolyString {
 
   var exponent;
   var coeff;
+  var sb = new StringBuffer();
 
   DeconvResults(this.q, this.qindex, this.r, this.rindex, this.qtime,
-      this.rtime, List data, int val) :
-      super(data);
+      this.rtime, List data, int value) :
+      super(data, value);
 
   /// Returns the result of the deconvolution as a formatted string.
   String format([var formatType, var baseVar, var fname]) {
-    var sb = new StringBuffer();
+    final dtime = vec(-value, data.length -1 - value);
     String polystring;
+    var firstIndex = 0;
 
     /// Format available as text, html or latex.
     if (formatType == 'text') {
@@ -214,45 +220,101 @@ class DeconvResults extends ConvoLabResults implements _PolyString {
 
     if (fname == null) fname = 'y';
 
-    formatExponent(qtime[0]);
-
+    // Add prefix for latex, if necessary.
     if (isTex) sb.add(r'$$');
+
+    // Add the function name and equal sign.
     sb.add('$fname($baseVar) = ');
-    if (q[0] != 0) {
-      q[0] = q[0] > 0 ? q[0] : q[0].abs();
-      coeff = q[0] == 1 ? '' : q[0];
+
+    // Need to handle trivial case where q = 0 and remainder is just the
+    // numerator.
+    // Format the quotient.
+    formatString(firstIndex, baseVar, q, qtime);
+
+    // Now handle the remainder.  Need to check first if there
+    // actually is a remainder.
+    sb.add(' + ');
+    if (isTex) {
+      sb.add(r'\frac{');
+    } else {
+      sb.add('(');
+    }
+    // This is the numerator of the remainder.
+    formatString(firstIndex, baseVar, r, rtime);
+    if (isTex) {
+      sb.add(r'}{');
+    } else {
+      sb.add(' / ');
+    }
+    // This is the denominator of the remainder.
+    formatString(firstIndex, baseVar, data, dtime);
+    if (isTex) {
+      sb.add(r'}$$');
+    } else {
+      sb.add(')');
+    }
+    return polystring = sb.toString();
+  }
+
+  /// The formatString() function queries each element of the
+  /// coefficients array and decides on the appropriate formatting
+  /// depending on a number of factors.
+  void formatString(var firstIndex, var baseVar, var coefficients,
+                    var exponents) {
+    // The first element in the solution is treated slightly
+    // different than the remaining elements, so take
+    // care of this element first.
+
+    // Find the first non-zero element.
+    while (coefficients[firstIndex] == 0) {
+      firstIndex++;
+    }
+
+    // Format the exponent.
+    formatExponent(exponents[firstIndex]);
+
+    // Format the first element.
+    if (coefficients[firstIndex] != 0) {
+      if ('$variable' == '') {
+        coeff = coefficients[firstIndex];
+      } else {
+        coeff = coefficients[firstIndex].abs() == 1 ? '' :
+          coefficients[firstIndex];
+      }
       sb.add('$coeff$variable$exponent');
     }
 
-    for (var i = 1; i < qtime.length; i++) {
+    // Now take care of remaining elements.
+    firstIndex++;
+
+    for (var i = firstIndex; i < exponents.length; i++) {
       variable = baseVar;
 
-      formatExponent(qtime[i]);
+      // Format the exponent.
+      formatExponent(exponents[i]);
 
-      if (q[i] != 0) {
-        if (q[i] > 0) {
-          coeff = q[i] == 1 ? '' : q[i];
+      if (coefficients[i] != 0) {
+        if (coefficients[i] > 0) {
+          if ('$variable' == '') {
+            coeff = coefficients[i];
+          } else {
+            coeff = coefficients[i] == 1 ? '' : coefficients[i];
+          }
           sb.add(' + $coeff$variable$exponent');
-        } else if (q[i] < 0){
-          coeff = q[i] == -1 ? '' : q[i].abs();
+        } else if (coefficients[i] < 0) {
+          if ('$variable' == '') {
+            coeff = coefficients[i].abs();
+          } else {
+            coeff = coefficients[i] == -1 ? '' : coefficients[i].abs();
+          }
           sb.add(' - $coeff$variable$exponent');
         }
       }
     }
-    if (isTex) sb.add(r'$$');
-
-    // TODO: Now, need to check for remainder and add
-    // to buffer, including denominator.
-    // den = data and dindex = value
-
-    // TODO: Time to handle remainder:
-    final dtime = vec(-value, data.length - value);
-
-
-    return polystring = sb.toString();
   }
 
-  /// Formats the exponent for each element.
+  /// The formatExponent() takes an element of the exponents array
+  /// and formats it as text, html, or latex.
   void formatExponent(var element) {
     if (element == 0) {
       exponent = '';

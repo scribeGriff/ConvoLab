@@ -1,4 +1,4 @@
-// Copyright (c) 2012, scribeGriff (Richard Griffith)
+// Copyright (c) 2013, scribeGriff (Richard Griffith)
 // https://github.com/scribeGriff/ConvoLab
 // All rights reserved.  Please see the LICENSE.md file.
 
@@ -50,7 +50,7 @@ part of convolab;
  */
 
 /// The top level function conv() returns the object ConvResults.
-ConvResults conv(List xdata, List hdata, [int xindex = 0, int hindex = 0])
+ConvResults conv(List xdata, List hdata, [int xindex, int hindex])
     => new _Convolution(xdata, hdata).convolve(xindex, hindex);
 
 /// The private class _Convolution.
@@ -61,6 +61,8 @@ class _Convolution {
   _Convolution(this.xdata, this.hdata);
 
   ConvResults convolve(int xindex, int hindex) {
+    if (xindex == null) xindex = 0;
+    if (hindex == null) hindex = 0;
     // Create a local copy of each list.  This is necessary
     // in case xdata and hdata are the same object.
     List xdata = new List.from(this.xdata);
@@ -150,12 +152,13 @@ class ConvResults extends ConvoLabResults implements _PolyString {
 
   var exponent;
   var coeff;
+  var sb = new StringBuffer();
 
   ConvResults(List data, this.index, this.time) : super(data);
 
   /// Returns the result of the convolution as a formatted string.
   String format([var formatType, var baseVar, var fname]) {
-    var sb = new StringBuffer();
+    var firstIndex = 0;
     String polystring;
 
     /// Format available as text, html or latex.
@@ -175,37 +178,79 @@ class ConvResults extends ConvoLabResults implements _PolyString {
 
     if (fname == null) fname = 'y';
 
-    formatExponent(time[0]);
-
+    // Add prefix for latex.
     if (isTex) sb.add(r'$$');
+
+    // Add the function name and equal sign.
     sb.add('$fname($baseVar) = ');
-    if (data[0] != 0) {
-      data[0] = data[0] > 0 ? data[0] : data[0].abs();
-      coeff = data[0] == 1 ? '' : data[0];
-      sb.add('$coeff$variable$exponent');
-    }
 
-    for (var i = 1; i < time.length; i++) {
-      variable = baseVar;
+    // Format the string.
+    formatString(firstIndex, baseVar, data, time);
 
-      formatExponent(time[i]);
-
-      if (data[i] != 0) {
-        if (data[i] > 0) {
-          coeff = data[i] == 1 ? '' : data[i];
-          sb.add(' + $coeff$variable$exponent');
-        } else if (data[i] < 0){
-          coeff = data[i] == -1 ? '' : data[i].abs();
-          sb.add(' - $coeff$variable$exponent');
-        }
-      }
-    }
     if (isTex) sb.add(r'$$');
 
     return polystring = sb.toString();
   }
 
-  /// Formats the exponent for each element.
+  /// The formatString() function queries each element of the
+  /// coefficients array and decides on the appropriate formatting
+  /// depending on a number of factors.
+  void formatString(var firstIndex, var baseVar, var coefficients,
+                    var exponents) {
+    // The first element in the solution is treated slightly
+    // different than the remaining elements, so take
+    // care of this element first.
+
+    // Find the first non-zero element.
+    while (coefficients[firstIndex] == 0) {
+      firstIndex++;
+    }
+
+    // Format the exponent.
+    formatExponent(exponents[firstIndex]);
+
+    // Format the first element.
+    if (coefficients[firstIndex] != 0) {
+      if ('$variable' == '') {
+        coeff = coefficients[firstIndex];
+      } else {
+        coeff = coefficients[firstIndex].abs() == 1 ? '' :
+          coefficients[firstIndex];
+      }
+      sb.add('$coeff$variable$exponent');
+    }
+
+    // Now take care of remaining elements.
+    firstIndex++;
+
+    for (var i = firstIndex; i < exponents.length; i++) {
+      variable = baseVar;
+
+      // Format the exponent.
+      formatExponent(exponents[i]);
+
+      if (coefficients[i] != 0) {
+        if (coefficients[i] > 0) {
+          if ('$variable' == '') {
+            coeff = coefficients[i];
+          } else {
+            coeff = coefficients[i] == 1 ? '' : coefficients[i];
+          }
+          sb.add(' + $coeff$variable$exponent');
+        } else if (coefficients[i] < 0) {
+          if ('$variable' == '') {
+            coeff = coefficients[i].abs();
+          } else {
+            coeff = coefficients[i] == -1 ? '' : coefficients[i].abs();
+          }
+          sb.add(' - $coeff$variable$exponent');
+        }
+      }
+    }
+  }
+
+  /// The formatExponent() takes an element of the exponents array
+  /// and formats it as text, html, or latex.
   void formatExponent(var element) {
     if (element == 0) {
       exponent = '';
