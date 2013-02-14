@@ -5,9 +5,9 @@
 part of convolab;
 
 /**
- * Exception for improperly formatted data.
+ * Exception for no such element in a Collection.
  */
 
-class DataFormatException extends ConvoLabException {
-  DataFormatException():super("Data is not formatted correctly.");
+class NoSuchElementException extends ConvoLabException {
+  NoSuchElementException([String msg]):super();
 }

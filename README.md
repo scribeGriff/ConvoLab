@@ -42,16 +42,18 @@ The library currently supports the following algorithms (more are in development
 5.  deconvolution - `deconv()`
 6.  Prim's minimum spanning tree - `primst()`
 7.  Kruskal's minimum spanning tree - `kmst()`
-8.  2D convolution - `conv2d()` => *in development*
-9.  block convolution - `blconv()` => *in development*
-10.  correlation and autocorrelation - `corr()` => *in development*
-11.  randomized selection - `rsel()`
-12.  minimum in unsorted array - `findMin()`
-13.  maximum in unsorted array - `findMax()`
-14.  create a row vectory - `vec()`
-15.  find sum of two elements in an array - `fsum2()`
-16.  mergesort - `msort()`
-17.  quicksort - `qsort()`
+8.  2-sat problem with Kosaraju's algorithm - `twosat()`
+9.  Strongly connected components with Kosaraju's algorithm - `scc()`
+10.  2D convolution - `conv2d()` => *in development*
+11.  block convolution - `blconv()` => *in development*
+12.  correlation and autocorrelation - `corr()` => *in development*
+13.  randomized selection - `rsel()`
+14.  minimum in unsorted array - `findMin()`
+15.  maximum in unsorted array - `findMax()`
+16.  create a row vectory - `vec()`
+17.  find sum of two elements in an array - `fsum2()`
+18.  mergesort - `msort()`
+19.  quicksort - `qsort()`
 
 The library also supports a simple waveform generator, hyperbolic functions (ie, sinh, cosh, etc), complex numbers, as well as log2(num x) and log10(num x) logarithms.
 

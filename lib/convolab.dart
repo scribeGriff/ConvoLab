@@ -22,12 +22,14 @@
 library convolab;
 
 import 'dart:math';
-import 'dart:json';
+import 'dart:json' as json;
+import 'dart:collection';
 
 import 'package:meta/meta.dart';
 
 part 'src/exceptions/convolab_exception.dart';
 part 'src/exceptions/data_format_exception.dart';
+part 'src/exceptions/no_such_element_exception.dart';
 
 part 'src/utilities/convolab_results.dart';
 part 'src/utilities/poly_string.dart';
@@ -44,6 +46,10 @@ part 'src/algorithms/convolution/deconvolution.dart';
 part 'src/algorithms/graphs/union_find.dart';
 part 'src/algorithms/graphs/prims_mst.dart';
 part 'src/algorithms/graphs/kruskals_mst.dart';
+part 'src/algorithms/graphs/directed_graph.dart';
+part 'src/algorithms/graphs/kosaraju.dart';
+part 'src/algorithms/graphs/twosat.dart';
+part 'src/algorithms/graphs/scc.dart';
 
 part 'src/math/lists.dart';
 part 'src/math/complex.dart';

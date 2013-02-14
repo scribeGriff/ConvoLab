@@ -8,7 +8,8 @@
  *   html, latex.
  */
 
-import 'package:convolab/convolab.dart';
+//import 'package:convolab/convolab.dart';
+import '../../lib/convolab.dart';
 
 void main() {
 

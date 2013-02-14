@@ -1,12 +1,12 @@
+// Copyright (c) 2013, scribeGriff (Richard Griffith)
+
 part of convolab;
 
-/* ****************************************************** *
- *   Complex number calculations                          *
- *   Library: ConvoLab (c) 2012 scribeGriff               *
- * ****************************************************** */
+/**
+ * A class for working with complex numbers.
+ */
 
 // Wrapper to illiminate need for using new/const keyword.
-
 Complex complex(num a, num b) => new Complex(a, b);
 
 // Complex class
