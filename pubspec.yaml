@@ -1,8 +1,8 @@
 name: convolab
-description: A Signal Processing Library for Dart
 version: 0.0.1
 author: Richard Griffith <scribe.griff@gmail.com>
+description: A Signal Processing Library for Dart
 homepage: http://www.scribegriff.com
 dependencies:
-  unittest: 0.2.7
-  meta: 0.2.7
+  unittest: 0.3.5+1
+  meta: 0.3.5+1
