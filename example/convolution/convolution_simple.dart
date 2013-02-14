@@ -3,10 +3,11 @@
 // All rights reserved.  Please see the LICENSE.md file.
 
 /**
- *   Example using the function conv() to compute the
- *   Convolution of two non-casual signals whose polynomial
- *   coefficients are defined in xdata and hdata and whose
- *   zero index is given by xindex and hindex.
+ * Example using the function conv() to compute the
+ * Convolution of two non-casual signals whose polynomial
+ * coefficients are defined in xdata and hdata and whose
+ * zero index is given by xindex and hindex.
+ *
  */
 
 import 'package:convolab/convolab.dart';

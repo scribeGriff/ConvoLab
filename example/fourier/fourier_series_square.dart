@@ -1,10 +1,15 @@
-/* *********************************************************** *
- *   Example using the function fsps() to compute the Fourier  *
- *   series of a triangle wave, perform a partial sum for 3    *
- *   different sets of harmonics for a period of half the      *
- *   length of the data, then output data to a file and send   *
- *   the data to a websocket.                                  *
- * *********************************************************** */
+// Copyright (c) 2013, scribeGriff (Richard Griffith)
+// https://github.com/scribeGriff/ConvoLab
+// All rights reserved.  Please see the LICENSE.md file.
+
+/**
+ * Example using the function fsps() to compute the partial sum
+ * of the Fourier series of a single cycle of a square wave.  The
+ * number of partial sums is contained in the list kvals.  The result
+ * could be plotted to a canvas (using library convoweb) or saved to
+ * a file (using convohio).
+ *
+ */
 
 import 'package:convolab/convolab.dart';
 

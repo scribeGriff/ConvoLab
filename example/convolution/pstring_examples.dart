@@ -3,13 +3,12 @@
 // All rights reserved.  Please see the LICENSE.md file.
 
 /**
- *   Examples using the function pstring() to format a List
- *   to a polynomial string.  Formats supported are text,
- *   html, latex.
+ * Examples using the function pstring() to format a List
+ * to a polynomial string.  Formats supported are text,
+ * html, latex.
  */
 
-//import 'package:convolab/convolab.dart';
-import '../../lib/convolab.dart';
+import 'package:convolab/convolab.dart';
 
 void main() {
 

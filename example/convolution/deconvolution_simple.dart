@@ -3,10 +3,12 @@
 // All rights reserved.  Please see the LICENSE.md file.
 
 /**
- *   Example using the function deconv() to compute the        *
- *   Deconvoution of two non-casual signals whose polynomial   *
- *   coefficients are defined in num and den and whose         *
- *   zero index is given by nindex and dindex.                 *
+ * Example using the function deconv() to compute the
+ * Deconvoution of two non-casual signals whose polynomial
+ * coefficients are defined in num and den and whose
+ * zero index is given by nindex and dindex.  Outputs the string
+ * in latex format.
+ *
  */
 
 import 'package:convolab/convolab.dart';

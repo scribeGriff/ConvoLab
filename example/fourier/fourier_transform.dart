@@ -1,9 +1,14 @@
-/* *********************************************************** *
- *   Example using the function fsps() to compute the Fourier  *
- *   series of a sound wave sample, perform a partial sum for  *
- *   3 different sets of harmonics, then output data to a file *
- *   and send the data to a websocket.                         *
- * *********************************************************** */
+// Copyright (c) 2013, scribeGriff (Richard Griffith)
+// https://github.com/scribeGriff/ConvoLab
+// All rights reserved.  Please see the LICENSE.md file.
+
+/**
+ * Example taking the fourier transform (fft())and the inverse fourier
+ * transform (ifft()) of a simple array and printing the results.  The first
+ * example shows format for printing complex numbers and the second
+ * example shows passing an optional print title to the show() method.
+ *
+ */
 
 import 'package:convolab/convolab.dart';
 
