@@ -50,8 +50,7 @@ part of convolab;
  *
  *     print(y.format());
  *
- * This is not fully implemented for remainders.  See documentation for
- * the DeconvResults class below.
+ * See documentation for the DeconvResults class below.
  *
  * Dependencies
  * * class DeconvResults
@@ -81,19 +80,20 @@ class _Deconvolution {
       final nDegree = nLength - 1;
       final qindex = nindex - dindex;
       final rindex = nindex;
-      final rtime = vec(-rindex, nDegree - dDegree);
-      var qtime;
+      var q, qtime, rtime;
 
       var r = new List.from(num);
 
       /// Trivial solution q = 0 and remainder = num.
       if (nDegree < dDegree) {
-        var q = [0];
-        qtime = vec(-qindex, q.length - 1 - qindex);
+        q = [];
+        qtime = [];
+        rtime = vec(-nindex, nDegree - nindex);
         return new DeconvResults(q, qindex, r, rindex, qtime, rtime,
             den, dindex);
       } else {
-        var q = new List(nDegree - dDegree + 1);
+        q = new List(nDegree - dDegree + 1);
+        rtime = vec(-rindex, nDegree - dDegree);
 
         /// Perform the long division.
         for (var k = 0; k <= nDegree - dDegree; k++) {
@@ -103,12 +103,10 @@ class _Deconvolution {
             r[j] -= q[k] * den[j - k];
           }
         }
-
         for (var j = 0; j <= nDegree - dDegree; j++) {
           r[j] = 0;
         }
         qtime = vec(-qindex, q.length - 1 - qindex);
-
         /// Return DeconvResults object.
         return new DeconvResults(q, qindex, r, rindex, qtime, rtime,
             den, dindex);
@@ -131,19 +129,20 @@ class _Deconvolution {
       final nDegree = nLength - 1;
       final qindex = nindex - dindex;
       final rindex = nindex;
-      final rtime = vec(-rindex, nLength - 1);
-      var qtime;
+      var q, qtime, rtime;
 
       var r = new List.from(num);
 
       // Trivial solution q = 0 and remainder = num.
       if (nDegree < dDegree) {
-        var q = [0];
-        qtime = vec(-qindex, q.length - 1 - qindex);
+        q = [];
+        qtime = [];
+        rtime = vec(-nindex, nDegree - nindex);
         return new DeconvResults(q, qindex, r, rindex, qtime, rtime,
             den, dindex);
       } else {
         var q = new List(nDegree - dDegree + 1);
+        rtime = vec(-rindex, nDegree - dDegree);
 
         // Perform the long division.
         for (var k = nDegree - dDegree; k >= 0; k--) {
@@ -153,7 +152,6 @@ class _Deconvolution {
             r[j] -= q[k] * den[j - k];
           }
         }
-
         for (var j = dDegree; j <= nDegree; j++) {
           r[j] = 0;
         }
@@ -201,9 +199,10 @@ class DeconvResults extends ConvoLabResults implements _PolyString {
   String format([var formatType, var baseVar, var fname]) {
     final dtime = vec(-value, data.length -1 - value);
     String polystring;
+    bool quotient = false;
     var firstIndex = 0;
 
-    /// Format available as text, html or latex.
+    // Format available as text, html or latex.
     if (formatType == 'text') {
       isText = true;
     } else if (formatType == 'html') {
@@ -211,43 +210,42 @@ class DeconvResults extends ConvoLabResults implements _PolyString {
     } else {
       isTex = true;
     }
-
+    // Define the variable name.  Default variable is n.
     if (baseVar == null) {
       variable = baseVar = 'n';
     } else {
       variable = baseVar;
     }
-
+    // Add the function name.  Default function name is 'y'.
     if (fname == null) fname = 'y';
-
     // Add prefix for latex, if necessary.
     if (isTex) sb.add(r'$$');
-
     // Add the function name and equal sign.
     sb.add('$fname($baseVar) = ');
-
-    // Need to handle trivial case where q = 0 and remainder is just the
-    // numerator.
-    // Format the quotient.
-    formatString(firstIndex, baseVar, q, qtime);
-
-    // Now handle the remainder.  Need to check first if there
-    // actually is a remainder.
-    sb.add(' + ');
-    if (isTex) {
-      sb.add(r'\frac{');
-    } else {
-      sb.add('(');
+    // Format the quotient.  Check first if a quotient exists.
+    if (!q.isEmpty) {
+      quotient = true;
+      formatString(firstIndex, baseVar, q, qtime);
     }
-    // This is the numerator of the remainder.
-    formatString(firstIndex, baseVar, r, rtime);
-    if (isTex) {
-      sb.add(r'}{');
-    } else {
-      sb.add(' / ');
+    // Now handle the remainder.  Check first if a reminder exists.
+    if (r.any((element) => element != 0)) {
+      if (quotient) sb.add(' + ');
+      if (isTex) {
+        sb.add(r'\frac{');
+      } else {
+        sb.add('(');
+      }
+      // This is the numerator of the remainder.
+      formatString(firstIndex, baseVar, r, rtime);
+      if (isTex) {
+        sb.add(r'}{');
+      } else {
+        sb.add(' / ');
+      }
+      // This is the denominator of the remainder.
+      formatString(firstIndex, baseVar, data, dtime);
     }
-    // This is the denominator of the remainder.
-    formatString(firstIndex, baseVar, data, dtime);
+    // Done forming the string, just need to terminate it.
     if (isTex) {
       sb.add(r'}$$');
     } else {
@@ -264,15 +262,12 @@ class DeconvResults extends ConvoLabResults implements _PolyString {
     // The first element in the solution is treated slightly
     // different than the remaining elements, so take
     // care of this element first.
-
     // Find the first non-zero element.
     while (coefficients[firstIndex] == 0) {
       firstIndex++;
     }
-
     // Format the exponent.
     formatExponent(exponents[firstIndex]);
-
     // Format the first element.
     if (coefficients[firstIndex] != 0) {
       if ('$variable' == '') {
@@ -286,13 +281,11 @@ class DeconvResults extends ConvoLabResults implements _PolyString {
 
     // Now take care of remaining elements.
     firstIndex++;
-
     for (var i = firstIndex; i < exponents.length; i++) {
       variable = baseVar;
-
       // Format the exponent.
       formatExponent(exponents[i]);
-
+      // Now add them to the string buffer
       if (coefficients[i] != 0) {
         if (coefficients[i] > 0) {
           if ('$variable' == '') {
