@@ -15,9 +15,8 @@ Very preliminary and very much a work in progress.
 ## Library Methodology ##
 The library methodology is based on several principles: 
 
-1.  access to the library is through function calls rather than constructor methods
-2.  calls return multiple values which are accessed using object methods
-3.  function call returns null on failure
+1.  most access to the library is through function calls rather than constructor methods (ie, var `x = fft()` rather than `var x = new fft()`).
+2.  most functions return multiple values which are accessed using object methods (ie, final fields, like `x.data`).
 
 The intent is to be somewhat familiar to users of Matlab and Matlab clones.
 
@@ -43,17 +42,18 @@ The library currently supports the following algorithms (more are in development
 6.  Prim's minimum spanning tree - `primst()`
 7.  Kruskal's minimum spanning tree - `kmst()`
 8.  2-sat problem with Kosaraju's algorithm - `twosat()`
-9.  Strongly connected components with Kosaraju's algorithm - `scc()`
-10.  2D convolution - `conv2d()` => *in development*
-11.  block convolution - `blconv()` => *in development*
-12.  correlation and autocorrelation - `corr()` => *in development*
-13.  randomized selection - `rsel()`
-14.  minimum in unsorted array - `findMin()`
-15.  maximum in unsorted array - `findMax()`
-16.  create a row vectory - `vec()`
-17.  find sum of two elements in an array - `fsum2()`
-18.  mergesort - `msort()`
-19.  quicksort - `qsort()`
+9.  strongly connected components with Kosaraju's algorithm - `scc()`
+10.  all pairs shortest path with Floyd-Warshall algorithm - `apsp()`
+11.  2D convolution - `conv2d()` => *in development*
+12.  block convolution - `blconv()` => *in development*
+13.  correlation and autocorrelation - `corr()` => *in development*
+14.  randomized selection - `rsel()`
+15.  minimum in unsorted array in O(n) - `findMin()`
+16.  maximum in unsorted array in O(n) - `findMax()`
+17.  create a row vectory - `vec()`
+18.  find sum of two elements in an array - `fsum2()`
+19.  mergesort - `msort()`
+20.  quicksort - `qsort()`
 
 The library also supports a simple waveform generator, hyperbolic functions (ie, sinh, cosh, etc), complex numbers, as well as log2(num x) and log10(num x) logarithms.
 

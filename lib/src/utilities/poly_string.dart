@@ -44,8 +44,7 @@ part of convolab;
 String pstring (List coeffs, {int index, String type, String variable,
     String name}) {
   if (coeffs == null || coeffs.length == 0) {
-    print("invalid data");
-    return null;
+    throw new ArgumentError("invalid list of coefficients");
   } else {
     if (index == null) index = 0;
     final exponents = vec(-index, coeffs.length - 1 - index);

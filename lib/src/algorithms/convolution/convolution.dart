@@ -35,6 +35,8 @@ part of convolab;
  *     print(y.time);
  *     print('The time zero index for the results is ${y.index}.');
  *
+ * Throws ArgumentError if either xdata or hdata are null or empty.
+ *
  * Returns null on failure of fft to compute complex coefficients.
  *
  * ConvResults implements _PolyString so that it is also possible to
@@ -61,50 +63,55 @@ class _Convolution {
   _Convolution(this.xdata, this.hdata);
 
   ConvResults convolve(int xindex, int hindex) {
-    if (xindex == null) xindex = 0;
-    if (hindex == null) hindex = 0;
-    // Create a local copy of each list.  This is necessary
-    // in case xdata and hdata are the same object.
-    List xdata = new List.from(this.xdata);
-    List hdata = new List.from(this.hdata);
-    bool isInt = false;
-    final xLength = xdata.length;
-    final hLength = hdata.length;
-    final yindex = xindex + hindex;
-    final ytime = vec(-yindex, xLength - 1 + hLength - 1 - yindex);
-    // Pad data with zeros to length required to compute circular convolution.
-    xdata.insertRange(xLength, hLength - 1, 0);
-    hdata.insertRange(hLength, xLength - 1, 0);
-
-    final yfft = new List(xdata.length);
-
-    // Take the fft of x(n) and h(n).
-    var xfft = fft(xdata);
-    var hfft = fft(hdata);
-
-    // Multiply x(n) and h(n) in the frequency domain.
-    if (xfft != null && hfft != null) {
-      for (var i = 0; i < xdata.length; i++) {
-        yfft[i] = xfft.data[i] * hfft.data[i];
-      }
+    if (xdata == null || hdata == null || xdata.length == 0 ||
+        hdata.length == 0) {
+      throw new ArgumentError("invalid data");
     } else {
-      return null;
-    }
+      if (xindex == null) xindex = 0;
+      if (hindex == null) hindex = 0;
+      // Create a local copy of each list.  This is necessary
+      // in case xdata and hdata are the same object.
+      List xdata = new List.from(this.xdata);
+      List hdata = new List.from(this.hdata);
+      bool isInt = false;
+      final xLength = xdata.length;
+      final hLength = hdata.length;
+      final yindex = xindex + hindex;
+      final ytime = vec(-yindex, xLength - 1 + hLength - 1 - yindex);
+      // Pad data with zeros to length required to compute circular convolution.
+      xdata.insertRange(xLength, hLength - 1, 0);
+      hdata.insertRange(hLength, xLength - 1, 0);
 
-    // Take the inverse fft to find y(n).
-    var yifft = ifft(yfft);
+      final yfft = new List(xdata.length);
 
-    if (yifft != null) {
-      // Check if solution is int by rounding.
-      if (yifft.data.every((element)
-          => element.cround2.real == element.cround2.real.toInt())) {
-        isInt = true;
+      // Take the fft of x(n) and h(n).
+      var xfft = fft(xdata);
+      var hfft = fft(hdata);
+
+      // Multiply x(n) and h(n) in the frequency domain.
+      if (xfft != null && hfft != null) {
+        for (var i = 0; i < xdata.length; i++) {
+          yfft[i] = xfft.data[i] * hfft.data[i];
+        }
+      } else {
+        return null;
       }
-      // Convert complex list to real and format results
-      var y = toReal(yifft.data, isInt);
-      return new ConvResults(y, yindex, ytime);
-    } else {
-      return null;
+
+      // Take the inverse fft to find y(n).
+      var yifft = ifft(yfft);
+
+      if (yifft != null) {
+        // Check if solution is int by rounding.
+        if (yifft.data.every((element)
+            => element.cround2.real == element.cround2.real.toInt())) {
+          isInt = true;
+        }
+        // Convert complex list to real and format results
+        var y = toReal(yifft.data, isInt);
+        return new ConvResults(y, yindex, ytime);
+      } else {
+        return null;
+      }
     }
   }
 }

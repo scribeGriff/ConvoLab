@@ -4,13 +4,12 @@
 
 /**
  *   Example using the function scc() to compute the strongly connected
- *   components of a directed graph.
+ *   components of a directed graph.  Implements the Kosaraju algorithm.
  */
 
 import 'package:convolab/convolab.dart';
 
 void main() {
-// Same as testscc1.txt.
   List<List> sccfile = [[1, 1],
                         [1, 3],
                         [3, 2],
@@ -41,15 +40,14 @@ void main() {
                         [14, 13],
                         [15, 14]];
 
-
   var sccResults = scc(sccfile);
-  print(sccResults.data);
-  print(sccResults.value);
+  print('The size of each strongly connected component is ${sccResults.data}.');
+  print('There are ${sccResults.value} nodes in this graph.');
   print(sccResults.sccGraph);
 
   // Prints:
-  // [6, 5, 3, 1]
-  //  15
+  // The size of each strongly connected component is [6, 5, 3, 1].
+  // There are 15 nodes in this graph.
   // {1: 2, 2: 2, 3: 2, 4: 3, 5: 1, 6: 1, 7: 1, 8: 1, 9: 1, 10: 1, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0}
 }
 

@@ -1,4 +1,4 @@
-// Copyright (c) 2012, scribeGriff (Richard Griffith)
+// Copyright (c) 2013, scribeGriff (Richard Griffith)
 // https://github.com/scribeGriff/ConvoLab
 // All rights reserved.  Please see the LICENSE.md file.
 
@@ -50,8 +50,9 @@ PrimstResults primst(var adjList, [var numVertices]) =>
 
 /// The private class _PrimsMst.
 class _PrimsMst {
+  const largeValue = 1000000;
 
-  List<List<int>> adjList;
+  final List<List<int>> adjList;
   List<List<int>> adjMatrix;
   List<List<int>> mstree;
   List<List<int>> mstList = [];
@@ -71,7 +72,7 @@ class _PrimsMst {
     // populate with a very large number
     for (var i = 0; i < n; i++) {
       for (var j = 0; j < n; j++) {
-        adjMatrix[i][j] = 1000000;
+        adjMatrix[i][j] = largeValue;
       }
     }
 
@@ -110,7 +111,7 @@ class _PrimsMst {
     var result = 0;
     for (var i = 0; i < mstree.length; i++) {
       for (var j = 0; j < mstree.length; j++) {
-        if (mstree[i][j] != null && mstree[i][j] != 1000000) {
+        if (mstree[i][j] != null && mstree[i][j] != largeValue) {
           result += mstree[i][j];
           mstList.add([i + 1, j + 1, mstree[i][j]]);
           mstree[j][i] = null;
@@ -124,7 +125,7 @@ class _PrimsMst {
   /// Returns a new edge object for next minimum weight edge.
   _Edge findMinimumEdge(List<bool> mstV) {
     _Edge e = null;
-    var minW = 10000000;
+    var minW = 10 * largeValue;
     var minI = null;
     var minJ = null;
     var m = adjMatrix.length;

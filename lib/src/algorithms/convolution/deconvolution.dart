@@ -43,7 +43,7 @@ part of convolab;
  *     print(qrem.rtime);
  *     print(qrem.rindex);
  *
- * Returns null if either num or den are null.
+ * Throws ArgumentError if either num or den are null or empty.
  *
  * DeconvResults implements _PolyString so that it is also possible to
  * format the result:
@@ -69,8 +69,7 @@ class _Deconvolution {
 
   DeconvResults deconvolve(int nindex, int dindex) {
     if (num == null || den == null || num.length == 0 || den.length == 0) {
-      print("invalid data");
-      return null;
+      throw new ArgumentError("invalid data");
     } else {
       if (nindex == null) nindex = 0;
       if (dindex == null) dindex = 0;
@@ -118,8 +117,7 @@ class _Deconvolution {
   // order as used by some implementations.
   DeconvResults deconvolve_alternate(int nindex, int dindex) {
     if (num == null || den == null || num.length == 0 || den.length == 0) {
-      print("invalid data");
-      return null;
+      throw new ArgumentError("invalid data");
     } else {
       if (nindex == null) nindex = 0;
       if (dindex == null) dindex = 0;
@@ -192,8 +190,7 @@ class DeconvResults extends ConvoLabResults implements _PolyString {
   var sb = new StringBuffer();
 
   DeconvResults(this.q, this.qindex, this.r, this.rindex, this.qtime,
-      this.rtime, List data, int value) :
-      super(data, value);
+      this.rtime, List data, int value) : super(data, value);
 
   /// Returns the result of the deconvolution as a formatted string.
   String format([var formatType, var baseVar, var fname]) {
