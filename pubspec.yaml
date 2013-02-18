@@ -4,5 +4,5 @@ author: Richard Griffith <scribe.griff@gmail.com>
 description: A Signal Processing Library for Dart
 homepage: http://www.scribegriff.com
 dependencies:
-  unittest: 0.3.5+1
-  meta: 0.3.5+1
+  unittest: any
+  meta: any

@@ -5,7 +5,12 @@
 part of convolab;
 
 /**
- * Computes the optimum weight and value using the knapsack alogorithm.
+ * Computes the optimum solution to the knapsack alogorithm.
+ *
+ * Accepts a 2D array and the capacity of the knapsack.  The 2D array should
+ * privide the value of the item followed by its weight: [value, weight].
+ * It is assumed for this algorithm that all weights and the knapsack capacity
+ * are integer values.
  *
  * Example usage.
  *     List<List<int>> ksack1 = [[874, 580],
@@ -15,12 +20,22 @@ part of convolab;
  *                               [360, 50],
  *                               [470, 294]];
  *
- *     var items = 6;
- *     var size = 2000;
- *     var kpsk = knap(ksack1, size, items);
- *     print('The optimum knapsack has ${knap.value} and ${knap.weight}.');
+ *     var capacity = 2000;
+ *     var kpsk = knap(ksack1, capacity);
+ *       print('The optimum knapsack has a value of ${kpsk.value}'
+ *           ' with a weight of ${kpsk.weight}.');
+ *     print('The optimum solution selects the following items:');
+ *     for (var index = 0; index < ksack1.length; index++) {
+ *       if (kpsk.data[index]) {
+ *         print(ksack1[index]);
+ *       }
+ *     }
  *
  * Returns an object of type KnapResults if successful.
+ * * List data: A boolean list of which items were included (true) or not
+ *   (false).
+ * * int value: The value of the optimal solution.
+ * * int weight: The weight of the backpack with the optimal number of items.
  *
  * Dependencies included in this file:
  * * class KnapResults
@@ -28,8 +43,8 @@ part of convolab;
  */
 
 /// The top level function apsp returns the object ApspResults.
-KnapResults knap(var valueWeight, var targetW, var targetN) =>
-    new _Knapsack(valueWeight).computeCapacity(targetW, targetN);
+KnapResults knap(var valueWeight, var capacity) =>
+    new _Knapsack(valueWeight).computeCapacity(capacity);
 
 class _Knapsack {
   const minValue = -2147483648;
@@ -40,10 +55,13 @@ class _Knapsack {
   var option1, option2;
   var value = 0;
   var weight = 0;
+  var N;
 
   _Knapsack(this.valueWeight);
 
-  KnapResults computeCapacity(var W, var N) {
+  KnapResults computeCapacity(var W) {
+    // The number of items is the length of the 2D array:
+    N = valueWeight.length;
     // Create a 2D array to hold the optimal solution for each
     // recurrance.  Populate with a zero value initially.
     optimum = new List<List<int>>(N + 1);
@@ -76,8 +94,9 @@ class _Knapsack {
         option1 = optimum[n-1][w];
         // Case 2: item included.
         option2 = minValue;
-        if (valueWeight[n][1] <= w) {
-          option2 = valueWeight[n][0] + optimum[n - 1][w - valueWeight[n][1]];
+        if (valueWeight[n - 1][1] <= w) {
+          option2 = valueWeight[n - 1][0] +
+              optimum[n - 1][w - valueWeight[n - 1][1]];
         }
         // Select which of the two options are optimal and if
         // this item was included in solution.
@@ -86,16 +105,16 @@ class _Knapsack {
       }
     }
     // Now assemble an array representing the optimum knapsack.
-    selected = new List<bool>(N + 1);
-    for (int n = N, w = W; n > 0; n--) {
+    selected = new List<bool>(N);
+    for (var n = N, w = W; n > 0; n--) {
       if (incItem[n][w]) {
-        selected[n] = true;
-        w = w - valueWeight[n][1];
+        selected[n - 1] = true;
+        w = w - valueWeight[n - 1][1];
       } else {
-        selected[n] = false;
+        selected[n - 1] = false;
       }
     }
-    for (var i = 1; i < selected.length; i++) {
+    for (var i = 0; i < selected.length; i++) {
       if (selected[i]) {
         value += valueWeight[i][0];
         weight += valueWeight[i][1];
