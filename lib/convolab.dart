@@ -51,6 +51,7 @@ part 'src/algorithms/graphs/kosaraju.dart';
 part 'src/algorithms/graphs/twosat.dart';
 part 'src/algorithms/graphs/scc.dart';
 part 'src/algorithms/graphs/all_pairs_shortest_path.dart';
+part 'src/algorithms/graphs/knapsack.dart';
 
 part 'src/math/lists.dart';
 part 'src/math/complex.dart';

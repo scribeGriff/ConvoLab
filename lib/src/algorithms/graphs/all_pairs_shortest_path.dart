@@ -118,8 +118,5 @@ class _Apsp {
 /// and the shortest of the shortest paths as value.
 class ApspResults extends ConvoLabResults {
 
-  final List<List<int>> data;
-  final int value;
-
-  ApspResults(this.data, this.value) : super();
+  ApspResults(List data, int value) : super(data, value);
 }
