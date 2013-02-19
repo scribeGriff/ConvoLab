@@ -35,3 +35,9 @@ void main() {
   }
 }
 
+// Prints:
+// The optimum knapsack has a value of 1704 with a weight of 924.
+// The optimum solution selects the following items:
+// [874, 580]
+// [360, 50]
+// [470, 294]
