@@ -82,7 +82,7 @@ class _Convolution {
       xdata.insertRange(xLength, hLength - 1, 0);
       hdata.insertRange(hLength, xLength - 1, 0);
 
-      final yfft = new List(xdata.length);
+      final yfft = new List.fixedLength(xdata.length);
 
       // Take the fft of x(n) and h(n).
       var xfft = fft(xdata);

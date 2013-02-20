@@ -112,7 +112,9 @@ SccResults scc(List<List> edgeList) {
   }
   sumComponents.add(N - offset);
   // Sort the results from largest scc to smallest.
-  results = qsort(sumComponents).data.reversed;
+  // Note: reversed returns an iterable which needs to be
+  // converted back into a list.
+  results = qsort(sumComponents).data.reversed.toList();
 
   /// Return the SccResults object.
   return new SccResults(results, N, components);

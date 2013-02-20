@@ -43,7 +43,7 @@ class UnionFind {
   UnionFind(int numElements) {
     // The array is zero based but the vertices are 1 based,
     // so we extend the array by 1 element to account for this.
-    array = new List<int>(numElements + 1);
+    array = new List<int>.fixedLength(numElements + 1);
     for (var i = 0; i < array.length; i++) {
       array[i] = -1;
     }

@@ -82,13 +82,13 @@ class _PrimsMst {
       adjMatrix[adjList[i][1] - 1][adjList[i][0] - 1] = adjList[i][2];
     }
 
-    mstree = new List<List<int>>(adjMatrix.length);
+    mstree = new List<List<int>>.fixedLength(adjMatrix.length);
 
     allV.insertRange(0, adjMatrix.length, false);
     allV[0] = true;
 
     for (var i = 0; i < adjMatrix.length; i++) {
-      mstree[i] = new List<int>(adjMatrix.length);
+      mstree[i] = new List<int>.fixedLength(adjMatrix.length);
     }
 
     for (var i = 0; i < adjMatrix.length; i++) {

@@ -59,9 +59,9 @@ class _PartialSums {
     //If the fft returns the complex coefficients, calculate the partial sums.
     if (coeff != null) {
       for (var i = 0; i < kArray.length; i++) {
-        List<Complex> y = new List(L);
-        List real = new List(L);
-        List imag = new List(L);
+        List<Complex> y = new List.fixedLength(L);
+        List real = new List.fixedLength(L);
+        List imag = new List.fixedLength(L);
         for (var n = 0; n < L; n++) {
           var q = complex(0, 0);
           for (var k = 1; k <= kArray[i]; k++) {

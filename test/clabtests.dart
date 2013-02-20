@@ -1,9 +1,13 @@
+// Copyright (c) 2013, scribeGriff (Richard Griffith)
+// https://github.com/scribeGriff/ConvoLab
+// All rights reserved.  Please see the LICENSE.md file.
+
 library clabtests;
 
-/* *************************************************************** *
- *   Unit testing                                                  *
- *   Library: ConvoLab (c) 2012 scribeGriff                        *
- * *************************************************************** */
+/**
+ * Unit testing for ConvoLab library.
+ *
+ */
 
 import 'package:convolab/convolab.dart';
 import 'package:unittest/unittest.dart';

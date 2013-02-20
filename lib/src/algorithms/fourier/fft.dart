@@ -91,7 +91,7 @@ class _FFT {
     if (N == 1) return new List<Complex>.from(input);
 
     // Perform fft of even terms recursively.
-    List<Complex> even = new List(N >> 1);
+    List<Complex> even = new List.fixedLength(N >> 1);
     for (var k = 0; k < N/2; k++) {
       even[k] = input[2*k];
       count++;
@@ -99,7 +99,7 @@ class _FFT {
     List<Complex> q = fftnlogn(even);
 
     // Perform fft of odd terms recursively.
-    List<Complex> odd = new List(N >> 1);
+    List<Complex> odd = new List.fixedLength(N >> 1);
     for (var k = 0; k < N/2; k++) {
       odd[k] = input[2*k + 1];
       count++;
@@ -108,7 +108,7 @@ class _FFT {
 
     // Merging formula for combining 2 N/2-point DFTs
     // into one N-point DFT.
-    List<Complex> y = new List(N);
+    List<Complex> y = new List.fixedLength(N);
     for (var k = 0; k < N/2; k++) {
       var kth = -2 * k * PI / N;
       var wk = complex(cos(kth), sin(kth));
@@ -129,7 +129,7 @@ class _FFT {
   /// transform of the input data as given by the expression:
   /// X(k) = sumN [x(n) * WN(nk)]
   List<Complex> dftnxn(List<Complex> input, int N) {
-    List<Complex> y = new List(N);
+    List<Complex> y = new List.fixedLength(N);
     for (var k = 0; k < N; k++) {
       var q = complex(0, 0);
       for (var j = 0; j < N; j++) {
