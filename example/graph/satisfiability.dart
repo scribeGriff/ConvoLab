@@ -3,9 +3,9 @@
 // All rights reserved.  Please see the LICENSE.md file.
 
 /**
- *   Example using the function 2sat() to determine the satisfiability
- *   of a 2d array of clauses.  Implements Kosaraju's algorithm to allow
- *   the a linear bound on this NPC problem.
+ * Example using the function 2sat() to determine the satisfiability
+ * of a 2d array of clauses.  Implements Kosaraju's algorithm to allow
+ * the a linear bound on this NPC problem.
  */
 
 import 'package:convolab/convolab.dart';

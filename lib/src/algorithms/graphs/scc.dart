@@ -97,7 +97,7 @@ SccResults scc(List<List> edgeList) {
 
   /// Compute the strongly connected components of the
   /// directed graph using Kosaraju's alogorithm.
-  Map components = new _Kosaraju().stronglyConnectedComponents(graph);
+  Map components = new _Kosaraju().computeSCC(graph);
 
   /// Compute the size of each scc group and store it in a sorted list.
   // Sort the values in the map returned by Kosaraju's algorithm.

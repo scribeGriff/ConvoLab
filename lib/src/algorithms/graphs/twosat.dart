@@ -67,7 +67,7 @@ bool twosat(List<List> satlist) {
 
   /// Compute the strongly connected components of the modified clauses in
   /// the directed graph clauses using Kosaraju's alogorithm.
-  Map scc = new _Kosaraju().stronglyConnectedComponents(clauses);
+  Map scc = new _Kosaraju().computeSCC(clauses);
 
   /// Search through the strongly connected components.  If an element
   /// and its negation reside in the same strongly connected component,

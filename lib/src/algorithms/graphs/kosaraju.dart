@@ -13,22 +13,26 @@ part of convolab;
  * 2sat(), for computing the satisfiability of a 2 dimensional array of 2
  * variable clauses.
  *
+ * We can summarize the key elements of the algorithm in three concise steps:
+ * * Compute a transform of the input graph g: g -> grev
+ * * Perform the first DFS on grev: Returns order of visit nodes in grev
+ * * Perform a second DFS on g in the reverse visit order returned by first DFS
+ *
  * Dependencies: dart:collection, DirectedGraph.
  * Reference: Kosaraju.java from Keith Schwarz (htiek@cs.stanford.edu)
  */
 
 class _Kosaraju {
 
-  HashMap stronglyConnectedComponents(DirectedGraph g) {
-
-    /// Run a depth-first search in the reverse graph to get the order in
-    /// which the nodes should be processed and save the results in a queue.
-    Queue visitOrder = dfsVisitOrder(reverseGraph(g));
-
+  HashMap computeSCC(DirectedGraph g) {
     /// Create the result map and a counter to keep track of which
     /// depth first search iteration this is.
     HashMap result = new HashMap();
     int iteration = 0;
+
+    /// Run a depth-first search in the reverse graph to get the order in
+    /// which the nodes should be processed and save the results in a queue.
+    ListQueue visitOrder = initFirstDFS(transformGraph(g));
 
     /// Continuously process the the nodes from the queue by running a
     /// depth first search from each unmarked node encountered.
@@ -42,46 +46,48 @@ class _Kosaraju {
       // Otherwise, run a depth first search from the node contained in
       // startPoint, updating the result map with everything visited as being
       // at the current iteration level.
-      markReachableNodes(startPoint, g, result, iteration);
+      secondDFS(startPoint, g, result, iteration);
       // Increase the number of the next SCC to label.
-      ++iteration;
+      iteration++;
     }
     return result;
   }
 
+  // Step 1:
   /// Given a directed graph, return the reverse of that graph.
-  DirectedGraph reverseGraph(DirectedGraph g) {
-    DirectedGraph revg = new DirectedGraph();
-    // Copy the nodes to revg graph.
+  DirectedGraph transformGraph(DirectedGraph g) {
+    DirectedGraph grev = new DirectedGraph();
+    // Copy the nodes to grev graph.
     for (var node in g) {
-      revg.addNode(node);
+      grev.addNode(node);
     }
     // Then copy the edges while reversing them.
     for (var start in g) {
       for (var end in g.edgesFrom(start)) {
-        revg.addEdge(end, start);
+        grev.addEdge(end, start);
       }
     }
-    return revg;
+    return grev;
   }
 
+  // Step 2:
   /// Given a graph, returns a queue containing the nodes of that graph in
   /// the order in which a DFS of that graph finishes expanding the nodes.
-  Queue dfsVisitOrder(DirectedGraph g) {
+  ListQueue initFirstDFS(DirectedGraph g) {
     // The resulting ordering of the nodes.
-    Queue visorder = new Queue();
+    ListQueue visitOrder = new ListQueue();
     // The set of nodes that we've visited so far.
     HashSet visited = new HashSet();
-    // Perform a DFS for each node in g and whose origin is that node.
+    // Perform a DFS for each node in g and whose origin is given by node.
     for (var node in g) {
-      recDFS(node, g, visorder, visited);
+      firstDFS(node, g, visitOrder, visited);
     }
-    return visorder;
+    return visitOrder;
   }
 
   /// Recursively explores the given node with a DFS, adding it to the output
   /// list once the exploration is complete.
-  void recDFS(var node, DirectedGraph g, Queue visorder, HashSet visited) {
+  void firstDFS(var node, DirectedGraph g, ListQueue visitOrder, HashSet visited) {
     // If we've already been at this node, don't explore it again.
     if (visited.contains(node)) {
       return;
@@ -91,25 +97,24 @@ class _Kosaraju {
     }
     // Recursively explore all the node's children.
     for (var endpoint in g.edgesFrom(node)) {
-      recDFS(endpoint, g, visorder, visited);
+      firstDFS(endpoint, g, visitOrder, visited);
     }
     // We're done exploring this node, so add it to the ordered queue of
     // visited nodes.
-    visorder.addLast(node);
+    visitOrder.addLast(node);
   }
 
+  // Step 3:
   /// Recursively marks all nodes reachable from the given node by a DFS with
   /// the current label.
-  void markReachableNodes(var node, DirectedGraph g, HashMap result,
-                          int label) {
-    // If we've visited this node before, stop the search.
+  void secondDFS(var node, DirectedGraph g, HashMap result, int label) {
+    // If we've visited this node before, return.
     if (result.containsKey(node)) return;
-    // Otherwise label the node with the current label, since it's
-    // trivially reachable from itself.
+    // Otherwise label the node with the current label.
     result[node] = label;
-    // Explore all nodes reachable from here. */
+    // Explore all nodes reachable from here.
     for (var endpoint in g.edgesFrom(node)) {
-      markReachableNodes(endpoint, g, result, label);
+      secondDFS(endpoint, g, result, label);
     }
   }
 }
