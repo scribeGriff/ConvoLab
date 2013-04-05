@@ -9,58 +9,63 @@
  */
 
 import 'package:convolab/convolab.dart';
+import 'dart:async';
 
 void main() {
-// Unsatisfiable.  Same as 2sat_55unsat.txt in library ConvoHio.
+  // Unsatisfiable.  Same as 2sat_55unsat.txt in library ConvoHio.
   List<List> satfile1 = [[1, 1],
-                        [-1, 2],
-                        [-1, 3],
-                        [-2, -3],
-                        [4, 5]];
+                         [-1, 2],
+                         [-1, 3],
+                         [-2, -3],
+                         [4, 5]];
 
-// Satisfiable.  Same as 2sat_44sat.txt.
+  // Satisfiable.  Same as 2sat_44sat.txt.
   List<List> satfile2 = [[1, 2],
-                        [-1, 3],
-                        [3, 4],
-                        [-2, -4]];
+                         [-1, 3],
+                         [3, 4],
+                         [-2, -4]];
 
-//  Unsatisfiable.  Same as 2sat_716unsat.txt.
+  //  Unsatisfiable.  Same as 2sat_716unsat.txt.
   List<List> satfile3 = [[-1, -4],
-                        [-2, -7],
-                        [2, -6],
-                        [2, 7],
-                        [-6, 7],
-                        [1, -5],
-                        [1, 7],
-                        [-5, 7],
-                        [-1, -7],
-                        [-3, 6],
-                        [3, -4],
-                        [3, -6],
-                        [-4, -6],
-                        [2, 5],
-                        [-2, 3],
-                        [-3, -5]];
+                         [-2, -7],
+                         [2, -6],
+                         [2, 7],
+                         [-6, 7],
+                         [1, -5],
+                         [1, 7],
+                         [-5, 7],
+                         [-1, -7],
+                         [-3, 6],
+                         [3, -4],
+                         [3, -6],
+                         [-4, -6],
+                         [2, 5],
+                         [-2, 3],
+                         [-3, -5]];
 
-  if (twosat(satfile1)) {
-    print('This file is satisfiable.');
-  } else {
-    print('This file is not satisfiable.');
-  }
-  // prints: This file is not satisfiable.
+  List graphs = [satfile1, satfile2, satfile3];
 
-  if (twosat(satfile2)) {
-    print('This file is satisfiable.');
-  } else {
-    print('This file is not satisfiable.');
+  for (var graph in graphs) {
+    twosat(graph).then((isSat) {
+      if (isSat) {
+        print('The graph\n$graph\nis satisfiable.\n');
+      } else {
+        print('The graph\n$graph\nis not satisfiable.\n');
+      }
+    });
   }
-  // prints: This file is satisfiable.
 
-  if (twosat(satfile3)) {
-    print('This file is satisfiable.');
-  } else {
-    print('This file is not satisfiable.');
-  }
-  // prints: This file is not satisfiable.
+  // prints:
+  //The graph
+  //[[1, 1], [-1, 2], [-1, 3], [-2, -3], [4, 5]]
+  //is not satisfiable.
+
+  //The graph
+  //[[1, 2], [-1, 3], [3, 4], [-2, -4]]
+  //is satisfiable.
+
+  //The graph
+  //[[-1, -4], [-2, -7], [2, -6], [2, 7], [-6, 7], [1, -5], [1, 7], [-5, 7], [-1, -7], [-3, 6], [3, -4], [3, -6], [-4, -6], [2, 5], [-2, 3], [-3, -5]]
+  //is not satisfiable.
 }
 

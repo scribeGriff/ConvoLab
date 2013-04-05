@@ -31,10 +31,13 @@ part of convolab;
  *                           [-2, 3],
  *                           [-3, -5]];
  *
- *     if (twosat(satfile)) {
- *       print('This file is satisfiable.');
- *     } else {
- *       print('This file is not satisfiable.');
+ *     twosat(satfile).then((isSat) {
+ *       if (isSat) {
+ *         print('The file is satisfiable.\n');
+ *       } else {
+ *         print('The file is not satisfiable.\n');
+ *       }
+ *     });
  *
  *     //prints:
  *     This file is not satisfiable.
@@ -46,9 +49,14 @@ part of convolab;
  *
  */
 
-bool twosat(List<List> satlist) {
-
+Future<bool> twosat(List<List> satlist) {
+  // Check if the input data is valid.
+  if (satlist == null || satlist.isEmpty) {
+    throw new ArgumentError("Input data is not valid.");
+  }
+  // Variables.
   DirectedGraph clauses = new DirectedGraph();
+  HashSet variables = new HashSet();
 
   /// Add each variable and its negation as a node
   /// to the directed graph clauses.
@@ -56,32 +64,35 @@ bool twosat(List<List> satlist) {
     for (var element in list) {
       clauses.addNode(element);
       clauses.addNode(-element);
+      variables.add(element);
     }
   }
-
   /// Map each clause (A or B) to (-A ~> B) and (-B ~> A).
   for (List list in satlist) {
     clauses.addEdge(-list[0], list[1]);
     clauses.addEdge(-list[1], list[0]);
   }
+  // If running up against max heap size, clear the input data
+  // once graph and clauses have been created.
+  if (satlist.length > 600000) {
+    satlist.clear();
+  }
 
   /// Compute the strongly connected components of the modified clauses in
   /// the directed graph clauses using Kosaraju's alogorithm.
-  Map scc = new _Kosaraju().computeSCC(clauses);
+  HashMap scc = new _Kosaraju().computeSCC(clauses, negIndex:true);
 
   /// Search through the strongly connected components.  If an element
   /// and its negation reside in the same strongly connected component,
   /// the clause is unsatisfiable.
-  for (List list in satlist) {
-    for (var element in list) {
-      if (scc[element] == (scc[-element])) {
-        // Clauses are unsatisfiable.
-        return false;
-      }
+  for (var element in variables) {
+    if (scc[element] == (scc[-element])) {
+      // Clauses are unsatisfiable.
+      return new Future.of(() => false);
     }
   }
   /// Otherwise there is a variable that will satisfy all clauses.
   // Clauses are satisfiable.
-  return true;
+  return new Future.of(() => true);
 }
 

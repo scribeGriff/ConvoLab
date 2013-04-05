@@ -44,7 +44,9 @@ part of convolab;
  *                           [14, 13],
  *                           [15, 14]];
  *
- *     var sccResults = scc(sccfile);
+ *     scc(sccfile).then((sccResults) {
+ *       print('the results');
+ *     });
  *
  * Returns an object of type SccResults which contains the following fields:
  * * sccResults.data: A List of the size of the strongly connected components.
@@ -67,21 +69,26 @@ part of convolab;
  * * dart:collection
  * * class DirectedGraph
  * * class _Kosaraju
+ * * class SccResults
  *
  */
 
 /// Top level function scc accepts an edge list and returns
 /// an object of type SccResults.
-SccResults scc(List<List> edgeList) {
-
+Future<SccResults> scc(List<List> edgeList) {
+  // Check if the edge list data is valid.
+  if (edgeList == null || edgeList.isEmpty) {
+    throw new ArgumentError("Edge list data is not valid.");
+  }
   // Variables.
-  List sccValues;
+  HashMap components;
+  List sccValues = [];
   List sumComponents = [];
-  List results;
   var offset = 0;
 
-  // Create a new directed graph.
+  // Create two new directed graph.
   DirectedGraph graph = new DirectedGraph();
+  DirectedGraph grev = new DirectedGraph();
 
   /// Populate the directed graph with the vertices from the edge list.
   for (List list in edgeList) {
@@ -89,43 +96,54 @@ SccResults scc(List<List> edgeList) {
       graph.addNode(element);
     }
   }
-
   /// Populate the directed graph with the directed edges.
   for (List list in edgeList) {
     graph.addEdge(list[0], list[1]);
   }
+  /// Populate the reversed graph with the vertices from the edge list.
+  for (List list in edgeList) {
+    for (var element in list) {
+      grev.addNode(element);
+    }
+  }
+  /// Populate the reversed graph with the directed edges in reverse order.
+  for (List list in edgeList) {
+    grev.addEdge(list[1], list[0]);
+  }
+
+  // For really large graphs, heap space can be an issue.
+  if (edgeList.length > 500000) {
+    edgeList.clear();
+  }
 
   /// Compute the strongly connected components of the
   /// directed graph using Kosaraju's alogorithm.
-  Map components = new _Kosaraju().computeSCC(graph);
+  components = new _Kosaraju().computeSCC(graph, grev: grev);
 
   /// Compute the size of each scc group and store it in a sorted list.
-  // Sort the values in the map returned by Kosaraju's algorithm.
-  sccValues = qsort(components.values.toList()).data;
+  sccValues = components.values.toList()
+      ..sort();
   var N = sccValues.length;
-  // Sum up the number in each scc.
   for (var i = 0; i < N - 1; i++) {
-    if (sccValues[i] != sccValues[i+1]) {
+    if (sccValues[i] != sccValues[i + 1]) {
       sumComponents.add(i + 1 - offset);
       offset = i + 1;
     }
   }
-  sumComponents.add(N - offset);
-  // Sort the results from largest scc to smallest.
-  // Note: reversed returns an iterable which needs to be
-  // converted back into a list.
-  results = qsort(sumComponents).data.reversed.toList();
+  sumComponents..add(N - offset)..sort((a, b) => b.compareTo(a));
 
   /// Return the SccResults object.
-  return new SccResults(results, N, components);
+  return new Future.of(() =>
+      new SccResults(sumComponents, N, components, graph));
 }
 
 /// SccResults extends the standard results class.
 /// Returns the size of each SCC as data, the number of vertices in the
 /// graph as value and the results of the scc as sccGraph.
 class SccResults extends ConvoLabResults{
-  final sccGraph;
+  final sccNodes;
+  final graph;
 
-  SccResults(data, value, this.sccGraph) : super(data, value);
+  SccResults(data, value, this.sccNodes, this.graph) : super(data, value);
 }
 

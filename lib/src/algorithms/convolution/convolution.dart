@@ -63,8 +63,8 @@ class _Convolution {
   _Convolution(this.xdata, this.hdata);
 
   ConvResults convolve(int xindex, int hindex) {
-    if (xdata == null || hdata == null || xdata.length == 0 ||
-        hdata.length == 0) {
+    if (xdata == null || hdata == null || xdata.isEmpty ||
+        hdata.isEmpty) {
       throw new ArgumentError("invalid data");
     } else {
       if (xindex == null) xindex = 0;
