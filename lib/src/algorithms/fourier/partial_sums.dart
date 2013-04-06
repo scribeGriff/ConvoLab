@@ -1,4 +1,4 @@
-// Copyright (c) 2012, scribeGriff (Richard Griffith)
+// Copyright (c) 2013, scribeGriff (Richard Griffith)
 // https://github.com/scribeGriff/ConvoLab
 // All rights reserved.  Please see the LICENSE.md file.
 
@@ -17,7 +17,7 @@ part of convolab;
  * value is to treat the entire waveform as the period.
  *
  * Returns FspsResults object which includes two differently formatted
- * Map<k, list>.  For example:
+ * HashMap<k, list>.  For example:
  *     print('We have computed ${fourier.psums.length} Fourier series.');
  *     // We have computed 3 Fourier series.
  *     if (fourier.psums[kvals[0]].every((element) => element is Complex)) {
@@ -46,22 +46,22 @@ class _PartialSums {
   FspsResults sum(num fraction) {
     //Store results as a map with k value as the key K
     //and the partial sum list as the value V.
-    var psums = new Map();
+    var psums = new HashMap();
     //Create a map for sending as a json string.
-    var jsonData = new Map();
+    var jsonData = new HashMap();
     //Add the waveform to the jsonData.
     jsonData["Waveform"] = {"real": waveform, "imag": null};
     var L = waveform.length;
     //User may define a period less than the length of the waveform.
     var N = (L * fraction).toInt();
     //The Fourier series coefficients are computed using a FFT.
-    var coeff = fft(waveform.getRange(0, N));
+    var coeff = fft(waveform.sublist(0, N));
     //If the fft returns the complex coefficients, calculate the partial sums.
     if (coeff != null) {
       for (var i = 0; i < kArray.length; i++) {
-        List<Complex> y = new List.fixedLength(L);
-        List real = new List.fixedLength(L);
-        List imag = new List.fixedLength(L);
+        List<Complex> y = new List(L);
+        List real = new List(L);
+        List imag = new List(L);
         for (var n = 0; n < L; n++) {
           var q = complex(0, 0);
           for (var k = 1; k <= kArray[i]; k++) {
@@ -95,7 +95,7 @@ class _PartialSums {
  */
 
 class FspsResults extends ConvoLabResults {
-  final Map psums, jsonData;
+  final HashMap psums, jsonData;
 
   //Return a list of the input waveform and also a Map of the
   //partial sums indexed to the value for k.
