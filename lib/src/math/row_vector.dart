@@ -2,7 +2,7 @@ part of convolab;
 
 /* ****************************************************** *
  *   Creating Row Vectors                                 *
- *   Library: ConvoLab (c) 2012 scribeGriff               *
+ *   Library: ConvoLab (c) 2013 scribeGriff               *
  * ****************************************************** */
 
 // Wrapper to illiminate need for using new keyword.
@@ -25,7 +25,7 @@ class _RowVector {
   List createVec(bool unit) {
     List a = [];
     if (unit) {
-      a.insertRange(start, end, increment);
+      a.fillRange(start, end, increment);
     } else {
       for (var i = start; i <= end; i += increment) {
         a.add(i);

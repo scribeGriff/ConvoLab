@@ -24,7 +24,7 @@ void hyperbolicTests() {
   for (var x = 0; x < hbData.length; x++) {
     sinhAc.add((sinh(hbData[x])*10000).round());
   }
-  Expect.listEquals(sinhAu, sinhAc);
+  expect.listEquals(sinhAu, sinhAc);
 
   //hyperbolic cosine
   for (var x = 0; x < coshAu.length; x++) {
@@ -33,7 +33,7 @@ void hyperbolicTests() {
   for (var x = 0; x < hbData.length; x++) {
     coshAc.add((cosh(hbData[x])*10000).round());
   }
-  Expect.listEquals(coshAu, coshAc);
+  expect.listEquals(coshAu, coshAc);
 
   //hyperbolic tangent
   for (var x = 0; x < tanhAu.length; x++) {
@@ -42,7 +42,7 @@ void hyperbolicTests() {
   for (var x = 0; x < hbData.length; x++) {
     tanhAc.add((tanh(hbData[x])*10000).round());
   }
-  Expect.listEquals(tanhAu, tanhAc);
+  expect.listEquals(tanhAu, tanhAc);
 
   //hyperbolic cotangent
   for (var x = 0; x < cothAu.length; x++) {
@@ -51,5 +51,5 @@ void hyperbolicTests() {
   for (var x = 0; x < hbData.length; x++) {
     cothAc.add((coth(hbData[x])*10000).round());
   }
-  Expect.listEquals(cothAu, cothAc);
+  expect.listEquals(cothAu, cothAc);
 }

@@ -52,7 +52,7 @@ FftResults fft(List samples, [int N]) {
         _inList.removeRange(N, _inList.length - N);
       } else if (_inList.length < N) {
         // Pad with zeros to length = N.
-        _inList.insertRange(_inList.length, N - _inList.length, complex(0, 0));
+        _inList.fillRange(_inList.length, N - _inList.length, complex(0, 0));
       }
     }
     /// Check to see if N is a power of 2.

@@ -45,8 +45,8 @@ class _Waves {
       if (waveform == 'square') {
         tr = edge > 4 ? edge.floor().toInt() : 4;
         tf = edge > 4 ? edge.floor().toInt() : 4;
-        space.insertRange(0, ((points / (2 * cycles)).floor().toInt()) - tr, minAmp);
-        mark.insertRange(0, ((points / (2 * cycles)).floor().toInt()) - tf, amp);
+        space.fillRange(0, ((points / (2 * cycles)).floor().toInt()) - tr, minAmp);
+        mark.fillRange(0, ((points / (2 * cycles)).floor().toInt()) - tf, amp);
         for (var j = 1; j <= tr; j++) {
           trise.add(((amp - minAmp) / tr) * j);
           tfall.add(amp - ((amp - minAmp) / tf) * j);
@@ -55,8 +55,8 @@ class _Waves {
       } else if (waveform == 'triangle') {
         tr = (points / (2 * cycles)).floor().toInt() - 1;
         tf = (points / (2 * cycles)).floor().toInt() - 1;
-        space.insertRange(0, 1, minAmp);
-        mark.insertRange(0, 1, amp);
+        space.fillRange(0, 1, minAmp);
+        mark.fillRange(0, 1, amp);
         for (var j = 1; j <= tr; j++) {
           trise.add(((amp - minAmp) / tr) * j);
           tfall.add(amp - ((amp - minAmp) / tf) * j);
@@ -65,8 +65,8 @@ class _Waves {
       } else if (waveform == 'ramp') {
         tf = edge > 4 ? edge.floor().toInt() : 4;
         tr = (points / (cycles)).floor().toInt() - tf - 2;
-        space.insertRange(0, 1, minAmp);
-        mark.insertRange(0, 1, amp);
+        space.fillRange(0, 1, minAmp);
+        mark.fillRange(0, 1, amp);
         for (var j = 1; j <= tr; j++) {
           trise.add(((amp - minAmp) / tr) * j);
         }
@@ -77,8 +77,8 @@ class _Waves {
       } else if (waveform == 'pulse') {
         tr = edge > 4 ? edge.floor().toInt() : 4;
         tf = edge > 4 ? edge.floor().toInt() : 4;
-        space.insertRange(0, (9 * (points / (10 * cycles)).floor().toInt()) - tr, minAmp);
-        mark.insertRange(0, ((points / (10 * cycles)).floor().toInt()) - tf, amp);
+        space.fillRange(0, (9 * (points / (10 * cycles)).floor().toInt()) - tr, minAmp);
+        mark.fillRange(0, ((points / (10 * cycles)).floor().toInt()) - tf, amp);
         for (var j = 1; j <= tr; j++) {
           trise.add(((amp - minAmp) / tr) * j);
           tfall.add(amp - ((amp - minAmp) / tf) * j);
@@ -93,7 +93,7 @@ class _Waves {
         ..addAll(tfall);
       }
       if (data.length < points) {
-        data.insertRange(data.length, points - data.length, minAmp);
+        data.fillRange(data.length, points - data.length, minAmp);
       }
     }
     return data;

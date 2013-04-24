@@ -84,7 +84,7 @@ class _PrimsMst {
 
     mstree = new List<List<int>>.fixedLength(adjMatrix.length);
 
-    allV.insertRange(0, adjMatrix.length, false);
+    allV.fillRange(0, adjMatrix.length, false);
     allV[0] = true;
 
     for (var i = 0; i < adjMatrix.length; i++) {
