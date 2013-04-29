@@ -54,7 +54,7 @@ class _MergeSort {
 
   int merge(List<int> array, int lo, int mid, int hi) {
     int counter = 0;
-    List<int> tmpArray = new List<int>.fixedLength(hi-lo+1);
+    List<int> tmpArray = new List<int>(hi-lo+1);
     int size = mid-lo+1;
     int i = lo;
     int j = mid+1;

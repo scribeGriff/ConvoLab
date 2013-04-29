@@ -49,10 +49,10 @@ FftResults fft(List samples, [int N]) {
       // N is specified by user.
       if (_inList.length > N) {
         // Truncate list to length = N.
-        _inList.removeRange(N, _inList.length - N);
+        _inList.removeRange(N, _inList.length);
       } else if (_inList.length < N) {
-        // Pad with zeros to length = N.
-        _inList.fillRange(_inList.length, N - _inList.length, complex(0, 0));
+        // Pad with complex zeros to length = N.
+        _inList.addAll(new List.filled(N - _inList.length, complex(0, 0)));
       }
     }
     /// Check to see if N is a power of 2.

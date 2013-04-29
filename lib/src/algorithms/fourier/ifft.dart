@@ -95,7 +95,7 @@ class _IFFT {
   /// data is conjugated again and scaled by 1/N.
   List<Complex> ifftnlogn(List<Complex> input) {
     var N = input.length;
-    List<Complex> y = new List.fixedLength(N);
+    List<Complex> y = new List(N);
 
     // Take the conjugate of the input data.
     for (var i = 0; i < N; i++) {
@@ -127,7 +127,7 @@ class _IFFT {
   /// transform of the input data as given by the expression:
   /// x(n) = 1/N * sum(k)[X(k) * WN(-nk)]
   List<Complex> idftnxn(List<Complex> input, int N) {
-    List<Complex> y = new List.fixedLength(N);
+    List<Complex> y = new List(N);
     for (var k = 0; k < N; k++) {
       var q = complex(0, 0);
       for (var j = 0; j < N; j++) {

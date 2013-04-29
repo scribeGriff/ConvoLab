@@ -1,9 +1,12 @@
+// Copyright (c) 2013, scribeGriff (Richard Griffith)
+// https://github.com/scribeGriff/ConvoLab
+// All rights reserved.  Please see the LICENSE.md file.
+
 part of clabtests;
 
-/* *************************************************************** *
- *   Unit testing of hyperbolic functions                          *
- *   Library: ConvoLab (c) 2012 scribeGriff                        *
- * *************************************************************** */
+/**
+ * Unit testing of hyperbolic functions.
+ */
 
 void hyperbolicTests() {
   List<num> hbData = [0, 0.5, 1, 1.5, 2];
@@ -24,7 +27,7 @@ void hyperbolicTests() {
   for (var x = 0; x < hbData.length; x++) {
     sinhAc.add((sinh(hbData[x])*10000).round());
   }
-  expect.listEquals(sinhAu, sinhAc);
+  expect(sinhAu, equals(sinhAc));
 
   //hyperbolic cosine
   for (var x = 0; x < coshAu.length; x++) {
@@ -33,7 +36,7 @@ void hyperbolicTests() {
   for (var x = 0; x < hbData.length; x++) {
     coshAc.add((cosh(hbData[x])*10000).round());
   }
-  expect.listEquals(coshAu, coshAc);
+  expect(coshAu, equals(coshAc));
 
   //hyperbolic tangent
   for (var x = 0; x < tanhAu.length; x++) {
@@ -42,14 +45,14 @@ void hyperbolicTests() {
   for (var x = 0; x < hbData.length; x++) {
     tanhAc.add((tanh(hbData[x])*10000).round());
   }
-  expect.listEquals(tanhAu, tanhAc);
+  expect(tanhAu, equals(tanhAc));
 
   //hyperbolic cotangent
   for (var x = 0; x < cothAu.length; x++) {
-    cothAu[x] = (cothAu[x]*10000).round();
+    cothAu[x] = (cothAu[x]*10000).roundToDouble();
   }
   for (var x = 0; x < hbData.length; x++) {
-    cothAc.add((coth(hbData[x])*10000).round());
+    cothAc.add((coth(hbData[x])*10000).roundToDouble());
   }
-  expect.listEquals(cothAu, cothAc);
+  expect(cothAu, equals(cothAc));
 }

@@ -1,9 +1,12 @@
+// Copyright (c) 2013, scribeGriff (Richard Griffith)
+// https://github.com/scribeGriff/ConvoLab
+// All rights reserved.  Please see the LICENSE.md file.
+
 part of clabtests;
 
-/* *************************************************************** *
- *   Unit testing of finding the sum of 2 numbers in a list        *
- *   Library: ConvoLab (c) 2012 scribeGriff                        *
- * *************************************************************** */
+/**
+ * Unit testing of finding the sum of 2 numbers in a list.
+ */
 
 void findSum2Tests() {
   group('Finding the sum of 2 numbers in a list tests:', (){

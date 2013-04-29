@@ -1,13 +1,15 @@
+// Copyright (c) 2013, scribeGriff (Richard Griffith)
+// https://github.com/scribeGriff/ConvoLab
+// All rights reserved.  Please see the LICENSE.md file.
+
 part of clabtests;
 
-/* *************************************************************** *
- *   Unit testing of QuickSort                                     *
- *   Library: ConvoLab (c) 2012 scribeGriff                        *
- * *************************************************************** */
+/**
+ * Unit testing of QuickSort algorithm.
+ */
 
 void quickSortTests() {
   // QuickSort
-  // number of inversions = n chose 2 = n(n-1)/2 this might be mergesort
   int comparisons;
   QsortResults qsResults;
   List<int> list10;

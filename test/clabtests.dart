@@ -7,6 +7,15 @@ library clabtests;
 /**
  * Unit testing for ConvoLab library.
  *
+ * Includes tests for the following library functions:
+ * * hyperbolic functions
+ * * randomized selection
+ * * find sum of two numbers in a list
+ * * mergesort
+ * * quicksort
+ * * fft/ifft
+ * * complex numbers (not yet implemented)
+ *
  */
 
 import 'package:convolab/convolab.dart';

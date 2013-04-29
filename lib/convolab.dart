@@ -26,7 +26,7 @@ import 'dart:json' as json;
 import 'dart:collection';
 import 'dart:async';
 
-import 'package:meta/meta.dart';
+//import 'package:meta/meta.dart';
 
 part 'src/exceptions/convolab_exception.dart';
 part 'src/exceptions/data_format_exception.dart';

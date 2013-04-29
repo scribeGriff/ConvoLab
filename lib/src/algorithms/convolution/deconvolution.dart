@@ -91,7 +91,7 @@ class _Deconvolution {
         return new DeconvResults(q, qindex, r, rindex, qtime, rtime,
             den, dindex);
       } else {
-        q = new List.fixedLength(nDegree - dDegree + 1);
+        q = new List(nDegree - dDegree + 1);
         rtime = vec(-rindex, nDegree - dDegree);
 
         /// Perform the long division.

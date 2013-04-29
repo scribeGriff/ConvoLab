@@ -1,9 +1,13 @@
+// Copyright (c) 2013, scribeGriff (Richard Griffith)
+// https://github.com/scribeGriff/ConvoLab
+// All rights reserved.  Please see the LICENSE.md file.
+
 part of clabtests;
 
-/* *************************************************************** *
- *   Unit testing of fft and ifft algorithm                        *
- *   Library: ConvoLab (c) 2012 scribeGriff                        *
- * *************************************************************** */
+/**
+ * Unit testing of fft and ifft algorithms.
+ */
+
 void fftTests() {
   FftResults x, y;
   // Constant factor fudge for small values of N with ifft.
