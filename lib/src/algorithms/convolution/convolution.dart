@@ -79,8 +79,8 @@ class _Convolution {
       final yindex = xindex + hindex;
       final ytime = vec(-yindex, xLength - 1 + hLength - 1 - yindex);
       // Pad data with zeros to length required to compute circular convolution.
-      xdata.fillRange(xLength, hLength - 1, 0);
-      hdata.fillRange(hLength, xLength - 1, 0);
+      xdata.addAll(new List.filled(hLength - 1, 0));
+      hdata.addAll(new List.filled(xLength - 1, 0));
 
       final yfft = new List(xdata.length);
 
@@ -186,15 +186,15 @@ class ConvResults extends ConvoLabResults implements _PolyString {
     if (fname == null) fname = 'y';
 
     // Add prefix for latex.
-    if (isTex) sb.add(r'$$');
+    if (isTex) sb.write(r'$$');
 
     // Add the function name and equal sign.
-    sb.add('$fname($baseVar) = ');
+    sb.write('$fname($baseVar) = ');
 
     // Format the string.
     formatString(firstIndex, baseVar, data, time);
 
-    if (isTex) sb.add(r'$$');
+    if (isTex) sb.write(r'$$');
 
     return polystring = sb.toString();
   }
@@ -224,7 +224,7 @@ class ConvResults extends ConvoLabResults implements _PolyString {
         coeff = coefficients[firstIndex].abs() == 1 ? '' :
           coefficients[firstIndex];
       }
-      sb.add('$coeff$variable$exponent');
+      sb.write('$coeff$variable$exponent');
     }
 
     // Now take care of remaining elements.
@@ -243,14 +243,14 @@ class ConvResults extends ConvoLabResults implements _PolyString {
           } else {
             coeff = coefficients[i] == 1 ? '' : coefficients[i];
           }
-          sb.add(' + $coeff$variable$exponent');
+          sb.write(' + $coeff$variable$exponent');
         } else if (coefficients[i] < 0) {
           if ('$variable' == '') {
             coeff = coefficients[i].abs();
           } else {
             coeff = coefficients[i] == -1 ? '' : coefficients[i].abs();
           }
-          sb.add(' - $coeff$variable$exponent');
+          sb.write(' - $coeff$variable$exponent');
         }
       }
     }

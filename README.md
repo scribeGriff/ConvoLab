@@ -1,7 +1,7 @@
 # ConvoLab #
 
 ## A signal processing library for Dart ##
-
+[![Build Status](https://drone.io/github.com/scribeGriff/ConvoLab/status.png)](https://drone.io/github.com/scribeGriff/ConvoLab/latest)   
 This library has neither dart:io or dart:html dependecy so that it can be used by the client or the server.  Two related libraries that make use of the ConvoLab library are:
 
 1.  ConvoWeb (client side)
