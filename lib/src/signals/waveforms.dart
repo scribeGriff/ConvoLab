@@ -1,9 +1,13 @@
+// Copyright (c) 2013, scribeGriff (Richard Griffith)
+// https://github.com/scribeGriff/simplot
+// All rights reserved.  Please see the LICENSE.md file.
+
 part of convolab;
 
-/* ****************************************************** *
- *   Class _Waves: A simple waveform generator.           *
- *   Library: ConvoLab (c) 2012 scribeGriff               *
- * ****************************************************** */
+/**
+ * A simple waveform generator.
+ *
+ */
 //Generate square wave
 List square([num cycles = 1, num amp = 1])
     => new _Waves().generate('square', cycles, amp);
@@ -45,8 +49,8 @@ class _Waves {
       if (waveform == 'square') {
         tr = edge > 4 ? edge.floor().toInt() : 4;
         tf = edge > 4 ? edge.floor().toInt() : 4;
-        space.fillRange(0, ((points / (2 * cycles)).floor().toInt()) - tr, minAmp);
-        mark.fillRange(0, ((points / (2 * cycles)).floor().toInt()) - tf, amp);
+        space.addAll(new List.filled(((points / (2 * cycles)).floor().toInt()) - tr, minAmp));
+        mark.addAll(new List.filled(((points / (2 * cycles)).floor().toInt()) - tf, amp));
         for (var j = 1; j <= tr; j++) {
           trise.add(((amp - minAmp) / tr) * j);
           tfall.add(amp - ((amp - minAmp) / tf) * j);
@@ -55,8 +59,8 @@ class _Waves {
       } else if (waveform == 'triangle') {
         tr = (points / (2 * cycles)).floor().toInt() - 1;
         tf = (points / (2 * cycles)).floor().toInt() - 1;
-        space.fillRange(0, 1, minAmp);
-        mark.fillRange(0, 1, amp);
+        space.addAll(new List.filled(1, minAmp));
+        mark.addAll(new List.filled(1, amp));
         for (var j = 1; j <= tr; j++) {
           trise.add(((amp - minAmp) / tr) * j);
           tfall.add(amp - ((amp - minAmp) / tf) * j);
@@ -65,8 +69,8 @@ class _Waves {
       } else if (waveform == 'ramp') {
         tf = edge > 4 ? edge.floor().toInt() : 4;
         tr = (points / (cycles)).floor().toInt() - tf - 2;
-        space.fillRange(0, 1, minAmp);
-        mark.fillRange(0, 1, amp);
+        space.addAll(new List.filled(1, minAmp));
+        mark.addAll(new List.filled(1, amp));
         for (var j = 1; j <= tr; j++) {
           trise.add(((amp - minAmp) / tr) * j);
         }
@@ -77,8 +81,8 @@ class _Waves {
       } else if (waveform == 'pulse') {
         tr = edge > 4 ? edge.floor().toInt() : 4;
         tf = edge > 4 ? edge.floor().toInt() : 4;
-        space.fillRange(0, (9 * (points / (10 * cycles)).floor().toInt()) - tr, minAmp);
-        mark.fillRange(0, ((points / (10 * cycles)).floor().toInt()) - tf, amp);
+        space.addAll(new List.filled((9 * (points / (10 * cycles)).floor().toInt()) - tr, minAmp));
+        mark.addAll(new List.filled(((points / (10 * cycles)).floor().toInt()) - tf, amp));
         for (var j = 1; j <= tr; j++) {
           trise.add(((amp - minAmp) / tr) * j);
           tfall.add(amp - ((amp - minAmp) / tf) * j);
@@ -93,7 +97,7 @@ class _Waves {
         ..addAll(tfall);
       }
       if (data.length < points) {
-        data.fillRange(data.length, points - data.length, minAmp);
+        data.addAll(new List.filled(points - data.length, minAmp));
       }
     }
     return data;
