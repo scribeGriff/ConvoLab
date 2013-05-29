@@ -133,7 +133,7 @@ Future<SccResults> scc(List<List> edgeList) {
   sumComponents..add(N - offset)..sort((a, b) => b.compareTo(a));
 
   /// Return the SccResults object.
-  return new Future.of(() =>
+  return new Future (() =>
       new SccResults(sumComponents, N, components, graph));
 }
 

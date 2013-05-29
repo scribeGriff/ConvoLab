@@ -139,7 +139,7 @@ class _Deconvolution {
         return new DeconvResults(q, qindex, r, rindex, qtime, rtime,
             den, dindex);
       } else {
-        var q = new List.fixedLength(nDegree - dDegree + 1);
+        var q = new List(nDegree - dDegree + 1);
         rtime = vec(-rindex, nDegree - dDegree);
 
         // Perform the long division.

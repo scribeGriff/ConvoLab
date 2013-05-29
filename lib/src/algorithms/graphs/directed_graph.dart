@@ -29,7 +29,7 @@ part of convolab;
  *
  */
 
-class DirectedGraph extends Iterable {
+class DirectedGraph extends IterableBase {
   final HashMap dGraph = new HashMap();
 
   /// Adds a new node to the graph.  If the node already exists, then the

@@ -88,11 +88,11 @@ Future<bool> twosat(List<List> satlist) {
   for (var element in variables) {
     if (scc[element] == (scc[-element])) {
       // Clauses are unsatisfiable.
-      return new Future.of(() => false);
+      return new Future(() => false);
     }
   }
   /// Otherwise there is a variable that will satisfy all clauses.
   // Clauses are satisfiable.
-  return new Future.of(() => true);
+  return new Future(() => true);
 }
 
