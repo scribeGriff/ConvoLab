@@ -56,7 +56,7 @@ class _PrimsMst {
   List<List<int>> adjMatrix;
   List<List<int>> mstree;
   List<List<int>> mstList = [];
-  List<bool> allV = [];
+  List<bool> allV;
 
   _PrimsMst(this.adjList);
 
@@ -83,8 +83,7 @@ class _PrimsMst {
     }
 
     mstree = new List<List<int>>(adjMatrix.length);
-
-    allV.fillRange(0, adjMatrix.length, false);
+    allV = new List.filled(adjMatrix.length, false);
     allV[0] = true;
 
     for (var i = 0; i < adjMatrix.length; i++) {
@@ -161,8 +160,5 @@ class _Edge {
 /// Returns the MST as data and the sum of the edge weights as value.
 class PrimstResults extends ConvoLabResults {
 
-  final List<List<int>> data;
-  final int value;
-
-  PrimstResults(this.data, this.value) : super();
+  PrimstResults(List<List> data, int value) : super(data, value);
 }
