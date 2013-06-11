@@ -49,35 +49,25 @@ ApspResults apsp(var adjList, var numVertices, var numEdges) =>
     new _Apsp(adjList).computeApsp(numVertices, numEdges);
 
 class _Apsp {
-  const largeValue = 2147483647;
-
+  // Just need some large value to indicate that no path exists.
+  // Small integer requires < 2^30 - 1 (32 bit) = 1073741823.
+  static const largeValue = 1073741823 >> 1;
   final List<List> adjList;
   List<List> adjMatrix;
-  List<List> apspList = [];
+  List<List> apspList = new List();
+  List<int> nodes = new List(2);
 
   _Apsp(this.adjList);
 
-  ApspResults computeApsp(var numVertices, var numEdges) {
-    var N = numVertices;
-    var K = numEdges;
-    var shortest = largeValue;
+  ApspResults computeApsp(final N, final K) {
+    var shortPath = largeValue;
 
-    adjMatrix = new List<List<int>>(N);
-    // create the sublists
-    for (var i = 0; i < N; i++) {
-      adjMatrix[i] = new List<int>(N);
-    }
-    // populate with a very large number except where i = j.
-    for (var i = 0; i < N; i++) {
-      for (var j = 0; j < N; j++) {
-        if (i == j) {
-          adjMatrix[i][j] = 0;
-        } else {
-          adjMatrix[i][j] = largeValue;
-        }
-      }
-    }
-    // Map the adjacency list to a sparse array.
+    // Create a 2D array and populate it with a large value except at
+    // i = j which is set equal to 0.
+    adjMatrix = new List.generate(N, (i) =>
+        new List.generate(N, (j) => i == j ? 0 : largeValue));
+
+    // Map the adjacency list to the sparse array.
     for (var i = 1; i < adjList.length; i++) {
       adjMatrix[adjList[i][0] - 1][adjList[i][1] - 1] = adjList[i][2];
     }
@@ -95,21 +85,19 @@ class _Apsp {
         }
       }
     }
-    // Create a list of the shortests paths and find
-    // the shortest shortest path.
+    // Map the sparse matrix to a list of all pairs shortest paths and find the
+    // shortest - shortest path value and the nodes comprising the
+    // shortest - shortest path.
     for (var i = 0; i < N; i++) {
       for (var j = 0; j < N; j++) {
-        if (adjMatrix[i][j]  < largeValue >> 1) {
-          apspList.add([i + 1, j + 1, adjMatrix[i][j]]);
-        } else {
-          apspList.add([i + 1, j + 1, 'inf']);
-        }
-        if (adjMatrix[i][j] < shortest) {
-          shortest = adjMatrix[i][j];
+        apspList.add([i + 1, j + 1, adjMatrix[i][j]]);
+        if (adjMatrix[i][j] < shortPath) {
+          shortPath = adjMatrix[i][j];
+          nodes = [i + 1, j + 1];
         }
       }
     }
-    return new ApspResults(apspList, shortest);
+    return new ApspResults(apspList, shortPath, nodes);
   }
 }
 
@@ -117,6 +105,7 @@ class _Apsp {
 /// Returns a 2D array of the shortest paths between two vertices as data
 /// and the shortest of the shortest paths as value.
 class ApspResults extends ConvoLabResults {
+  final List nodes;
 
-  ApspResults(List data, int value) : super(data, value);
+  ApspResults(List data, int value, this.nodes) : super(data, value);
 }

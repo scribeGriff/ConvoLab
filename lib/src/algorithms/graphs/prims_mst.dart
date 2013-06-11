@@ -50,8 +50,9 @@ PrimstResults primst(var adjList, [var numVertices]) =>
 
 /// The private class _PrimsMst.
 class _PrimsMst {
-  const largeValue = 1000000;
-
+  // Just need some large value to indicate an arbitrarily large weight.
+  // Small integer requires < 2^30 - 1 (32 bit) = 1073741823.
+  static const largeValue = 1073741823 >> 1;
   final List<List<int>> adjList;
   List<List<int>> adjMatrix;
   List<List<int>> mstree;
@@ -63,42 +64,25 @@ class _PrimsMst {
   PrimstResults computeMST(var n) {
     if (n == null) n = adjList.length;
 
-    adjMatrix = new List<List<int>>(n);
-    // create the sublists
-    for (var i = 0; i < n; i++) {
-      adjMatrix[i] = new List<int>(n);
-    }
+    // Create a 2D array and populate it with a large value.
+    adjMatrix = new List.generate(n, (var index) => new List.filled(n, largeValue));
 
-    // populate with a very large number
-    for (var i = 0; i < n; i++) {
-      for (var j = 0; j < n; j++) {
-        adjMatrix[i][j] = largeValue;
-      }
-    }
-
-    // Map the list to a sparse array.
+    // Map the input adjacency list to the 2D array to create a sparse matrix.
     for (var i = 0; i < adjList.length; i++) {
       adjMatrix[adjList[i][0] - 1][adjList[i][1] - 1] = adjList[i][2];
       adjMatrix[adjList[i][1] - 1][adjList[i][0] - 1] = adjList[i][2];
     }
 
-    mstree = new List<List<int>>(adjMatrix.length);
+    // Create a 2D array to hold the mst and initialize it to null.
+    mstree = new List.generate(adjMatrix.length, (var index) =>
+        new List.filled(adjMatrix.length, null));
+
+    // A boolean array to keep track of explored edges.
     allV = new List.filled(adjMatrix.length, false);
     allV[0] = true;
 
-    for (var i = 0; i < adjMatrix.length; i++) {
-      mstree[i] = new List<int>(adjMatrix.length);
-    }
-
-    for (var i = 0; i < adjMatrix.length; i++) {
-      for (var j = 0; j < adjMatrix.length; j++) {
-        mstree[i][j] = null;
-      }
-    }
-
-    _Edge e = null;
-
     /// Main while loop continues until findMinimumEdge returns null.
+    _Edge e = null;
     while ((e = findMinimumEdge(allV)) != null) {
       allV[e.j] = true;
       mstree[e.i][e.j] = e.w;

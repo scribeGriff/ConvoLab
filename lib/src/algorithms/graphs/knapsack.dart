@@ -47,7 +47,9 @@ KnapResults knap(var valueWeight, var capacity) =>
     new _Knapsack(valueWeight).computeCapacity(capacity);
 
 class _Knapsack {
-  const minValue = -2147483648;
+  // Just need some small value to indicate a minimum.
+  // Small integer requires < -2^30 (32 bit) = -1073741824.
+  static const minValue = -1073741824 >> 1;
   final valueWeight;
   List<List<int>> optimum;
   List<List<bool>> incItem;
@@ -62,30 +64,15 @@ class _Knapsack {
   KnapResults computeCapacity(var W) {
     // The number of items is the length of the 2D array:
     N = valueWeight.length;
-    // Create a 2D array to hold the optimal solution for each
-    // recurrance.  Populate with a zero value initially.
-    optimum = new List<List<int>>(N + 1);
-    for (var i = 0; i <= N; i++) {
-      optimum[i] = new List<int>(W + 1);
-    }
-    for (var i = 0; i <= N; i++) {
-      for (var j = 0; j <= W; j++) {
-        optimum[i][j] = 0;
 
-      }
-    }
-    // Create another 2D array to keep track of whether the
-    // optimal solution included the item for that iteration.
-    // Populate with boolean false initially.
-    incItem = new List<List<bool>>(N + 1);
-    for (var i = 0; i <= N; i++) {
-      incItem[i] = new List<bool>(W + 1);
-    }
-    for (var i = 0; i <= N; i++) {
-      for (var j = 0; j <= W; j++) {
-      incItem[i][j] = false;
-      }
-    }
+    // Create a 2D array and initialize all elements to 0.
+    // Holds the optimal solution for each recurrance.
+    optimum = new List.generate(N + 1, (var index) => new List.filled(W + 1, 0));
+
+    // Create another 2D array and initialize all elements to false.
+    // Keeps track of whether the item for that iteration is included in optimal solution.
+    incItem = new List.generate(N + 1, (var index) => new List.filled(W + 1, false));
+
     // Iterate over number of items and the weight of each item
     // to determine the optimum solution for each.
     for (var n = 1; n <= N; n++) {
@@ -101,7 +88,7 @@ class _Knapsack {
         // Select which of the two options are optimal and if
         // this item was included in solution.
         optimum[n][w] = max(option1, option2);
-        incItem[n][w] = (option2 > option1);
+        incItem[n][w] = option2 > option1;
       }
     }
     // Now assemble an array representing the optimum knapsack.
