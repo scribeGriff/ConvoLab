@@ -1,11 +1,13 @@
 # ConvoLab #
 
 ## A signal processing library for Dart ##
-[![Build Status](https://drone.io/github.com/scribeGriff/ConvoLab/status.png)](https://drone.io/github.com/scribeGriff/ConvoLab/latest)   
-This library has neither dart:io or dart:html dependecy so that it can be used by the client or the server.  Two related libraries that make use of the ConvoLab library are:
+[![Build Status](https://drone.io/github.com/scribeGriff/ConvoLab/status.png)](https://drone.io/github.com/scribeGriff/ConvoLab/latest)
 
-1.  ConvoWeb (client side)
-2.  ConvoHio (server side)
+[![endorse](https://api.coderwall.com/scribegriff/endorsecount.png)](https://coderwall.com/scribegriff)
+ 
+This library has neither dart:io or dart:html dependecy so that it can be used by the client or the server.  Plotting capability is available through the [simplot](https://github.com/scribeGriff/simplot "simplot library") library.
+
+The graph-centric algorithms (ie, scc, 2-sat, Prim's MST, Kruskal's MST, all pairs shortest path and the knapsack algorithm) have been moved to the [graphlab](https://github.com/scribeGriff/graphlab "graphlab library") library.
 
 Very preliminary and very much a work in progress.
 
@@ -39,12 +41,6 @@ The library currently supports the following algorithms (more are in development
 3.  partial sums of Fourier series - `fsps()`
 4.  convolution - `conv()`
 5.  deconvolution - `deconv()`
-6.  Prim's minimum spanning tree - `primst()`
-7.  Kruskal's minimum spanning tree - `kmst()`
-8.  2-sat problem with Kosaraju's algorithm - `twosat()`
-9.  strongly connected components with Kosaraju's algorithm - `scc()`
-10.  all pairs shortest path with Floyd-Warshall algorithm - `apsp()`
-11.  knapsack - `knap()`
 12.  2D convolution - `conv2d()` => *in development*
 13.  block convolution - `blconv()` => *in development*
 14.  correlation and autocorrelation - `corr()` => *in development*
