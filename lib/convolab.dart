@@ -26,8 +26,6 @@ import 'dart:json' as json;
 import 'dart:collection';
 import 'dart:async';
 
-//import 'package:meta/meta.dart';
-
 part 'src/exceptions/convolab_exception.dart';
 part 'src/exceptions/data_format_exception.dart';
 part 'src/exceptions/no_such_element_exception.dart';
@@ -44,15 +42,6 @@ part 'src/algorithms/fourier/ifft.dart';
 part 'src/algorithms/fourier/partial_sums.dart';
 part 'src/algorithms/convolution/convolution.dart';
 part 'src/algorithms/convolution/deconvolution.dart';
-part 'src/algorithms/graphs/union_find.dart';
-part 'src/algorithms/graphs/prims_mst.dart';
-part 'src/algorithms/graphs/kruskals_mst.dart';
-part 'src/algorithms/graphs/directed_graph.dart';
-part 'src/algorithms/graphs/kosaraju.dart';
-part 'src/algorithms/graphs/twosat.dart';
-part 'src/algorithms/graphs/scc.dart';
-part 'src/algorithms/graphs/all_pairs_shortest_path.dart';
-part 'src/algorithms/graphs/knapsack.dart';
 
 part 'src/math/lists.dart';
 part 'src/math/complex.dart';

@@ -7,14 +7,14 @@ part of convolab;
  */
 
 // Wrapper to illiminate need for using new/const keyword.
-Complex complex(num a, num b) => new Complex(a, b);
+Complex complex(num a, [num b = 0]) => new Complex(a, b);
 
 // Complex class
 class Complex {
   final num real, imag;
   final int sigDig;
 
-  const Complex(this.real, [this.imag = 0])
+  const Complex(this.real, this.imag)
       : sigDig = 2;
 
   // Getters
@@ -84,6 +84,13 @@ class Complex {
   Complex operator /(Complex b) {
     Complex a = this;
     return a * b.recip;
+  }
+
+  int get hashCode {
+    int result = 5;
+    result = 89 * result + real.hashCode;
+    result = 89 * result + imag.hashCode;
+    return result;
   }
 
   bool operator ==(var b) {

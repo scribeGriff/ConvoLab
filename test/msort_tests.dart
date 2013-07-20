@@ -26,7 +26,7 @@ void mergeSortTests() {
     });
     test('MergeSort of small internal array - maximum inversions', (){
       List<int> dataList = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
-      inversions = dataList.length * (dataList.length - 1) >> 1;
+      inversions = dataList.length * (dataList.length - 1) ~/ 2;
       msResults = msort(dataList);
       expect(msResults, isNotNull);
       expect(msResults.value, equals(inversions));
