@@ -25,6 +25,7 @@ import 'dart:math';
 import 'dart:json' as json;
 import 'dart:collection';
 import 'dart:async';
+import 'package:meta/meta.dart';
 
 part 'src/exceptions/convolab_exception.dart';
 part 'src/exceptions/data_format_exception.dart';
@@ -51,3 +52,5 @@ part 'src/math/row_vector.dart';
 part 'src/math/find_min_max.dart';
 
 part 'src/signals/waveforms.dart';
+
+part 'src/sequences/Sequence.dart';

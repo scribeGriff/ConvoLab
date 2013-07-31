@@ -4,6 +4,10 @@ part of convolab;
 
 /**
  * A class for working with complex numbers.
+ *
+ * The complex number:
+ *     complex(1, 2)
+ * is equivalent to 1 + 2j.
  */
 
 // Wrapper to illiminate need for using new/const keyword.

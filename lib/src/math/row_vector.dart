@@ -5,19 +5,11 @@
 part of convolab;
 
 /**
- * Several classes to create specific vectors, including:
- * * ones(n) - creates a row vector containing 1s for length n.
- * * zeros(n) - creates a row vector containing 0s for length n.
+ * Creates a row vector of type List.
  * * vec(start, end, [increment = 1]) - creates a fully specified vector
  *   beginning at start, going to end, in steps of increment.
  *
  */
-
-/// Generates a vector of all 1s equal to length.
-List ones(int length) => new List.filled(length, 1);
-
-/// Generates a vector of all 0s equal to length.
-List zeros(int length) => new List.filled(length, 0);
 
 /// Generates a fully specified vector.
 List vec(num start, num end, [num increment = 1])
