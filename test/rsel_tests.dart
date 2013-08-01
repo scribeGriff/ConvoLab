@@ -15,7 +15,7 @@ void randomSelectTests() {
       expect(topFive, isNotNull);
       expect(topFive.value, equals(67));
       expect(topFive.data, hasLength(order));
-      expect(topFive.count, inExclusiveRange(topFive.input.length - 1,
+      expect(topFive.count, inInclusiveRange(topFive.input.length - 1,
         topFive.input.length*log2(topFive.input.length)));
     });
   });
