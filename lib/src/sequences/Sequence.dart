@@ -210,6 +210,26 @@ class Sequence<E> extends ListBase<E> {
     }
     return new Sequence()..addAll(temp);
   }
+
+  /// Calculate the minimum value of a sequence.
+  num min() => this.fold(this.first, math.min);
+
+  /// Calculate the maximum value of a sequence.
+  num max() => this.fold(this.first, math.max);
+
+  /// Calculate the sum of a sequence.
+  num sum() => this.reduce((value, element) => value + element);
+
+  /// Calculate the prod of a sequence.
+  num prod() => this.reduce((value, element) => value * element);
+
+  /// Calculate the energy of a sequence.
+  num energy() => this.map((element) => (element * element).abs())
+      .reduce((value, element) => value + element);
+
+  /// Calculate the power of a sequence.
+  num power() => this.energy() / this.length;
+
   /// Getter iterator returns an iterator to the sequence
   /// to allow traversing the elements in the sequence.
   Iterator get iterator => sequence.iterator;

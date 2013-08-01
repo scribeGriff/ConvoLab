@@ -65,8 +65,8 @@ class _PartialSums {
         for (var n = 0; n < L; n++) {
           var q = complex(0, 0);
           for (var k = 1; k <= kArray[i]; k++) {
-            var kth = 2 * n * k * PI / N;
-            var wk = complex(cos(kth), sin(kth));
+            var kth = 2 * n * k * math.PI / N;
+            var wk = complex(math.cos(kth), math.sin(kth));
             q = q + (wk * coeff.data[k]);
           }
           y[n] = coeff.data[0].scale(1 / N) + q.scale(2 / N);

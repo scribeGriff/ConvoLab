@@ -21,7 +21,7 @@
 
 library convolab;
 
-import 'dart:math';
+import 'dart:math' as math;
 import 'dart:json' as json;
 import 'dart:collection';
 import 'dart:async';

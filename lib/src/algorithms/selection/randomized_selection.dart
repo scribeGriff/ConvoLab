@@ -86,7 +86,7 @@ class _RandomizedSelection {
   bool ho;
 
   _RandomizedSelection()
-      : randNum = new Random(),
+      : randNum = new math.Random(),
         count = 0;
 
   RselResults sel(List<int> inList, int orderStat, bool highOrder) {

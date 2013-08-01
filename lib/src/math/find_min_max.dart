@@ -16,7 +16,7 @@ class _FindMinMax {
   var randNum;
 
   _FindMinMax()
-      : randNum = new Random();
+      : randNum = new math.Random();
 
   num search(List input, bool highOrder) {
     int orderStat;

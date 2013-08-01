@@ -23,17 +23,17 @@ class Complex {
 
   // Getters
   String  get string    => _compToString();
-  num     get magnitude => sqrt(real*real + imag*imag);
-  num     get phase     => atan2(imag, real);
+  num     get magnitude => math.sqrt(real*real + imag*imag);
+  num     get phase     => math.atan2(imag, real);
   Complex get cround2   => _calcCompRound2();
   Complex get conj      => new Complex(real, -imag);
   Complex get recip     => _calcReciprocal();
-  Complex get cexp      => new Complex(exp(real) * cos(imag),
-      exp(real) * sin(imag));
-  Complex get csin      => new Complex(sin(real) * cosh(imag),
-      cos(real) * sinh(imag));
-  Complex get ccos      => new Complex(cos(real) * cosh(imag),
-      -sin(real) * sinh(imag));
+  Complex get cexp      => new Complex(math.exp(real) * math.cos(imag),
+      math.exp(real) * math.sin(imag));
+  Complex get csin      => new Complex(math.sin(real) * cosh(imag),
+      math.cos(real) * sinh(imag));
+  Complex get ccos      => new Complex(math.cos(real) * cosh(imag),
+      -math.sin(real) * sinh(imag));
   Complex get ctan      => csin / ccos;
 
   // Convert complex number to string.

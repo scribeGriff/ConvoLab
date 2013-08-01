@@ -9,6 +9,6 @@ part of convolab;
  */
 
 // log base 2 of x
-num log2(num x) => log(x) / log(2);
+num log2(num x) => math.log(x) / math.log(2);
 // log base 10 of x
-num log10(num x) => log(x) / log(10);
+num log10(num x) => math.log(x) / math.log(10);
