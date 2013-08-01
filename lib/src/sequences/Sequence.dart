@@ -9,10 +9,13 @@ part of convolab;
  *
  * These functions all return objects of the Sequence class:
  * * Sequence sequence(Iterable list, [int repeat = 1])
+ * * Sequence position(int length, int n0)
  * * Sequence zeros(var n)
  * * Sequence ones(var n)
  * * Sequence impseq(int n, int index, [n0 = 0])
  * * Sequence stepseq(int n, int index, [n0 = 0])
+ * * Sequence seqshift(Sequence position, int shift)
+ * * Sequence seqfold(Sequence seq2fold, {position: false})
  *
  * Examples:
  *     var list = [1, 2, 3, 4];
@@ -27,6 +30,11 @@ part of convolab;
  *     for(var element in seq3) {
  *       print(element);
  *     }
+ *     var myposition = position(13, 2);
+ *     print(myposition);
+ *     var myshiftedposition = seqshift(myposition, 5);
+ *     print(myshiftedposition);
+ *     print(seqfold(myposition, position:true));
  *
  */
 
@@ -39,6 +47,11 @@ Sequence sequence(Iterable list, [int repeat = 1]) {
     temp.addAll(list);
   }
   return new Sequence()..addAll(temp);
+}
+
+Sequence position(int length, int n0) {
+  return new Sequence()..addAll(new List.generate(length, (var index) =>
+      (index - n0), growable:false));
 }
 
 /// Creates a sequence of zeros of length n.
@@ -56,6 +69,22 @@ Sequence impseq(int n, int index, [n0 = 0]) => new Sequence()
 /// The index parameter is referenced to u(n - n0).
 Sequence stepseq(int n, int index, [n0 = 0]) => new Sequence()
     ..addAll(new List.generate(n, (j) => j >= n0 - index ? 1 : 0));
+
+/// Shifts a positional sequence by amount given by shift.
+/// Returns a positional vector representing x(n) -> x(n - shift).
+Sequence seqshift(Sequence position, int shift) => position + shift;
+
+/// Flips a squence about it's zero index point.  Negates
+/// the sequence if position set to true.
+/// Represents y(n) -> x(-n)
+/// TODO: Does this need to flip around the n0 point?
+Sequence seqfold(Sequence seq2fold, {position: false}) {
+  if (!position) {
+    return sequence(seq2fold.reversed);
+  } else {
+    return sequence(seq2fold.reversed) * -1;
+  }
+}
 
 /// Adds sequences of different lengths and/or with differing n0 indices.
 List addSeqs(List seq1, List seq2, [int n01 = 0, int n02 = 0]) {
@@ -108,7 +137,8 @@ class Sequence<E> extends ListBase<E> {
   // by element operations only.
   /// Override '+' operator allows added two sequences
   /// or a constant to a sequence.
-  @override Sequence operator +(Object y) {
+  //@override
+  Sequence operator +(Object y) {
     var temp;
     if (y is num) {
       // Add y to each element in Sequence.
@@ -126,7 +156,8 @@ class Sequence<E> extends ListBase<E> {
 
   /// Override '-' operator allows subtracting two sequences
   /// or a constant from a sequence.
-  @override Sequence operator -(Object y) {
+  //@override
+  Sequence operator -(Object y) {
     var temp;
     if (y is num) {
       // Subtract y from each element in Sequence.
@@ -144,7 +175,8 @@ class Sequence<E> extends ListBase<E> {
 
   /// Override '*' operator allows multiplying two sequences
   /// or a sequence by a constant.
-  @override Sequence operator *(Object y) {
+  //@override
+  Sequence operator *(Object y) {
     var temp;
     if (y is num) {
       // Scale sequence by y.
@@ -162,13 +194,14 @@ class Sequence<E> extends ListBase<E> {
 
   /// Override '/' operator allows dividing two sequences
   /// or a sequence by a constant.
-  @override Sequence operator /(Object y) {
+  //@override
+  Sequence operator /(Object y) {
     var temp;
     if (y is num) {
       // Scale sequence by y.
       temp = this.map((i) => y / i);
     } else if (y is Sequence) {
-      // Perform sample by sample multiplication of (this) * y.
+      // Perform sample by sample division of (this) * y.
       temp = new List(y.length);
       Sequence x = this;
       for (var i = 0; i < x.length; i++) {
