@@ -55,3 +55,17 @@ part 'src/math/find_min_max.dart';
 part 'src/signals/waveforms.dart';
 
 part 'src/sequences/Sequence.dart';
+part 'src/sequences/sequence_functions.dart';
+
+void main() {
+  var seq1 = sequence([1, 2, 3, 4]);
+  var seq2 = sequence([8, 2, 3, 4, 8, 3]);
+  var pos1 = seq1.position(2);
+  var pos2 = seq2.position(-3);
+  print(seq1);
+  print(pos1);
+  print(seq2);
+  print(pos2);
+  var seq3 = sequence(vec(math.min(pos1.min(), pos2.min()), math.max(pos1.max(), pos2.max())));
+  print(seq3);
+}
