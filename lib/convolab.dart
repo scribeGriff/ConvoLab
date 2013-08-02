@@ -59,13 +59,12 @@ part 'src/sequences/sequence_functions.dart';
 
 void main() {
   var seq1 = sequence([1, 2, 3, 4]);
-  var seq2 = sequence([8, 2, 3, 4, 8, 3]);
+  var seq2 = sequence([8, 2, 3, 4]);
   var pos1 = seq1.position(2);
-  var pos2 = seq2.position(-3);
-  print(seq1);
-  print(pos1);
-  print(seq2);
-  print(pos2);
-  var seq3 = sequence(vec(math.min(pos1.min(), pos2.min()), math.max(pos1.max(), pos2.max())));
-  print(seq3);
+  var pos2 = seq2.position(-1);
+  var addseqs12 = addSeqs(seq1, pos1, seq2, pos2);
+  print(addseqs12.y);
+  print(addseqs12.n);
+  print(addseqs12.y is Sequence);
+  print(addseqs12.n is Sequence);
 }

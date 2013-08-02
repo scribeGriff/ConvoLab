@@ -7,7 +7,8 @@ part of convolab;
 /**
  * Top level functions to generate sequences of sampled values.
  *
- * These functions all return objects of the Sequence class:
+ * These functions all return objects of the Sequence class or the
+ * SequenceResults class:
  * * Sequence sequence(Iterable list, [int repeat = 1])
  * * Sequence position(int length, int n0)
  * * Sequence zeros(var n)
@@ -16,6 +17,8 @@ part of convolab;
  * * Sequence stepseq(int n, int index, [n0 = 0])
  * * Sequence shiftseq(Sequence position, int shift)
  * * Sequence foldseq(Sequence seq2fold, {position: false})
+ * * SequenceResults addSeqs(Sequence seq1, Sequence pos1, Sequence seq2, Sequence pos2)
+ * * SequenceResults multSeqs(Sequence seq1, Sequence pos1, Sequence seq2, Sequence pos2)
  *
  * Examples:
  *     var list = [1, 2, 3, 4];
@@ -35,6 +38,14 @@ part of convolab;
  *     var myshiftedposition = seqshift(myposition, 5);
  *     print(myshiftedposition);
  *     print(seqfold(myposition, position:true));
+ *
+ *     var seq1 = sequence([1, 2, 3, 4]);
+ *     var seq2 = sequence([8, 2, 3, 4]);
+ *     var pos1 = seq1.position(2);
+ *     var pos2 = seq2.position(-1);
+ *     var addseqs12 = addSeqs(seq1, pos1, seq2, pos2);
+ *     print(addseqs12.y);
+ *     print(addseqs12.n);
  *
  */
 
@@ -90,15 +101,38 @@ Sequence foldseq(Sequence seq2fold, {position: false}) {
 }
 
 /// Adds sequences of different lengths and/or with differing n0 indices.
-List addSeqs(Sequence seq1, Sequence pos1, Sequence seq2, Sequence pos2) {
-  // TODO
+SequenceResults addSeqs(Sequence seq1, Sequence pos1, Sequence seq2, Sequence pos2) {
   // Create a new sample position sequence, x(n), which will represent
   // the sum of the added sequences.
   var n = sequence(vec(math.min(pos1.min(), pos2.min()),
                        math.max(pos1.max(), pos2.max())));
+  var y1 = zeros(n.length);
+  var y2 = zeros(n.length);
+  y1.setAll(n.indexOf(pos1.first), seq1);
+  y2.setAll(n.indexOf(pos2.first), seq2);
+  return new SequenceResults(y1 + y2, n);
+
 }
 
 /// Multiplies sequences of different lengths and/or with differing n0 indices.
-List multSeqs(List seq1, List seq2, [int n01 = 0, int n02 = 0]) {
-  // TODO
+SequenceResults multSeqs(Sequence seq1, Sequence pos1, Sequence seq2, Sequence pos2) {
+  // Create a new sample position sequence, x(n), which will represent
+  // the sum of the added sequences.
+  var n = sequence(vec(math.min(pos1.min(), pos2.min()),
+                       math.max(pos1.max(), pos2.max())));
+  var y1 = zeros(n.length);
+  var y2 = zeros(n.length);
+  y1.setAll(n.indexOf(pos1.first), seq1);
+  y2.setAll(n.indexOf(pos2.first), seq2);
+  return new SequenceResults(y1 * y2, n);
 }
+
+class SequenceResults extends ConvoLabResults {
+  /// Returns a sample sequence as y and a sample position
+  /// sequence as n
+  final Sequence y;
+  final Sequence n;
+
+  SequenceResults(this.y, this.n);
+}
+

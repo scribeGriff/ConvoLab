@@ -18,8 +18,8 @@ part of convolab;
  * * Sequence ones(var n)
  * * Sequence impseq(int n, int index, [n0 = 0])
  * * Sequence stepseq(int n, int index, [n0 = 0])
- * * Sequence seqshift(Sequence position, int shift)
- * * Sequence seqfold(Sequence seq2fold, {position: false})
+ * * Sequence shiftseq(Sequence position, int shift)
+ * * Sequence foldseq(Sequence seq2fold, {position: false})
  *
  */
 
