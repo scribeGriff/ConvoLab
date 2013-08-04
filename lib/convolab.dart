@@ -54,17 +54,7 @@ part 'src/math/find_min_max.dart';
 
 part 'src/signals/waveforms.dart';
 
-part 'src/sequences/Sequence.dart';
+part 'src/sequences/sequence.dart';
 part 'src/sequences/sequence_functions.dart';
-
-void main() {
-  var seq1 = sequence([1, 2, 3, 4]);
-  var seq2 = sequence([8, 2, 3, 4]);
-  var pos1 = seq1.position(2);
-  var pos2 = seq2.position(-1);
-  var addseqs12 = addSeqs(seq1, pos1, seq2, pos2);
-  print(addseqs12.y);
-  print(addseqs12.n);
-  print(addseqs12.y is Sequence);
-  print(addseqs12.n is Sequence);
-}
+part 'src/sequences/add_mult_seqs.dart';
+part 'src/sequences/even_odd_seqs.dart';
