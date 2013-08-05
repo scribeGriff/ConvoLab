@@ -126,7 +126,7 @@ class _Convolution {
  * Example:
  *     List x = [2, 3, 4];
  *     List h = [3, 4, 5, 6];
- *     var y = conv(x1, x2);
+ *     var y = conv(x, h);
  *     print(y.format());
  *
  * prints:
@@ -153,8 +153,8 @@ class ConvResults extends ConvoLabResults implements _PolyString {
   List<num> coeffs;
   List<int> exponents;
   bool isText = false,
-      isHtml = false,
-      isTex = false;
+       isHtml = false,
+       isTex = false;
   String variable;
 
   var exponent;
