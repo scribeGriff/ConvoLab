@@ -151,4 +151,7 @@ class Sequence<E> extends ListBase<E> {
   /// Getter iterator returns an iterator to the sequence
   /// to allow traversing the elements in the sequence.
   Iterator get iterator => sequence.iterator;
+
+  /// Getter middle returns the middle index of the sequence.
+  int get middle => sequence.length ~/ 2;
 }

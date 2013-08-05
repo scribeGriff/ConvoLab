@@ -54,16 +54,21 @@ part 'src/math/row_vector.dart';
 part 'src/math/find_min_max.dart';
 
 part 'src/signals/waveforms.dart';
-part 'src/signals/random_gaussian.dart';
 
 part 'src/sequences/sequence.dart';
 part 'src/sequences/sequence_functions.dart';
 part 'src/sequences/add_mult_seqs.dart';
 part 'src/sequences/even_odd_seqs.dart';
+part 'src/sequences/random_gaussian.dart';
 
 void main() {
-  Sequence input = sequence([2, 3, 4]);
-  Sequence noise = sequence([3, 4, 5, 6]);
-  var xcorr = corr(input, noise, 0, 0);
-  print(xcorr.x);
+  Sequence x = sequence([3, 11, 7, 0, -1, 4, 2]);
+//  Sequence n = x.position(x.middle);
+//  Sequence nm2 = shiftseq(n, 2);
+  Sequence w = rndseq(x.length);
+//  var xcorr = corr(x, nm2, w, nm2, 1, 1);
+//  print(xcorr.x);
+//  print(xcorr.n);
+  print(w);
+
 }

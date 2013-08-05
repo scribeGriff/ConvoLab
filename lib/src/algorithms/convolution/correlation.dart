@@ -11,10 +11,10 @@ part of convolab;
  *
  */
 
-// TODO: Should we pass position sequences or zero indices?
-CorrResults corr(Sequence seq1, Sequence seq2, int index1, int index2) {
-  var pos1 = position(seq1.length, index1);
-  var pos2 = position(seq2.length, index2);
+// TODO: Should we pass position sequences or zero indices?  Passing both
+// for now since conv() expects index, but need to move toward seqences only.
+CorrResults corr(Sequence seq1, Sequence pos1, Sequence seq2, Sequence pos2,
+                 int index1, int index2) {
   var seqsum = addSeqs(seq1, pos1, seq2, pos2);
   var flipseq1 = foldseq(seq1);
   var flippos1 = foldseq(pos1, negate:true);

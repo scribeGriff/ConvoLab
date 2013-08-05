@@ -36,7 +36,7 @@ AddMultSeqResults addSeqs(Sequence seq1, Sequence pos1, Sequence seq2,
 AddMultSeqResults multSeqs(Sequence seq1, Sequence pos1, Sequence seq2,
                            Sequence pos2) {
   // Create a new sample position sequence, x(n), which will represent
-  // the sum of the added sequences.
+  // the product of the multiplied sequences.
   var n = sequence(vec(math.min(pos1.min(), pos2.min()),
                        math.max(pos1.max(), pos2.max())));
   var y1 = zeros(n.length);
