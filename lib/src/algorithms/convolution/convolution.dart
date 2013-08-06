@@ -55,6 +55,12 @@ part of convolab;
 ConvResults conv(List xdata, List hdata, [int xindex, int hindex])
     => new _Convolution(xdata, hdata).convolve(xindex, hindex);
 
+// TODO convert to sequences:
+////// The top level function conv() returns the object ConvResults.
+//ConvResults conv(Sequence x, Sequence h, [Sequence xn = sequence(new List.generate(x.length, (var index) => index)),
+//                                          Sequence hn = sequence(new List.generate(h.length, (var index) => index))])
+//    => new _Convolution(x, h).convolve(xn, hn);
+
 /// The private class _Convolution.
 class _Convolution {
   final xdata;

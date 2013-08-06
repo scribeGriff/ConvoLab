@@ -63,12 +63,29 @@ part 'src/sequences/random_gaussian.dart';
 
 void main() {
   Sequence x = sequence([3, 11, 7, 0, -1, 4, 2]);
-//  Sequence n = x.position(x.middle);
-//  Sequence nm2 = shiftseq(n, 2);
+  Sequence n = x.position(x.middle);
+  print(x);
+  print(n);
+  Sequence nm2 = shiftseq(n, 2);
+  print(nm2);
   Sequence w = rndseq(x.length);
-//  var xcorr = corr(x, nm2, w, nm2, 1, 1);
-//  print(xcorr.x);
-//  print(xcorr.n);
-  print(w);
+  Sequence wn = nm2;
+  print(wn);
+  var seqsum = addseqs(x, nm2, w, wn);
+  var xcorr = corr(x, n, seqsum.x, seqsum.n);
+  print(xcorr.x);
+  print(xcorr.n);
+
+//  Sequence x = sequence([1, 2, 3, 4, 5, 6, 7, 6, 5, 4, 3, 2, 1]);
+//  Sequence n = x.position(2);
+//  print(n);
+//  print(x);
+//  Sequence n11 = shiftseq(n, 5);
+//  Sequence n12 = shiftseq(n, -4);
+//  print(n11);
+//  print(n12);
+//  var x1 = addseqs(x * 2, n11, x * -3, n12);
+//  print(x1.y);
+//  print(x1.n);
 
 }
