@@ -150,7 +150,7 @@ class _Convolution {
  *         43z<sup>-3</sup> + 38z<sup>-4</sup> + 24z<sup>-5</sup>
  *
  * To add to an element on a webpage:
- *     query("#myDiv").addHtml(y.format());                                                                   *
+ *     query("#myDiv").addHtml(y.format());
  */
 
 class ConvResults extends ConvoLabResults implements _PolyString {
@@ -200,7 +200,7 @@ class ConvResults extends ConvoLabResults implements _PolyString {
 
     // Format the string.
     //formatString(firstIndex, baseVar, data, time);
-    formatString(firstIndex, baseVar, x, n);
+    _formatString(firstIndex, baseVar, x, n);
 
     if (isTex) sb.write(r'$$');
 
@@ -210,7 +210,7 @@ class ConvResults extends ConvoLabResults implements _PolyString {
   /// The formatString() function queries each element of the
   /// coefficients array and decides on the appropriate formatting
   /// depending on a number of factors.
-  void formatString(var firstIndex, var baseVar, var coefficients,
+  void _formatString(var firstIndex, var baseVar, var coefficients,
                     var exponents) {
     // The first element in the solution is treated slightly
     // different than the remaining elements, so take
@@ -222,7 +222,7 @@ class ConvResults extends ConvoLabResults implements _PolyString {
     }
 
     // Format the exponent.
-    formatExponent(exponents[firstIndex]);
+    _formatExponent(exponents[firstIndex]);
 
     // Format the first element.
     if (coefficients[firstIndex] != 0) {
@@ -242,7 +242,7 @@ class ConvResults extends ConvoLabResults implements _PolyString {
       variable = baseVar;
 
       // Format the exponent.
-      formatExponent(exponents[i]);
+      _formatExponent(exponents[i]);
 
       if (coefficients[i] != 0) {
         if (coefficients[i] > 0) {
@@ -266,7 +266,7 @@ class ConvResults extends ConvoLabResults implements _PolyString {
 
   /// The formatExponent() takes an element of the exponents array
   /// and formats it as text, html, or latex.
-  void formatExponent(var element) {
+  void _formatExponent(var element) {
     if (element == 0) {
       exponent = '';
       variable = '';

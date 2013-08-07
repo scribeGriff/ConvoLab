@@ -56,21 +56,31 @@ part of convolab;
  * * class DeconvResults
  */
 
+//TODO Migrate to sequences instead of lists.
+
 /// The top level function deconv() returns the object DeconvResults.
 DeconvResults deconv(List num, List den, [int nindex, int dindex])
     => new _Deconvolution(num, den).deconvolve(nindex, dindex);
 
+//DeconvResults deconv(Sequence num, Sequence den, [Sequence numn, Sequence denn])
+//=> new _Deconvolution(num, den).deconvolve(numn, denn);
+
 /// The private class _Deconvolution.
 class _Deconvolution {
-  final List num;
-  final List den;
+  final num;
+  final den;
 
   _Deconvolution(this.num, this.den);
 
   DeconvResults deconvolve(int nindex, int dindex) {
+  //DeconvResults deconvolve(Sequence numn, Sequence denn) {
     if (num == null || den == null || num.length == 0 || den.length == 0) {
       throw new ArgumentError("invalid data");
     } else {
+//      if (xn == null) xn = sequence(new List.generate(xdata.length,
+//          (var index) => index));
+//      if (hn == null) hn = sequence(new List.generate(hdata.length,
+//          (var index) => index));
       if (nindex == null) nindex = 0;
       if (dindex == null) dindex = 0;
       final dLength = den.length;
@@ -78,9 +88,11 @@ class _Deconvolution {
       final dDegree = dLength - 1;
       final nDegree = nLength - 1;
       final qindex = nindex - dindex;
+      // final qindex = numn.indexOf(0) + denn.indexOf(0);
       final rindex = nindex;
       var q, qtime, rtime;
 
+      // var r = sequence(num);
       var r = new List.from(num);
 
       /// Trivial solution q = 0 and remainder = num.
@@ -216,37 +228,37 @@ class DeconvResults extends ConvoLabResults implements _PolyString {
     // Add the function name.  Default function name is 'y'.
     if (fname == null) fname = 'y';
     // Add prefix for latex, if necessary.
-    if (isTex) sb.add(r'$$');
+    if (isTex) sb.write(r'$$');
     // Add the function name and equal sign.
-    sb.add('$fname($baseVar) = ');
+    sb.write('$fname($baseVar) = ');
     // Format the quotient.  Check first if a quotient exists.
     if (!q.isEmpty) {
       quotient = true;
-      formatString(firstIndex, baseVar, q, qtime);
+      _formatString(firstIndex, baseVar, q, qtime);
     }
     // Now handle the remainder.  Check first if a reminder exists.
     if (r.any((element) => element != 0)) {
-      if (quotient) sb.add(' + ');
+      if (quotient) sb.write(' + ');
       if (isTex) {
-        sb.add(r'\frac{');
+        sb.write(r'\frac{');
       } else {
-        sb.add('(');
+        sb.write('(');
       }
       // This is the numerator of the remainder.
-      formatString(firstIndex, baseVar, r, rtime);
+      _formatString(firstIndex, baseVar, r, rtime);
       if (isTex) {
-        sb.add(r'}{');
+        sb.write(r'}{');
       } else {
-        sb.add(' / ');
+        sb.write(' / ');
       }
       // This is the denominator of the remainder.
-      formatString(firstIndex, baseVar, data, dtime);
+      _formatString(firstIndex, baseVar, data, dtime);
     }
     // Done forming the string, just need to terminate it.
     if (isTex) {
-      sb.add(r'}$$');
+      sb.write(r'}$$');
     } else {
-      sb.add(')');
+      sb.write(')');
     }
     return polystring = sb.toString();
   }
@@ -254,7 +266,7 @@ class DeconvResults extends ConvoLabResults implements _PolyString {
   /// The formatString() function queries each element of the
   /// coefficients array and decides on the appropriate formatting
   /// depending on a number of factors.
-  void formatString(var firstIndex, var baseVar, var coefficients,
+  void _formatString(var firstIndex, var baseVar, var coefficients,
                     var exponents) {
     // The first element in the solution is treated slightly
     // different than the remaining elements, so take
@@ -264,7 +276,7 @@ class DeconvResults extends ConvoLabResults implements _PolyString {
       firstIndex++;
     }
     // Format the exponent.
-    formatExponent(exponents[firstIndex]);
+    _formatExponent(exponents[firstIndex]);
     // Format the first element.
     if (coefficients[firstIndex] != 0) {
       if ('$variable' == '') {
@@ -273,7 +285,7 @@ class DeconvResults extends ConvoLabResults implements _PolyString {
         coeff = coefficients[firstIndex].abs() == 1 ? '' :
           coefficients[firstIndex];
       }
-      sb.add('$coeff$variable$exponent');
+      sb.write('$coeff$variable$exponent');
     }
 
     // Now take care of remaining elements.
@@ -281,7 +293,7 @@ class DeconvResults extends ConvoLabResults implements _PolyString {
     for (var i = firstIndex; i < exponents.length; i++) {
       variable = baseVar;
       // Format the exponent.
-      formatExponent(exponents[i]);
+      _formatExponent(exponents[i]);
       // Now add them to the string buffer
       if (coefficients[i] != 0) {
         if (coefficients[i] > 0) {
@@ -290,14 +302,14 @@ class DeconvResults extends ConvoLabResults implements _PolyString {
           } else {
             coeff = coefficients[i] == 1 ? '' : coefficients[i];
           }
-          sb.add(' + $coeff$variable$exponent');
+          sb.write(' + $coeff$variable$exponent');
         } else if (coefficients[i] < 0) {
           if ('$variable' == '') {
             coeff = coefficients[i].abs();
           } else {
             coeff = coefficients[i] == -1 ? '' : coefficients[i].abs();
           }
-          sb.add(' - $coeff$variable$exponent');
+          sb.write(' - $coeff$variable$exponent');
         }
       }
     }
@@ -305,7 +317,7 @@ class DeconvResults extends ConvoLabResults implements _PolyString {
 
   /// The formatExponent() takes an element of the exponents array
   /// and formats it as text, html, or latex.
-  void formatExponent(var element) {
+  void _formatExponent(var element) {
     if (element == 0) {
       exponent = '';
       variable = '';

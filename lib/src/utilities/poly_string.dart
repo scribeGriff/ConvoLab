@@ -89,16 +89,16 @@ class _PolyString {
     if (fname == null) fname = 'f';
 
     // Add prefix for latex.
-    if (isTex) sb.add(r'$$');
+    if (isTex) sb.write(r'$$');
 
     // Add the function name and equal sign.
-    sb.add('$fname($baseVar) = ');
+    sb.write('$fname($baseVar) = ');
 
     // Format the string.
-    formatString(firstIndex, baseVar, coeffs, exponents);
+    _formatString(firstIndex, baseVar, coeffs, exponents);
 
     // Add suffix for latex.
-    if (isTex) sb.add(r'$$');
+    if (isTex) sb.write(r'$$');
 
     // Return the final string.
     return polystring = sb.toString();
@@ -107,7 +107,7 @@ class _PolyString {
   /// The formatString() function queries each element of the
   /// coefficients array and decides on the appropriate formatting
   /// depending on a number of factors.
-  void formatString(var firstIndex, var baseVar, var coefficients,
+  void _formatString(var firstIndex, var baseVar, var coefficients,
                     var exponents) {
     // The first element in the solution is treated slightly
     // different than the remaining elements, so take
@@ -119,7 +119,7 @@ class _PolyString {
     }
 
     // Format the exponent.
-    formatExponent(exponents[firstIndex]);
+    _formatExponent(exponents[firstIndex]);
 
     // Format the first element.
     if (coefficients[firstIndex] != 0) {
@@ -129,7 +129,7 @@ class _PolyString {
         coeff = coefficients[firstIndex].abs() == 1 ? '' :
           coefficients[firstIndex];
       }
-      sb.add('$coeff$variable$exponent');
+      sb.write('$coeff$variable$exponent');
     }
 
     // Now take care of remaining elements.
@@ -139,7 +139,7 @@ class _PolyString {
       variable = baseVar;
 
       // Format the exponent.
-      formatExponent(exponents[i]);
+      _formatExponent(exponents[i]);
 
       if (coefficients[i] != 0) {
         if (coefficients[i] > 0) {
@@ -148,14 +148,14 @@ class _PolyString {
           } else {
             coeff = coefficients[i] == 1 ? '' : coefficients[i];
           }
-          sb.add(' + $coeff$variable$exponent');
+          sb.write(' + $coeff$variable$exponent');
         } else if (coefficients[i] < 0) {
           if ('$variable' == '') {
             coeff = coefficients[i].abs();
           } else {
             coeff = coefficients[i] == -1 ? '' : coefficients[i].abs();
           }
-          sb.add(' - $coeff$variable$exponent');
+          sb.write(' - $coeff$variable$exponent');
         }
       }
     }
@@ -163,7 +163,7 @@ class _PolyString {
 
   /// The formatExponent() takes an element of the exponents array
   /// and formats it as text, html, or latex.
-  void formatExponent(var element) {
+  void _formatExponent(var element) {
     if (element == 0) {
       exponent = '';
       variable = '';
