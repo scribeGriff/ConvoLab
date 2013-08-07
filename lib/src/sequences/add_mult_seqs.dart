@@ -11,14 +11,14 @@ part of convolab;
  *     var seq2 = sequence([8, 2, 3, 4]);
  *     var pos1 = seq1.position(2);
  *     var pos2 = seq2.position(-1);
- *     var addseqs12 = addseqs(seq1, pos1, seq2, pos2);
+ *     var addseqs12 = addseqs(seq1, seq2, pos1, pos2);
  *     print(addseqs12.x);
  *     print(addseqs12.n);
  *
  */
 
 /// Adds sequences of different lengths and/or with differing n0 indices.
-AddMultSeqResults addseqs(Sequence seq1, Sequence pos1, Sequence seq2,
+AddMultSeqResults addseqs(Sequence seq1, Sequence seq2, Sequence pos1,
                           Sequence pos2) {
   // Create a new sample position sequence, x(n), which will represent
   // the sum of the added sequences.
@@ -33,7 +33,7 @@ AddMultSeqResults addseqs(Sequence seq1, Sequence pos1, Sequence seq2,
 }
 
 /// Multiplies sequences of different lengths and/or with differing n0 indices.
-AddMultSeqResults multseqs(Sequence seq1, Sequence pos1, Sequence seq2,
+AddMultSeqResults multseqs(Sequence seq1, Sequence seq2, Sequence pos1,
                            Sequence pos2) {
   // Create a new sample position sequence, x(n), which will represent
   // the product of the multiplied sequences.

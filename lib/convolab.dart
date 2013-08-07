@@ -64,15 +64,22 @@ part 'src/sequences/random_gaussian.dart';
 void main() {
   Sequence x = sequence([3, 11, 7, 0, -1, 4, 2]);
   Sequence n = x.position(x.middle);
-  print(x);
-  print(n);
+//  Sequence h = sequence([2, 3, 0, -5, 2, 1]);
+//  Sequence nh = x.position(1);
+//  var xconvh = conv(x, h, n, nh);
+//  print(xconvh.x);
+//  print(xconvh.n);
+//  print(xconvh.format());
+
+//  [6, 31, 47, 6, -51, -5, 41, 18, -22, -3, 8, 2]
+//  [-4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7]
+//  $$y(n) = 6n^{4} + 31n^{3} + 47n^{2} + 6n - 51 - 5n^{-1} + 41n^{-2} + 18n^{-3} - 22n^{-4} - 3n^{-5} + 8n^{-6} + 2n^{-7}$$
+
   Sequence nm2 = shiftseq(n, 2);
-  print(nm2);
   Sequence w = rndseq(x.length);
-  Sequence wn = nm2;
-  print(wn);
-  var seqsum = addseqs(x, nm2, w, wn);
-  var xcorr = corr(x, n, seqsum.x, seqsum.n);
+  Sequence wn = sequence(nm2);
+  var seqsum = addseqs(x, w, nm2, wn);
+  var xcorr = corr(x, seqsum.x, n, seqsum.n);
   print(xcorr.x);
   print(xcorr.n);
 

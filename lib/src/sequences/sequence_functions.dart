@@ -16,7 +16,7 @@ part of convolab;
  * * Sequence impseq(int n, int n0)
  * * Sequence stepseq(int n, int n0)
  * * Sequence shiftseq(Sequence position, int shift)
- * * Sequence foldseq(Sequence seq2fold, {position: false})
+ * * Sequence foldseq(Sequence seq2fold, {negate: false})
  *
  * Examples:
  *     var list = [1, 2, 3, 4];

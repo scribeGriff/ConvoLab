@@ -17,25 +17,34 @@ part of convolab;
  *     Sequence nm2 = shiftseq(n, 2);
  *     // Generate gaussian noise.
  *     Sequence w = rndseq(x.length);
- *     Sequence wn = nm2;
+ *     Sequence wn = sequence(nm2);
  *     // Create noise corrupted and shifted signal.
- *     var seqsum = addseqs(x, nm2, w, wn);
+ *     var seqsum = addseqs(x, w, nm2, wn);
  *     // Compute cross correlation between x(n) and y(n).
- *     var xcorr = corr(x, n, seqsum.x, seqsum.n);
+ *     var xcorr = corr(x, seqsum.x, n, seqsum.n);
  *     print(xcorr.x);
  *     print(xcorr.n);
  *
+ *     prints:
+ *     [5.020124415984023, 31.74811229652198, 54.337851908313304,
+ *      13.297725982440669, -2.2771026999749457, 97.84500977600702,
+ *      198.29340440790955, 100.54682848983684, -23.68238665566376,
+ *      -17.35850051195083, 47.737359690914296, 33.80525231377048,
+ *      5.819059373561337]
+ *     [-4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8]
+ *
  */
 
-// TODO: Need to move toward sequences only for convolution and deconvolution.
-// TODO: Need to support autocorrelation and sequences with no position information.
-CorrResults corr(Sequence seq1, Sequence pos1, Sequence seq2, Sequence pos2) {
+CorrResults corr(Sequence seq1, [Sequence seq2, Sequence pos1, Sequence pos2]) {
+  if (seq2 == null) seq2 = sequence(seq1);  // This is the autocorrelation of a sequence.
+  if (pos1 == null) pos1 = seq1.position(0);  // If no sequence is provided, assume n0 = 0.
+  if (pos2 == null) pos2 = seq2.position(0);
   // Create x(-n).
   var flipseq1 = foldseq(seq1);
   var flippos1 = foldseq(pos1, negate:true);
   // Convolve y(n) with x(-n).
-  var seq1xseq2 = conv(seq2.toList(), flipseq1.toList(), pos2.indexOf(0), flippos1.indexOf(0));
-  return new CorrResults(sequence(seq1xseq2.data), sequence(seq1xseq2.time));
+  var seq1xseq2 = conv(seq2, flipseq1, pos2, flippos1);
+  return new CorrResults(seq1xseq2.x, seq1xseq2.n);
 
 }
 
@@ -47,4 +56,3 @@ class CorrResults extends ConvoLabResults {
 
   CorrResults(this.x, this.n);
 }
-

@@ -8,22 +8,23 @@ part of convolab;
  * Perform linear convolution of two signals using N point circular convolution.
  *
  * Basic usage:
- *     var xdata = [3, 11, 7, 0, -1, 4, 2];
- *     var hdata = [2, 3, 0, -5, 2, 1];
+ *     var xdata = sequence([3, 11, 7, 0, -1, 4, 2]);
+ *     var hdata = sequence([2, 3, 0, -5, 2, 1]);
  *     var y = conv(xdata, hdata);
  *
  * Accepts two optional parameters:
- * * xindex is the t = 0 point for the xdata
- * * hindex is the t = 0 point for the hdata
+ * * A position sequence for the xdata.
+ * * A position sequence for the hdata.
  *
- * Both indices assume the first element in a list is at i = 0
- * By default, both indices are set to 0, and the sequences are
- * assumed to be causal.
+ * If position sequences are not provided, the data sequence is assumed
+ * to start at position n = 0.  If this is not the case, a position sequence
+ * can be created using the position() method of the Sequence class
+ * and providing an integer indicating the n = 0 position in the sequence.
  *
  * Example optional usage:
- *     var xindex = 3;
- *     var hindex = 1;
- *     var y = conv(xdata, hdata, xindex, hindex);
+ *     var xpos = xdata.position(3);
+ *     var hpos = hdata.position(1);
+ *     var y = conv(xdata, hdata, xpos, hpos);
  *
  * The sequences do not need to be the same length as we are
  * computing the circular convolution of two sequences and the
@@ -31,9 +32,8 @@ part of convolab;
  * lengths.
  *
  * Returns an object of type ConvResults if successful:
- *     print(y.data);
- *     print(y.time);
- *     print('The time zero index for the results is ${y.index}.');
+ *     print(y.x);
+ *     print(y.n);
  *
  * Throws ArgumentError if either xdata or hdata are null or empty.
  *
@@ -51,15 +51,10 @@ part of convolab;
  * * class ConvResults
  */
 
-/// The top level function conv() returns the object ConvResults.
-ConvResults conv(List xdata, List hdata, [int xindex, int hindex])
-    => new _Convolution(xdata, hdata).convolve(xindex, hindex);
-
-// TODO convert to sequences:
-////// The top level function conv() returns the object ConvResults.
-//ConvResults conv(Sequence x, Sequence h, [Sequence xn = sequence(new List.generate(x.length, (var index) => index)),
-//                                          Sequence hn = sequence(new List.generate(h.length, (var index) => index))])
-//    => new _Convolution(x, h).convolve(xn, hn);
+// TODO update after fft, ifft converted to sequences.
+// The top level function conv() returns the object ConvResults.
+ConvResults conv(Sequence x, Sequence h, [Sequence xn, Sequence hn])
+    => new _Convolution(x, h).convolve(xn, hn);
 
 /// The private class _Convolution.
 class _Convolution {
@@ -68,31 +63,37 @@ class _Convolution {
 
   _Convolution(this.xdata, this.hdata);
 
-  ConvResults convolve(int xindex, int hindex) {
+  ConvResults convolve(Sequence xn, Sequence hn) {
     if (xdata == null || hdata == null || xdata.isEmpty ||
         hdata.isEmpty) {
       throw new ArgumentError("invalid data");
     } else {
-      if (xindex == null) xindex = 0;
-      if (hindex == null) hindex = 0;
+      if (xn == null) xn = sequence(new List.generate(xdata.length,
+          (var index) => index));
+      if (hn == null) hn = sequence(new List.generate(hdata.length,
+          (var index) => index));
       // Create a local copy of each list.  This is necessary
       // in case xdata and hdata are the same object.
-      List xdata = new List.from(this.xdata);
-      List hdata = new List.from(this.hdata);
+      Sequence xdata = sequence(this.xdata);
+      Sequence hdata = sequence(this.hdata);
       bool isInt = false;
       final xLength = xdata.length;
       final hLength = hdata.length;
-      final yindex = xindex + hindex;
+      final yindex = xn.indexOf(0) + hn.indexOf(0);
+      //final yindex = xindex + hindex;
       final ytime = vec(-yindex, xLength - 1 + hLength - 1 - yindex);
       // Pad data with zeros to length required to compute circular convolution.
       xdata.addAll(new List.filled(hLength - 1, 0));
       hdata.addAll(new List.filled(xLength - 1, 0));
 
+      // TODO: fft() and ifft() need to be converted to sequences.  Until then
+      // need to convert to List, compute fft, ifft, and then convert back to
+      // sequences.
       final yfft = new List(xdata.length);
 
       // Take the fft of x(n) and h(n).
-      var xfft = fft(xdata);
-      var hfft = fft(hdata);
+      var xfft = fft(xdata.toList());
+      var hfft = fft(hdata.toList());
 
       // Multiply x(n) and h(n) in the frequency domain.
       if (xfft != null && hfft != null) {
@@ -114,7 +115,7 @@ class _Convolution {
         }
         // Convert complex list to real and format results
         var y = toReal(yifft.data, isInt);
-        return new ConvResults(y, yindex, ytime);
+        return new ConvResults(sequence(y), sequence(ytime));
       } else {
         return null;
       }
@@ -153,8 +154,8 @@ class _Convolution {
  */
 
 class ConvResults extends ConvoLabResults implements _PolyString {
-  final int index;
-  final List<int> time;
+   final Sequence x;
+   final Sequence n;
 
   List<num> coeffs;
   List<int> exponents;
@@ -167,7 +168,7 @@ class ConvResults extends ConvoLabResults implements _PolyString {
   var coeff;
   var sb = new StringBuffer();
 
-  ConvResults(List data, this.index, this.time) : super(data);
+  ConvResults(this.x, this.n);
 
   /// Returns the result of the convolution as a formatted string.
   String format([var formatType, var baseVar, var fname]) {
@@ -198,7 +199,8 @@ class ConvResults extends ConvoLabResults implements _PolyString {
     sb.write('$fname($baseVar) = ');
 
     // Format the string.
-    formatString(firstIndex, baseVar, data, time);
+    //formatString(firstIndex, baseVar, data, time);
+    formatString(firstIndex, baseVar, x, n);
 
     if (isTex) sb.write(r'$$');
 
