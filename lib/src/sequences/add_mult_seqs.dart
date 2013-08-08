@@ -5,7 +5,7 @@
 part of convolab;
 
 /**
- * Add and multiply sequences of differing lengths and/or position.
+ * Add, subtract and multiply sequences of differing lengths and/or position.
  *
  *     var seq1 = sequence([1, 2, 3, 4]);
  *     var seq2 = sequence([8, 2, 3, 4]);
@@ -29,7 +29,6 @@ AddMultSeqResults addseqs(Sequence seq1, Sequence seq2, Sequence pos1,
   x1.setAll(n.indexOf(pos1.first), seq1);
   x2.setAll(n.indexOf(pos2.first), seq2);
   return new AddMultSeqResults(x1 + x2, n);
-
 }
 
 /// Multiplies sequences of different lengths and/or with differing n0 indices.

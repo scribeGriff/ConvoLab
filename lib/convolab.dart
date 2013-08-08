@@ -58,27 +58,3 @@ part 'src/sequences/sequence_functions.dart';
 part 'src/sequences/add_mult_seqs.dart';
 part 'src/sequences/even_odd_seqs.dart';
 part 'src/sequences/random_gaussian.dart';
-
-void main() {
-
-//  Sequence nm2 = shiftseq(n, 2);
-//  Sequence w = rndseq(x.length);
-//  Sequence wn = sequence(nm2);
-//  var seqsum = addseqs(x, w, nm2, wn);
-//  var xcorr = corr(x, seqsum.x, n, seqsum.n);
-//  print(xcorr.x);
-//  print(xcorr.n);
-
-//  Sequence x = sequence([1, 2, 3, 4, 5, 6, 7, 6, 5, 4, 3, 2, 1]);
-//  Sequence n = x.position(2);
-//  print(n);
-//  print(x);
-//  Sequence n11 = shiftseq(n, 5);
-//  Sequence n12 = shiftseq(n, -4);
-//  print(n11);
-//  print(n12);
-//  var x1 = addseqs(x * 2, n11, x * -3, n12);
-//  print(x1.y);
-//  print(x1.n);
-
-}

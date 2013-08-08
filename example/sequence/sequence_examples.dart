@@ -69,4 +69,21 @@ void main() {
   print(foldseq(pos1, negate:true));
   // Prints:
   // [-2, -1, 0, 1]
+
+  // Given x(n), calculate x1(n) = 2x(n - 5) - 3x(n + 4)
+  // x(n)
+  Sequence x = sequence([1, 2, 3, 4, 5, 6, 7, 6, 5, 4, 3, 2, 1]);
+  // n, zeroth position at element 2.
+  Sequence n = x.position(2);
+  // n - 5
+  Sequence nm5 = shiftseq(n, 5);
+  // n + 4
+  Sequence np4 = shiftseq(n, -4);
+  // x1(n) = 2x(n - 5) - 3x(n + 4)
+  var x1 = addseqs(x * 2, x * -3, nm5, np4);
+  print(x1.x);
+  print(x1.n);
+  // Prints:
+  // [-3, -6, -9, -12, -15, -18, -21, -18, -15, -10, -5, 0, 5, 10, 12, 14, 12, 10, 8, 6, 4, 2]
+  // [-6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 }
