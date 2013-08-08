@@ -7,7 +7,7 @@ part of convolab;
 /**
  * Perform the deconvolution of two signals using polynomial long division.
  *
- * Returns the quotient and remainder as lists.
+ * Returns the quotient and remainder as sequences.
  * Basic usage:
  *     var num = [1, 1, 1, 1, 1, 1];
  *     var den = [1, 2, 1];
@@ -21,17 +21,17 @@ part of convolab;
  * assume the first element in a list is at i = 0;
  *
  * For non-causal sequences, the function accepts two optional parameters:
- * * nindex is the t = 0 point for the numerator
- * * dindex is the t = 0 point for the denominator
+ * * nn is the position sequence for the numerator
+ * * dn is the position sequence for the denominator
  *
  * Example optional usage:
- *     var nindex = 2;
- *     var dindex = 1;
  *     // num = z^2 + z + 1 + z^-1 + z^-2 +z^-3
  *     var num = [1, 1, 1, 1, 1, 1];
+ *     var nn = num.position(2); // The zero index is at position 2 in num.
  *     // den = z + 2 + z^-1
  *     var den = [1, 2, 1];
- *     var qrem = deconv(num, den, nindex, dindex);
+ *     var dn = den.position(1);  // The zero index is at position 1 in den.
+ *     var qrem = deconv(num, den, nn, dn);
  *
  * Note that the sequences do not need to be the same length.
  *
@@ -54,11 +54,10 @@ part of convolab;
  * * class DeconvResults
  */
 
-//TODO Migrate to sequences instead of lists.
-
 /// The top level function deconv() returns the object DeconvResults.
-DeconvResults deconv(Sequence numerator, Sequence denominator, [Sequence nn, Sequence dn])
-=> new _Deconvolution(numerator, denominator).deconvolve(nn, dn);
+DeconvResults deconv(Sequence _numerator, Sequence _denominator,
+                     [Sequence _nn, Sequence _dn])
+=> new _Deconvolution(_numerator, _denominator).deconvolve(_nn, _dn);
 
 /// The private class _Deconvolution.
 class _Deconvolution {

@@ -53,8 +53,8 @@ part of convolab;
 
 // TODO update after fft, ifft converted to sequences.
 // The top level function conv() returns the object ConvResults.
-ConvResults conv(Sequence x, Sequence h, [Sequence xn, Sequence hn])
-    => new _Convolution(x, h).convolve(xn, hn);
+ConvResults conv(Sequence _x, Sequence _h, [Sequence _xn, Sequence _hn])
+    => new _Convolution(_x, _h).convolve(_xn, _hn);
 
 /// The private class _Convolution.
 class _Convolution {

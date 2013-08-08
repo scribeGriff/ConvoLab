@@ -3,28 +3,32 @@
 // All rights reserved.  Please see the LICENSE.md file.
 
 /**
- * Example using the function conv() to compute the
- * Convolution of two non-casual signals whose polynomial
- * coefficients are defined in xdata and hdata and whose
- * zero index is given by xindex and hindex.
+ * Example computing the convolution of two sequences, x and h.
+ *
+ * This example uses the function conv() to compute the
+ * convolution of two non-casual signals whose polynomial
+ * coefficients are defined in Sequence x and Sequence h and whose
+ * position sequences are given by n and nh.
  *
  */
 
 import 'package:convolab/convolab.dart';
 
 void main() {
-  var xindex = 3;
-  var hindex = 1;
   // x = 3z^3 + 11z^2 + 7z - z^-1 + 4z^-2 + 2z^-3
-  var xdata = [3, 11, 7, 0, -1, 4, 2];
+  Sequence x = sequence([3, 11, 7, 0, -1, 4, 2]);
+  // The zeroth element is the middle element of x.
+  Sequence n = x.position(x.middle);
   // h = 2z + 3 - 5z^-2 + 2z^-3 + z^-4
-  var hdata = [2, 3, 0, -5, 2, 1];
-
+  Sequence h = sequence([2, 3, 0, -5, 2, 1]);
+  // The zeroth element is element 1.
+  Sequence nh = x.position(1);
   // Compute y = x * h
-  var y = conv(xdata, hdata, xindex, hindex);
-  print(y.data);
-  print(y.time);
-  print('The time zero index for the results is ${y.index}.');
+  var y = conv(x, h, n, nh);
+  print(y.x);
+  print(y.n);
+  print('The time zero index for the results is ${y.n.indexOf(0)}.');
+  // Output the results in latex format.
   print(y.format());
 
   // Prints:

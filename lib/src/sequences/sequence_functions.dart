@@ -33,9 +33,9 @@ part of convolab;
  *     }
  *     var myposition = position(13, 2);
  *     print(myposition);
- *     var myshiftedposition = seqshift(myposition, 5);
+ *     var myshiftedposition = shiftseq(myposition, 5);
  *     print(myshiftedposition);
- *     print(seqfold(myposition, position:true));
+ *     print(foldseq(myposition, position:true));
  *
  */
 
