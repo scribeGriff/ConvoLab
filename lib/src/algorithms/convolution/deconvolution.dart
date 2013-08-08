@@ -38,10 +38,8 @@ part of convolab;
  * Returns an object of type DeconvResults if successful:
  *     print('The quotient is ${qrem.q}');
  *     print('The remainder is ${qrem.r}');
- *     print(qrem.qtime);
- *     print(qrem.qindex);
- *     print(qrem.rtime);
- *     print(qrem.rindex);
+ *     print(qrem.qn);
+ *     print(qrem.rn);
  *
  * Throws ArgumentError if either num or den are null or empty.
  *
@@ -59,115 +57,106 @@ part of convolab;
 //TODO Migrate to sequences instead of lists.
 
 /// The top level function deconv() returns the object DeconvResults.
-DeconvResults deconv(List num, List den, [int nindex, int dindex])
-    => new _Deconvolution(num, den).deconvolve(nindex, dindex);
-
-//DeconvResults deconv(Sequence num, Sequence den, [Sequence numn, Sequence denn])
-//=> new _Deconvolution(num, den).deconvolve(numn, denn);
+DeconvResults deconv(Sequence numerator, Sequence denominator, [Sequence nn, Sequence dn])
+=> new _Deconvolution(numerator, denominator).deconvolve(nn, dn);
 
 /// The private class _Deconvolution.
 class _Deconvolution {
-  final num;
-  final den;
+  final numerator;
+  final denominator;
 
-  _Deconvolution(this.num, this.den);
+  _Deconvolution(this.numerator, this.denominator);
 
-  DeconvResults deconvolve(int nindex, int dindex) {
-  //DeconvResults deconvolve(Sequence numn, Sequence denn) {
-    if (num == null || den == null || num.length == 0 || den.length == 0) {
+  DeconvResults deconvolve(Sequence nn, Sequence dn) {
+    if (numerator == null || denominator == null || numerator.length == 0 ||
+        denominator.length == 0) {
       throw new ArgumentError("invalid data");
     } else {
-//      if (xn == null) xn = sequence(new List.generate(xdata.length,
-//          (var index) => index));
-//      if (hn == null) hn = sequence(new List.generate(hdata.length,
-//          (var index) => index));
-      if (nindex == null) nindex = 0;
-      if (dindex == null) dindex = 0;
-      final dLength = den.length;
-      final nLength = num.length;
+      if (nn == null) nn = sequence(new List.generate(numerator.length,
+          (var index) => index));
+      if (dn == null) dn = sequence(new List.generate(denominator.length,
+          (var index) => index));
+      final dLength = denominator.length;
+      final nLength = numerator.length;
       final dDegree = dLength - 1;
       final nDegree = nLength - 1;
-      final qindex = nindex - dindex;
-      // final qindex = numn.indexOf(0) + denn.indexOf(0);
-      final rindex = nindex;
+      final qindex = nn.indexOf(0) - dn.indexOf(0);
       var q, qtime, rtime;
 
-      // var r = sequence(num);
-      var r = new List.from(num);
+      var r = sequence(numerator);
 
       /// Trivial solution q = 0 and remainder = num.
       if (nDegree < dDegree) {
-        q = [];
-        qtime = [];
-        rtime = vec(-nindex, nDegree - nindex);
-        return new DeconvResults(q, qindex, r, rindex, qtime, rtime,
-            den, dindex);
+        q = sequence([]);
+        qtime = sequence([]);
+        rtime = sequence(vec(-nn.indexOf(0), nDegree - nn.indexOf(0)));
+        return new DeconvResults(q, r, qtime, rtime, denominator, dn);
       } else {
-        q = new List(nDegree - dDegree + 1);
-        rtime = vec(-rindex, nDegree - dDegree);
+        q = sequence(new List(nDegree - dDegree + 1));
+        rtime = sequence(vec(-nn.indexOf(0), nDegree - dDegree));
 
         /// Perform the long division.
         for (var k = 0; k <= nDegree - dDegree; k++) {
-          q[k] = r[k] / den[0];
+          q[k] = r[k] / denominator[0];
           if (q[k] == q[k].toInt()) q[k] = q[k].toInt();
           for (var j = k + 1; j <= dDegree + k; j++) {
-            r[j] -= q[k] * den[j - k];
+            r[j] -= q[k] * denominator[j - k];
           }
         }
         for (var j = 0; j <= nDegree - dDegree; j++) {
           r[j] = 0;
         }
-        qtime = vec(-qindex, q.length - 1 - qindex);
+        qtime = sequence(vec(-qindex, q.length - 1 - qindex));
         /// Return DeconvResults object.
-        return new DeconvResults(q, qindex, r, rindex, qtime, rtime,
-            den, dindex);
+        return new DeconvResults(q, r, qtime, rtime, denominator, dn);
       }
     }
   }
 
   // Not used but this algorithm accepts coefficients in the opposite
   // order as used by some implementations.
-  DeconvResults deconvolve_alternate(int nindex, int dindex) {
-    if (num == null || den == null || num.length == 0 || den.length == 0) {
+  DeconvResults deconvolve_alternate(Sequence nn, Sequence dn) {
+    if (numerator == null || denominator == null || numerator.length == 0 ||
+        denominator.length == 0) {
       throw new ArgumentError("invalid data");
     } else {
-      if (nindex == null) nindex = 0;
-      if (dindex == null) dindex = 0;
-      final dLength = den.length;
-      final nLength = num.length;
+      if (nn == null) nn = sequence(new List.generate(numerator.length,
+          (var index) => index));
+      if (dn == null) dn = sequence(new List.generate(denominator.length,
+          (var index) => index));
+      final dLength = denominator.length;
+      final nLength = numerator.length;
       final dDegree = dLength - 1;
       final nDegree = nLength - 1;
-      final qindex = nindex - dindex;
-      final rindex = nindex;
+      final qindex = nn.indexOf(0) - dn.indexOf(0);
       var q, qtime, rtime;
 
-      var r = new List.from(num);
+      var r = sequence(numerator);
 
       // Trivial solution q = 0 and remainder = num.
       if (nDegree < dDegree) {
-        q = [];
-        qtime = [];
-        rtime = vec(-nindex, nDegree - nindex);
-        return new DeconvResults(q, qindex, r, rindex, qtime, rtime,
-            den, dindex);
+        q = sequence([]);
+        qtime = sequence([]);
+        rtime = sequence(vec(-nn.indexOf(0), nDegree - nn.indexOf(0)));
+        return new DeconvResults(q, r, qtime, rtime, denominator, dn);
       } else {
-        var q = new List(nDegree - dDegree + 1);
-        rtime = vec(-rindex, nDegree - dDegree);
+        q = sequence(new List(nDegree - dDegree + 1));
+        rtime = sequence(vec(-nn.indexOf(0), nDegree - dDegree));
 
         // Perform the long division.
         for (var k = nDegree - dDegree; k >= 0; k--) {
-          q[k] = r[dDegree + k] / den[dDegree];
+          q[k] = r[dDegree + k] / denominator[dDegree];
             if (q[k] == q[k].toInt()) q[k] = q[k].toInt();
           for (var j = dDegree + k - 1; j >= k; j--) {
-            r[j] -= q[k] * den[j - k];
+            r[j] -= q[k] * denominator[j - k];
           }
         }
         for (var j = dDegree; j <= nDegree; j++) {
           r[j] = 0;
         }
-        qtime = vec(-qindex, q.length - 1 - qindex);
-        return new DeconvResults(q, qindex, r, rindex, qtime, rtime,
-            den, dindex);
+        qtime = sequence(vec(-qindex, q.length - 1 - qindex));
+        /// Return DeconvResults object.
+        return new DeconvResults(q, r, qtime, rtime, denominator, dn);
       }
     }
   }
@@ -183,12 +172,12 @@ class _Deconvolution {
  */
 
 class DeconvResults extends ConvoLabResults implements _PolyString {
-  final List q;
-  final List r;
-  final List<int> qtime;
-  final List<int> rtime;
-  final int qindex;
-  final int rindex;
+  final Sequence q;
+  final Sequence r;
+  final Sequence qn;
+  final Sequence rn;
+  final Sequence denominator;
+  final Sequence dn;
 
   List<num> coeffs;
   List<int> exponents;
@@ -201,12 +190,10 @@ class DeconvResults extends ConvoLabResults implements _PolyString {
   var coeff;
   var sb = new StringBuffer();
 
-  DeconvResults(this.q, this.qindex, this.r, this.rindex, this.qtime,
-      this.rtime, List data, int value) : super(data, value);
+  DeconvResults(this.q, this.r, this.qn, this.rn, this.denominator, this.dn);
 
   /// Returns the result of the deconvolution as a formatted string.
   String format([var formatType, var baseVar, var fname]) {
-    final dtime = vec(-value, data.length -1 - value);
     String polystring;
     bool quotient = false;
     var firstIndex = 0;
@@ -234,7 +221,7 @@ class DeconvResults extends ConvoLabResults implements _PolyString {
     // Format the quotient.  Check first if a quotient exists.
     if (!q.isEmpty) {
       quotient = true;
-      _formatString(firstIndex, baseVar, q, qtime);
+      _formatString(firstIndex, baseVar, q, qn);
     }
     // Now handle the remainder.  Check first if a reminder exists.
     if (r.any((element) => element != 0)) {
@@ -245,14 +232,14 @@ class DeconvResults extends ConvoLabResults implements _PolyString {
         sb.write('(');
       }
       // This is the numerator of the remainder.
-      _formatString(firstIndex, baseVar, r, rtime);
+      _formatString(firstIndex, baseVar, r, rn);
       if (isTex) {
         sb.write(r'}{');
       } else {
         sb.write(' / ');
       }
       // This is the denominator of the remainder.
-      _formatString(firstIndex, baseVar, data, dtime);
+      _formatString(firstIndex, baseVar, denominator, dn);
     }
     // Done forming the string, just need to terminate it.
     if (isTex) {

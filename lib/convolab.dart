@@ -62,20 +62,29 @@ part 'src/sequences/even_odd_seqs.dart';
 part 'src/sequences/random_gaussian.dart';
 
 void main() {
-  var nindex = 2;
-  var dindex = 1;
-  // num = z^2 + z + 1 + z^-1 + z^-2 +z^-3
-  var num = [1, 1, 1, 1, 1, 1];
-  // den = z + 2 + z^-1
-  var den = [1, 2, 1];
-  var qrem = deconv(num, den, nindex, dindex);
-  print('The quotient is ${qrem.q}');
-  print('The remainder is ${qrem.r}');
-  print(qrem.qtime);
-  print(qrem.qindex);
-  print(qrem.rtime);
-  print(qrem.rindex);
-  print(qrem.format());
+//  // num = z^2 + z + 1 + z^-1 + z^-2 +z^-3
+//  var num = sequence([1, 1, 1, 1, 1, 1]);
+//  var nn = num.position(2);
+//  // den = z + 2 + z^-1
+//  var den = sequence([1, 2, 1]);
+//  var dn = den.position(1);
+//  var qrem = deconv(num, den, nn, dn);
+//  print('The quotient is ${qrem.q}');
+//  print('The remainder is ${qrem.r}');
+//  print(qrem.qn);
+//  print(qrem.rn);
+//  print(qrem.format());
+//
+//  var x3 = sequence([6, 17, 34, 43, 38, 24]);
+//  var x1 = sequence([2, 3, 4]);
+//
+//  var x2 = deconv(x1, x3);
+//  print(x2.q);
+//  print(x2.r);
+//  print(x2.qn);
+//  print(x2.rn);
+
+
 
 //  The quotient is [1, -1, 2, -2]
 //  The remainder is [0, 0, 0, 0, 3, 3]
@@ -85,14 +94,14 @@ void main() {
 //  2
 //  $$y(n) = n - 1 + 2n^{-1} - 2n^{-2} + \frac{3n^{-2} + 3n^{-3}}{n + 2 + n^{-1}}$$
 
-//  Sequence x = sequence([3, 11, 7, 0, -1, 4, 2]);
-//  Sequence n = x.position(x.middle);
-//  Sequence h = sequence([2, 3, 0, -5, 2, 1]);
-//  Sequence nh = x.position(1);
-//  var xconvh = conv(x, h, n, nh);
-//  print(xconvh.x);
-//  print(xconvh.n);
-//  print(xconvh.format());
+  Sequence x = sequence([3, 11, 7, 0, -1, 4, 2]);
+  Sequence n = x.position(x.middle);
+  Sequence h = sequence([2, 3, 0, -5, 2, 1]);
+  Sequence nh = x.position(1);
+  var xconvh = conv(x, h, n, nh);
+  print(xconvh.x);
+  print(xconvh.n);
+  print(xconvh.format());
 
 //  [6, 31, 47, 6, -51, -5, 41, 18, -22, -3, 8, 2]
 //  [-4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7]

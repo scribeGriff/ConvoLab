@@ -80,7 +80,6 @@ class _Convolution {
       final xLength = xdata.length;
       final hLength = hdata.length;
       final yindex = xn.indexOf(0) + hn.indexOf(0);
-      //final yindex = xindex + hindex;
       final ytime = vec(-yindex, xLength - 1 + hLength - 1 - yindex);
       // Pad data with zeros to length required to compute circular convolution.
       xdata.addAll(new List.filled(hLength - 1, 0));
