@@ -43,6 +43,7 @@ part 'src/algorithms/fourier/partial_sums.dart';
 part 'src/algorithms/convolution/convolution.dart';
 part 'src/algorithms/convolution/deconvolution.dart';
 part 'src/algorithms/convolution/correlation.dart';
+part 'src/algorithms/filters/filter.dart';
 
 part 'src/math/lists.dart';
 part 'src/math/complex.dart';
@@ -58,3 +59,12 @@ part 'src/sequences/sequence_functions.dart';
 part 'src/sequences/add_mult_seqs.dart';
 part 'src/sequences/even_odd_seqs.dart';
 part 'src/sequences/random_gaussian.dart';
+
+void main() {
+  var x = impseq(141, 20);
+  var n = x.position(20);
+  var b = sequence([1, 0, 0]);
+  var a = sequence([1, -1, 0.9]);
+  var h = filter(b, a, x);
+  print(h.x);
+}

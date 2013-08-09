@@ -76,12 +76,13 @@ Sequence stepseq(int n, int n0) => new Sequence()
 
 /// Shifts a positional sequence by amount given by shift.
 /// Returns a positional vector representing x(n) -> x(n - shift).
+/// TODO: Should this be a method of a sequence?
 Sequence shiftseq(Sequence position, int shift) => position + shift;
 
 /// Flips a squence about it's zero index point.  Negates
 /// the sequence if position set to true.
 /// Represents y(n) -> x(-n)
-/// TODO: Does this need to flip around the n0 point?
+/// TODO: Should this be a method of a sequence?
 Sequence foldseq(Sequence seq2fold, {negate: false}) {
   if (!negate) {
     return sequence(seq2fold.reversed);
