@@ -86,4 +86,12 @@ void main() {
   // Prints:
   // [-3, -6, -9, -12, -15, -18, -21, -18, -15, -10, -5, 0, 5, 10, 12, 14, 12, 10, 8, 6, 4, 2]
   // [-6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+
+  // shiftseq and foldseq are also methods of the Sequence class:
+  var x2 = position(11, 5);
+  print(x2);
+  print(x2.shiftseq(2).foldseq(negate:true));
+  // Prints:
+  // [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5]
+  // [-7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3]
 }

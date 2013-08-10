@@ -59,12 +59,3 @@ part 'src/sequences/sequence_functions.dart';
 part 'src/sequences/add_mult_seqs.dart';
 part 'src/sequences/even_odd_seqs.dart';
 part 'src/sequences/random_gaussian.dart';
-
-void main() {
-  var x = impseq(141, 20);
-  var n = x.position(20);
-  var b = sequence([1, 0, 0]);
-  var a = sequence([1, -1, 0.9]);
-  var h = filter(b, a, x);
-  print(h.x);
-}

@@ -110,7 +110,7 @@ class Sequence<E> extends ListBase<E> {
     var temp;
     if (y is num) {
       // Scale sequence by y.
-      temp = this.map((i) => y / i);
+      temp = this.map((i) => i / y);
     } else if (y is Sequence) {
       // Perform sample by sample division of (this) * y.
       temp = new List(y.length);
@@ -129,6 +129,20 @@ class Sequence<E> extends ListBase<E> {
         (index - n0), growable:false));
   }
 
+   /// Shift sequence by amount shift.
+  Sequence shiftseq(int shift) => this + shift;
+
+   /// Reverse a sequence.
+  Sequence foldseq({negate: false}) {
+    if (!negate) {
+      return new Sequence()..addAll(this.reversed);
+    } else {
+      return new Sequence()..addAll((this * -1).reversed);
+    }
+  }
+
+  Sequence abs() => new Sequence()..addAll(this.map((element) => element.abs()));
+
   /// Calculate the minimum value of a sequence.
   num min() => this.fold(this.first, math.min);
 
@@ -142,8 +156,7 @@ class Sequence<E> extends ListBase<E> {
   num prod() => this.reduce((value, element) => value * element);
 
   /// Calculate the energy of a sequence.
-  num energy() => this.map((element) => (element * element).abs())
-      .reduce((value, element) => value + element);
+  num energy() => this.abs().reduce((value, element) => value + element);
 
   /// Calculate the power of a sequence.
   num power() => this.energy() / this.length;
