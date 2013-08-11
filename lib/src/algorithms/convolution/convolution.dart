@@ -126,14 +126,14 @@ class _Convolution {
 
 /**
  * ConvResults extends standard results class and implements private
- * class PolyString.
+ * class _PolyString.
  *
- * PolyString converts a list of numbers into a polynomial string in
- * one of three formats: text, html or latex.
+ * The format() method converts a sequence of numbers into a polynomial string
+ * in one of three formats: text, html or latex.
  *
  * Example:
- *     List x = [2, 3, 4];
- *     List h = [3, 4, 5, 6];
+ *     Sequence x = sequence([2, 3, 4]);
+ *     Sequence h = sequence([3, 4, 5, 6]);
  *     var y = conv(x, h);
  *     print(y.format());
  *

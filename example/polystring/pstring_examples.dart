@@ -3,21 +3,21 @@
 // All rights reserved.  Please see the LICENSE.md file.
 
 /**
- * Examples using the function pstring() to format a List
+ * Examples using the function pstring() to format a sequence
  * to a polynomial string.  Formats supported are text,
- * html, latex.
+ * html and latex.
  */
 
 import 'package:convolab/convolab.dart';
 
 void main() {
 
-  List coefficients;
+  Sequence coefficients;
   String polyString;
   var zeroIndex;
 
   // 1.) Simple case - defaults
-  coefficients = [2, 5, -3, 7];
+  coefficients = sequence([2, 5, -3, 7]);
   polyString = pstring(coefficients);
   print(polyString);
   // prints:
@@ -38,7 +38,7 @@ void main() {
   // y(n) = 2n<sup>2</sup> + 5n - 3 + 7n<sup>-1</sup>
 
   // 4.) Another example working with causal signals
-  coefficients = [1, 1, 1, 1, 1, 1];
+  coefficients = sequence([1, 1, 1, 1, 1, 1]);
   polyString = pstring(coefficients, index: zeroIndex, type: 'text');
   print(polyString);
   // prints:

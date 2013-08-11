@@ -86,7 +86,7 @@ class _Deconvolution {
 
       var r = sequence(numerator);
 
-      /// Trivial solution q = 0 and remainder = num.
+      // Trivial solution q = 0 and remainder = num.
       if (nDegree < dDegree) {
         q = sequence([]);
         qtime = sequence([]);
@@ -167,8 +167,8 @@ class _Deconvolution {
  * DeconvResults extends standard results class and implements private
  * class PolyString.
  *
- * PolyString converts a list of numbers into a polynomial string in
- * one of three formats: text, html or latex.
+ * The format() method converts a sequence of numbers into a polynomial string
+ * in one of three formats: text, html or latex.
  *
  */
 

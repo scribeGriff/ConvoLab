@@ -115,6 +115,8 @@ The function, `addseqs()`, allows us to add sequences that have position informa
 
 The `position()` function creates a sample position sequence 11 samples long and places the 0 position at the 6th position in the sequence (sequences, like all `Iterables` in the Dart programming language, are based on the first element being element 0).
 
+To convert a sequence to a list, simply use the `toList()` method of the `ListBase` class.
+
 #### Sequence methods (other than those inherited from `ListBase`)
 - `+` operator - adds a sequence to another sequence of the same length or to a number
 - `-` operator - subtracts a sequence from another sequence of the same length or from a number
@@ -145,9 +147,7 @@ The `position()` function creates a sample position sequence 11 samples long and
 - `shiftseq()` - shifts a sequence
 - `foldseq()` - folds (ie, reverses) a sequence
 
-
 ----------
-
 
 ### Complex Numbers ###
 
@@ -177,9 +177,56 @@ The complex class implements the following methods:
 - `/` operator divides a complex number by another complex number
 - `==` operator checks if two complex numbers are equal (`hashCode` is implemented)
 
-
 ----------
 
+### Poly Strings ###
+
+To convert a sequence to a readable polynomial string, the library contains a function called `pstring()`.  The function can generate strings in text, HTML, or Latex format.  In its simplest form, `pstring()` requires only a sequence of polynomial coefficients:
+
+    // Simple case - defaults
+    Sequence coefficients = sequence([2, 5, -3, 7]);
+    String polyString = pstring(coefficients);
+    print(polyString);
+    // prints:
+    // $$f(x) = 2 + 5x^{-1} - 3x^{-2} + 7x^{-3}$$
+
+The Latex format, for use with MathJax in a browser, is the default.  The `pstring()` function also accepts several named optional parameters:
+
+- `index`: for causal signals, this is the n = 0 position index (default = 0)
+- `type`: String representing desired format text, html, latex (default = 'latex')
+- `variable`: String representing the variable name (default = 'x')
+- `name`: String representing the function name (default = 'f')
+
+Some additional examples:
+
+    // Setting options - html format.
+    polyString = pstring(coefficients, type: 'html', name: 'y', variable: 'n');
+    print(polyString);
+    // prints:
+    // y(n) = 2 + 5n<sup>-1</sup> - 3n<sup>-2</sup> + 7n<sup>-3</sup>
+
+    // Send the output to element on a webpage
+    query("#myDiv").appendHtml(pstring(test, type:'html'));
+
+    // Working with causal signals.
+    zeroIndex = 2;
+    polyString = pstring(coefficients, index: zeroIndex, type: 'html', name: 'y', variable: 'n');
+    print(polyString);
+    // prints:
+    // y(n) = 2n<sup>2</sup> + 5n - 3 + 7n<sup>-1</sup>
+
+    // Another example working with causal signals.
+    coefficients = sequence([1, 1, 1, 1, 1, 1]);
+    polyString = pstring(coefficients, index: zeroIndex, type: 'text');
+    print(polyString);
+    // prints:
+    // f(x) = x^2 + x + 1 + x^-1 + x^-2 + x^-3
+
+The library functions `conv()` and `deconv()` both implement the `PolyString` class as a `format()` method to the function results.  In the case of `deconv()`, the `format()` method handles remainders.
+
+----------
+ 
+ 
 
 
 

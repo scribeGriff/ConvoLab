@@ -5,14 +5,13 @@
 part of convolab;
 
 /**
- * Converts a list of numbers into a polynomial string.
+ * Converts a sequence of numbers into a polynomial string.
  *
  * Available in one of three formats: text, html or latex.
  *
  * Example:
- *     List test = [2, 5, -3, 7];
- *     String stest = pstring(test, index: 0, type: 'html',
- *         name: 'y', variable: 'n');
+ *     Sequence test = [2, 5, -3, 7];
+ *     String stest = pstring(test, type: 'html', name: 'y', variable: 'n');
  *     print(stest);
  * prints:
  *     y(n) = 2 + 5n<sup>-1</sup> - 3n<sup>-2</sup> + 7n<sup>-3</sup>
@@ -24,13 +23,13 @@ part of convolab;
  *     $$f(x) = 2 + 5x^{-1} - 3x^{-2} + 7x^{-3}$$
  *
  * To add to an element on a webpage:
- *     query("#myDiv").appendHtml(pstring(test, index:0, type:'html'));
+ *     query("#myDiv").appendHtml(pstring(test, type:'html'));
  *
  * Works for casual as well as non-causal signals.  For non-causal signals,
  * provide a value for the index of the zero time element of the list.
  *
  * Example:
- *     List test = [2, 5, -3, 7];
+ *     Sequence test = sequence([2, 5, -3, 7]);
  *     var index = 2;
  *     String stest = pstring(test, index: index, type: 'html',
  *         name: 'y', variable: 'n');
@@ -40,22 +39,23 @@ part of convolab;
  *
  */
 
-/// The top level function pstring() returns the formatted string.
-String pstring (List coeffs, {int index, String type, String variable,
+/// Converts a sequence of numbers into a polynomial string in text, html,
+/// or latex format.
+String pstring (Sequence coeffs, {int index, String type, String variable,
     String name}) {
   if (coeffs == null || coeffs.length == 0) {
     throw new ArgumentError("invalid list of coefficients");
   } else {
     if (index == null) index = 0;
-    final exponents = vec(-index, coeffs.length - 1 - index);
+    final exponents = sequence(vec(-index, coeffs.length - 1 - index));
     return new _PolyString(coeffs, exponents).format(type, variable, name);
   }
 }
 
-/// The private class _PolyString.
+// The private class _PolyString.
 class _PolyString {
-  List<num> coeffs;
-  List<int> exponents;
+  Sequence<num> coeffs;
+  Sequence<int> exponents;
   bool isText = false,
       isHtml = false,
       isTex = false;
@@ -66,8 +66,8 @@ class _PolyString {
 
   _PolyString (this.coeffs, this.exponents);
 
-  /// The _PolyString method format accepts the format type,
-  /// base variable name, and function name.
+  // The _PolyString method format accepts the format type,
+  // base variable name, and function name.
   String format([var formatType, var baseVar, var fname]) {
     var firstIndex = 0;
     String polystring;
@@ -104,9 +104,9 @@ class _PolyString {
     return polystring = sb.toString();
   }
 
-  /// The formatString() function queries each element of the
-  /// coefficients array and decides on the appropriate formatting
-  /// depending on a number of factors.
+  // The formatString() function queries each element of the
+  // coefficients array and decides on the appropriate formatting
+  // depending on a number of factors.
   void _formatString(var firstIndex, var baseVar, var coefficients,
                     var exponents) {
     // The first element in the solution is treated slightly
@@ -161,8 +161,8 @@ class _PolyString {
     }
   }
 
-  /// The formatExponent() takes an element of the exponents array
-  /// and formats it as text, html, or latex.
+  // The formatExponent() takes an element of the exponents array
+  // and formats it as text, html, or latex.
   void _formatExponent(var element) {
     if (element == 0) {
       exponent = '';
