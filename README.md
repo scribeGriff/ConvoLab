@@ -23,7 +23,8 @@ Some features of the library include:
 Sequences: generate and easily manipulate impulse, step, position or arbitrary sequences  
 Complex numbers: create complex numbers and handle complex calculations
 - Hyperbolic and logarithmic functions: `sinh()`, `cosh()`, `log2()`, `log10()` etc. 
-- Simple waveform generator: square, pulse, triangular, etc
+- Simple waveform generator: square, pulse, triangular, etc.
+- Polynomial string construction in text, HTML or latex format
 - Common signal processing algorithms including (more are in development):   
 `fft()`: fast and discrete Fourier transform   
 `ifft()`: fast and discrete inverse Fourier transform  
@@ -114,6 +115,38 @@ The function, `addseqs()`, allows us to add sequences that have position informa
 
 The `position()` function creates a sample position sequence 11 samples long and places the 0 position at the 6th position in the sequence (sequences, like all `Iterables` in the Dart programming language, are based on the first element being element 0).
 
+#### Sequence methods (other than those inherited from `ListBase`)
+- `+` operator - adds a sequence to another sequence or to a number
+- `-` operator - subtracts a sequence from another sequence or from a number
+- `*` operator - multiplies a sequence by another sequence or by a number
+- `/` operator - divides a sequence by another sequence or by a number
+- `position()` - creates a position sequence
+- `shiftseq()` - shifts a sequence
+- `foldseq()` - folds(ie, reverses) a sequence
+- `abs()` - returns a sequence with the absolute value of each element
+- `min()` - returns the minimum of a sequence
+- `max()` - returns the maximum of a sequence
+- `sum()` - returns the sum of a sequence
+- `prod()` - returns the product of a sequence
+- `energy()` - returns the energy of a sequence
+- `power()` - returns the power of a sequence
+- `iterator` - returns an iterator to the sequence (allows `for` `in` and `forEach`)
+- `middle` - returns the index of the middle element of the sequence (truncates)
+
+#### Sequence functions
+- `sequence()` - create a new sequence from an Iterable
+- `position()` - creates a position sequence
+- `zeros()` - creates a sequence of zeros
+- `ones()` - creates a sequence of ones
+- `impseq()` - creates an impulse sequence
+- `stepseq()` - creates a step sequence
+- `shiftseq()` - shifts a sequence
+- `foldseq()` - folds (ie, reverses) a sequence
+
+
+----------
+
+
 ### Complex Numbers ###
 
 The library contains support for complex numbers.  A complex number can be defined as follows:
@@ -122,6 +155,29 @@ The library contains support for complex numbers.  A complex number can be defin
     print(c.string);
     // Prints:
     // 1.00 + 2.00j
+
+The complex class implements the following methods:
+
+- `string` - returns the complex number as a string
+- `magnitude` - returns the magnitude of a complex number
+- `phase` - returns the phase of a complex number
+- `croud2` - rounds fractional part of complex number to two significant digits
+- `conj` - returns the complex conjugate of the complex number
+- `recip` - returns the reciprocal of the complex number
+- `cexp` - returns the complex exponential of the complex number
+- `csin` - returns the complex sine of the complex number
+- `ccos` - returns the complex cosine of the complex number
+- `ctan` - returns the complex tangent of the complex number
+- `scale()` - scales the complex number by a number of type int or double
+- `+` operator adds a complex number to another complex number
+- `-` operator subtracts a complex number from another complex number
+- `*` operator multiplies a complex number by another complex number
+- `/` operator divides a complex number by another complex number
+- `==` operator checks if two complex numbers are equal (`hashCode` is implemented)
+
+
+----------
+
 
 
 
