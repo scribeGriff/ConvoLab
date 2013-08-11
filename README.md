@@ -116,10 +116,12 @@ The function, `addseqs()`, allows us to add sequences that have position informa
 The `position()` function creates a sample position sequence 11 samples long and places the 0 position at the 6th position in the sequence (sequences, like all `Iterables` in the Dart programming language, are based on the first element being element 0).
 
 #### Sequence methods (other than those inherited from `ListBase`)
-- `+` operator - adds a sequence to another sequence or to a number
-- `-` operator - subtracts a sequence from another sequence or from a number
-- `*` operator - multiplies a sequence by another sequence or by a number
-- `/` operator - divides a sequence by another sequence or by a number
+- `+` operator - adds a sequence to another sequence of the same length or to a number
+- `-` operator - subtracts a sequence from another sequence of the same length or from a number
+- `*` operator - multiplies a sequence by another sequence of the same length or by a number
+- `/` operator - divides a sequence by another sequence of the same length or by a number
+- `addseqs()` - adds sequences that are of differing lengths and/or have position information
+- `multseqs()` - multiplies sequences that are of differing lengths and/or have position information
 - `position()` - creates a position sequence
 - `shiftseq()` - shifts a sequence
 - `foldseq()` - folds(ie, reverses) a sequence

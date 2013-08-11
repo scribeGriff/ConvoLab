@@ -122,8 +122,8 @@ class Sequence<E> extends ListBase<E> {
     return new Sequence()..addAll(temp);
   }
 
-  /// Class methods.
-  /// Create a position vector (n) for this sequence given n0.
+  // Class methods.
+  /// Create a position sequence (n) for this sample sequence (x) given n0.
   Sequence position(int n0) {
     return new Sequence()..addAll(new List.generate(this.length, (var index) =>
         (index - n0), growable:false));
@@ -132,7 +132,7 @@ class Sequence<E> extends ListBase<E> {
    /// Shift sequence by amount shift.
   Sequence shiftseq(int shift) => this + shift;
 
-   /// Reverse a sequence.
+   /// Reverse a sequence. Negates the sequence if negate is true.
   Sequence foldseq({negate: false}) {
     if (!negate) {
       return new Sequence()..addAll(this.reversed);
@@ -141,6 +141,7 @@ class Sequence<E> extends ListBase<E> {
     }
   }
 
+  /// Takes the absolute value of each element in the sequence.
   Sequence abs() => new Sequence()..addAll(this.map((element) => element.abs()));
 
   /// Calculate the minimum value of a sequence.

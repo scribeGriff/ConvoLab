@@ -1,24 +1,27 @@
+// Copyright (c) 2013, scribeGriff (Richard Griffith)
+// https://github.com/scribeGriff/ConvoLab
+// All rights reserved.  Please see the LICENSE.md file.
+
 part of convolab;
 
-/* *************************************************************** *
- *   Top level functions to implement hyperbolic functions         *
- *   Library: ConvoLab (c) 2012 scribeGriff                        *
- * *************************************************************** */
+/**
+ *   Hyperbolic functions to calculate sinh, cosh, tanh, coth, sech and csch.
+ */
 
-// hyperbolic sine
+/// Returns the hyperbolic sine of x.
 num sinh(num x) => (math.exp(2*x) - 1) / (2 * math.exp(x));
 
-// hyperbolic cosine
+/// Returns hyperbolic cosine of x.
 num cosh(num x) => (math.exp(2*x) + 1) / (2 * math.exp(x));
 
-// hyperbolic tangent
-num tanh(num x) => sinh(x)/cosh(x);
+/// Returns hyperbolic tangent of x.
+num tanh(num x) => sinh(x) / cosh(x);
 
-// hyperbolic cotangent
-num coth(num x) => cosh(x)/sinh(x);
+/// Returns hyperbolic cotangent of x.
+num coth(num x) => cosh(x) / sinh(x);
 
-// hyperbolic secant = 1/cosh(x)
-num sech(num x) => ((2 * math.exp(x) / math.exp(2*x) + 1));
+/// Returns hyperbolic secant (1 / cosh(x)) of x.
+num sech(num x) => ((2 * math.exp(x) / math.exp(2 * x) + 1));
 
-// hyperbolic cosecant = 1/sinh(x)
-num csch(num x) => ((2 * math.exp(x) / math.exp(2*x) - 1));
+/// Returns hyperbolic cosecant (1 / sinh(x)) of x
+num csch(num x) => ((2 * math.exp(x) / math.exp(2 * x) - 1));

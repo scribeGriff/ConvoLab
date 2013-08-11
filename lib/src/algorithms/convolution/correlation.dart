@@ -35,6 +35,10 @@ part of convolab;
  *
  */
 
+/// Performs a crosscorrelation of seq1 and seq2, or, if seq2 is null,
+/// performs the autocorrelation of seq1.  Accepts position information.
+/// Returns the correlation sequence and its position information.
+
 CorrResults corr(Sequence seq1, [Sequence seq2, Sequence pos1, Sequence pos2]) {
   if (seq2 == null) seq2 = sequence(seq1);  // This is the autocorrelation of a sequence.
   if (pos1 == null) pos1 = seq1.position(0);  // If no sequence is provided, assume n0 = 0.

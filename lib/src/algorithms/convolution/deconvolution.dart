@@ -54,12 +54,14 @@ part of convolab;
  * * class DeconvResults
  */
 
-/// The top level function deconv() returns the object DeconvResults.
+/// Performs a deconvolution (polynomial long division) of numerator and
+/// denominator.  Accepts position information.  Returns quotient, remainder,
+/// and position information for each.
 DeconvResults deconv(Sequence _numerator, Sequence _denominator,
                      [Sequence _nn, Sequence _dn])
 => new _Deconvolution(_numerator, _denominator).deconvolve(_nn, _dn);
 
-/// The private class _Deconvolution.
+// The private class _Deconvolution.
 class _Deconvolution {
   final numerator;
   final denominator;
@@ -249,9 +251,9 @@ class DeconvResults extends ConvoLabResults implements _PolyString {
     return polystring = sb.toString();
   }
 
-  /// The formatString() function queries each element of the
-  /// coefficients array and decides on the appropriate formatting
-  /// depending on a number of factors.
+  // The formatString() function queries each element of the
+  // coefficients array and decides on the appropriate formatting
+  // depending on a number of factors.
   void _formatString(var firstIndex, var baseVar, var coefficients,
                     var exponents) {
     // The first element in the solution is treated slightly
@@ -301,8 +303,8 @@ class DeconvResults extends ConvoLabResults implements _PolyString {
     }
   }
 
-  /// The formatExponent() takes an element of the exponents array
-  /// and formats it as text, html, or latex.
+  // The formatExponent() takes an element of the exponents array
+  // and formats it as text, html, or latex.
   void _formatExponent(var element) {
     if (element == 0) {
       exponent = '';
