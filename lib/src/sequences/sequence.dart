@@ -49,7 +49,7 @@ class Sequence<E> extends ListBase<E> {
   /// Override '+' operator allows added two sequences
   /// or a constant to a sequence.
   //@override
-  Sequence operator +(Object y) {
+  Sequence operator +(y) {
     var temp;
     if (y is num) {
       // Add y to each element in Sequence.
@@ -68,7 +68,7 @@ class Sequence<E> extends ListBase<E> {
   /// Override '-' operator allows subtracting two sequences
   /// or a constant from a sequence.
   //@override
-  Sequence operator -(Object y) {
+  Sequence operator -(y) {
     var temp;
     if (y is num) {
       // Subtract y from each element in Sequence.
@@ -87,7 +87,7 @@ class Sequence<E> extends ListBase<E> {
   /// Override '*' operator allows multiplying two sequences
   /// or a sequence by a constant.
   //@override
-  Sequence operator *(Object y) {
+  Sequence operator *(y) {
     var temp;
     if (y is num) {
       // Scale sequence by y.
@@ -106,7 +106,7 @@ class Sequence<E> extends ListBase<E> {
   /// Override '/' operator allows dividing two sequences
   /// or a sequence by a constant.
   //@override
-  Sequence operator /(Object y) {
+  Sequence operator /(y) {
     var temp;
     if (y is num) {
       // Scale sequence by y.
