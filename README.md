@@ -122,11 +122,11 @@ To convert a sequence to a list, simply use the `toList()` method of the `ListBa
 - `-` operator - subtracts a sequence from another sequence of the same length or from a number
 - `*` operator - multiplies a sequence by another sequence of the same length or by a number
 - `/` operator - divides a sequence by another sequence of the same length or by a number
-- `addseqs()` - adds sequences that are of differing lengths and/or have position information
-- `multseqs()` - multiplies sequences that are of differing lengths and/or have position information
 - `position()` - creates a position sequence
 - `shiftseq()` - shifts a sequence
 - `foldseq()` - folds(ie, reverses) a sequence
+- `toReal()` - converts a complex sequence to a real valued sequence
+- `toComplex()` - converts a real sequence to a complex valued sequence
 - `abs()` - returns a sequence with the absolute value of each element
 - `min()` - returns the minimum of a sequence
 - `max()` - returns the maximum of a sequence
@@ -146,6 +146,9 @@ To convert a sequence to a list, simply use the `toList()` method of the `ListBa
 - `stepseq()` - creates a step sequence
 - `shiftseq()` - shifts a sequence
 - `foldseq()` - folds (ie, reverses) a sequence
+- `addseqs()` - adds sequences that are of differing lengths and/or have position information
+- `multseqs()` - multiplies sequences that are of differing lengths and/or have position information
+- `evenodd()` - decompose a sequence into its even and odd components.
 
 ----------
 

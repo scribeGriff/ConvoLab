@@ -1,13 +1,16 @@
+// Copyright (c) 2013, scribeGriff (Richard Griffith)
+// https://github.com/scribeGriff/ConvoLab
+// All rights reserved.  Please see the LICENSE.md file.
+
 part of convolab;
 
-/* ************************************************************************ *
- *   Top level functions to implement a number of computations              *
- *   involving lists, including:                                            *
- *   toReal() complex --> real list conversion                              *
- *   toComplex() real --> complex list conversion                           *
- *   sum() sums all elements of a real list                                 *
- *   Library: ConvoLab (c) 2012 scribeGriff                                 *
- * ************************************************************************ */
+/**
+ *   Top level functions to implement a number of computations
+ *   involving lists, including:
+ *   toReal() complex --> real list conversion
+ *   toComplex() real --> complex list conversion
+ *   sum() sums all elements of a real list
+ */
 
 // Sum all the elements in a List.
 num sum(List<num> inputList) {
@@ -31,9 +34,7 @@ List<num> toReal(List<Complex> complexList, [bool toint = false]) {
     }
     return _realList;
   } else {
-    print("The input data is not formatted correctly.");
-    print("Elements must be type complex.");
-    return(null);
+    throw new FormatException('This sequence is not of type Complex');
   }
 }
 
@@ -49,7 +50,6 @@ List<Complex> toComplex(List realList) {
     // List is already complex so just return the list.
     return realList;
   } else {
-    print("The input data is not formatted correctly.");
-    return(null);
+    throw new FormatException('This sequence is not of type num');
   }
 }

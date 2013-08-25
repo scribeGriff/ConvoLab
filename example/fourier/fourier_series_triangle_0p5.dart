@@ -15,7 +15,7 @@
 import 'package:convolab/convolab.dart';
 
 void main() {
-  var waveform = triangle(3);
+  var waveform = triangle(3).toList();
   var kvals = [10, 40, 80];
   var fourier = fsps(waveform, kvals, 0.5);
   if (fourier != null) {

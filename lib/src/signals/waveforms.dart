@@ -1,5 +1,5 @@
 // Copyright (c) 2013, scribeGriff (Richard Griffith)
-// https://github.com/scribeGriff/simplot
+// https://github.com/scribeGriff/ConvoLab
 // All rights reserved.  Please see the LICENSE.md file.
 
 part of convolab;
@@ -9,36 +9,36 @@ part of convolab;
  *
  */
 //Generate square wave
-List square([num cycles = 1, num amp = 1])
+Sequence square([num cycles = 1, num amp = 1])
     => new _Waves().generate('square', cycles, amp);
 
 //Generate triangle wave
-List triangle([num cycles = 1, num amp = 1])
+Sequence triangle([num cycles = 1, num amp = 1])
     => new _Waves().generate('triangle', cycles, amp);
 
 //Generate ramp wave
-List ramp([num cycles = 1, num amp = 1])
+Sequence ramp([num cycles = 1, num amp = 1])
     => new _Waves().generate('ramp', cycles, amp);
 
 //Generate pulse wave
-List pulse([num cycles = 1, num amp = 1])
+Sequence pulse([num cycles = 1, num amp = 1])
     => new _Waves().generate('pulse', cycles, amp);
 
 class _Waves {
   final points;
-  List data, mark, space, trise, tfall;
+  Sequence data, mark, space, trise, tfall;
   var minAmp, tr, tf;
 
   _Waves()
       : points = 512,
-        data = [],
-        mark = [],
-        space = [],
-        trise = [],
-        tfall = [],
+        data = sequence([]),
+        mark = sequence([]),
+        space = sequence([]),
+        trise = sequence([]),
+        tfall = sequence([]),
         minAmp = 0;
 
-  List generate(String waveform, num cycles, num amp) {
+  Sequence generate(String waveform, num cycles, num amp) {
     if (cycles > 4) {
       print('Please enter number of cycles to be 4 or less');
       return null;

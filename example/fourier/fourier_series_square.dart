@@ -14,7 +14,8 @@
 import 'package:convolab/convolab.dart';
 
 void main() {
-  var waveform = square(1);
+  // TODO When fsps goes to sequences, can stop this conversion.
+  var waveform = square(1).toList();
   var kvals = [1, 16, 80];
   var fourier = fsps(waveform, kvals);
   if (fourier != null) {

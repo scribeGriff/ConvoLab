@@ -141,6 +141,42 @@ class Sequence<E> extends ListBase<E> {
     }
   }
 
+  /// Convert sequence to real valued (integer if toint is true).
+  Sequence toReal([bool toint = false]) {
+    if (this.every((element) => element is Complex)) {
+      var _realSequence = new Sequence();
+      for (var i = 0; i < this.length; i++) {
+        if (toint) {
+          _realSequence.add((this[i] as Complex).cround2.real.toInt());
+        } else {
+          _realSequence.add((this[i] as Complex).real);
+        }
+      }
+      return _realSequence;
+    } else if (this.every((element) => element is num)) {
+      // Sequence is already real so just return it.
+      return this;
+    } else {
+      throw new FormatException('This sequence is not formatted correctly');
+    }
+  }
+
+  /// Convert sequence to complex value.
+  Sequence<Complex> toComplex() {
+    if (this.every((element) => element is num)) {
+      var _complexSequence = new Sequence();
+      for (var i = 0; i < this.length; i++) {
+        _complexSequence.add(complex(this[i], 0));
+      }
+      return _complexSequence;
+    } else if (this.every((element) => element is Complex)) {
+      // Sequence is already complex so just return it.
+      return this;
+    } else {
+      throw new FormatException('This sequence is not formatted correctly');
+    }
+  }
+
   /// Takes the absolute value of each element in the sequence.
   Sequence abs() => new Sequence()..addAll(this.map((element) => element.abs()));
 
