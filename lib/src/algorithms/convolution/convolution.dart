@@ -7,7 +7,11 @@ part of convolab;
 /**
  * Perform linear convolution of two signals using N point circular convolution.
  *
+ * Accepts position information.  Returns the convolved
+ * sequence and its position information.
+ *
  * Basic usage:
+ *
  *     var xdata = sequence([3, 11, 7, 0, -1, 4, 2]);
  *     var hdata = sequence([2, 3, 0, -5, 2, 1]);
  *     var y = conv(xdata, hdata);
@@ -22,6 +26,7 @@ part of convolab;
  * and providing an integer indicating the n = 0 position in the sequence.
  *
  * Example optional usage:
+ *
  *     var xpos = xdata.position(3);
  *     var hpos = hdata.position(1);
  *     var y = conv(xdata, hdata, xpos, hpos);
@@ -41,20 +46,18 @@ part of convolab;
  *
  * ConvResults implements _PolyString so that it is also possible to
  * format the result:
- *
  *     print(y.format());
  *
  * See documentation for the ConvResults class below.
  *
  * Dependencies
+ *
  * * fft()
  * * class ConvResults
  */
 
 // TODO update after fft, ifft converted to sequences.
-/// Perform linear convolution of two signals using N point circular
-/// convolution.  Accepts position information.  Returns the convolved
-/// sequence and its position information.
+
 ConvResults conv(Sequence _x, Sequence _h, [Sequence _xn, Sequence _hn])
     => new _Convolution(_x, _h).convolve(_xn, _hn);
 

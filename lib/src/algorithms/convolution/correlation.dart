@@ -7,7 +7,12 @@ part of convolab;
 /**
  * Perform crosscorrelation or autocorrelation.
  *
+ * Performs a crosscorrelation of seq1 and seq2, or, if seq2 is null,
+ * performs the autocorrelation of seq1.  Accepts position information.
+ * Returns the correlation sequence and its position information.
+ *
  * Example:
+ *
  *     // x(n):
  *     Sequence x = sequence([3, 11, 7, 0, -1, 4, 2]);
  *     // n = -3, -2, -1, 0, 1, 2, 3.
@@ -34,10 +39,6 @@ part of convolab;
  *     [-4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8]
  *
  */
-
-/// Performs a crosscorrelation of seq1 and seq2, or, if seq2 is null,
-/// performs the autocorrelation of seq1.  Accepts position information.
-/// Returns the correlation sequence and its position information.
 
 CorrResults corr(Sequence seq1, [Sequence seq2, Sequence pos1, Sequence pos2]) {
   if (seq2 == null) seq2 = sequence(seq1);  // This is the autocorrelation of a sequence.

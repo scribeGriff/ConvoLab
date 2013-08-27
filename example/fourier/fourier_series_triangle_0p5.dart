@@ -6,16 +6,14 @@
  * Example using the function fsps() to compute the partial sum
  * of the Fourier series of three cycles of a triangle wave for a period
  * of half the length of the data specified in waveform.  The
- * number of partial sums is contained in the list kvals.  The result
- * could be plotted to a canvas (using library convoweb) or saved to
- * a file (using convohio).
+ * number of partial sums is contained in the list kvals.
  *
  */
 
 import 'package:convolab/convolab.dart';
 
 void main() {
-  var waveform = triangle(3).toList();
+  var waveform = triangle(3);
   var kvals = [10, 40, 80];
   var fourier = fsps(waveform, kvals, 0.5);
   if (fourier != null) {

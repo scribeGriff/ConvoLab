@@ -7,24 +7,33 @@ part of convolab;
 /**
  * Perform the deconvolution of two signals using polynomial long division.
  *
+ *  Performs a deconvolution (polynomial long division) of numerator and
+ * denominator.  Accepts position information.  Returns quotient, remainder,
+ * and position information for each.
+ *
  * Returns the quotient and remainder as sequences.
+ *
  * Basic usage:
+ *
  *     var num = [1, 1, 1, 1, 1, 1];
  *     var den = [1, 2, 1];
  *     var qrem = deconv(num, den);
  *
  * First coefficient assumed to be associated with highest power. For example,
  * if the numerator was given as 1 + 2z^-1 + 2z^-2, then:
+ *
  *     var num = [1, 2, 1];
  *
  * where, by default, the sequences are assumed to be causal. Both indices
  * assume the first element in a list is at i = 0;
  *
  * For non-causal sequences, the function accepts two optional parameters:
+ *
  * * nn is the position sequence for the numerator
  * * dn is the position sequence for the denominator
  *
  * Example optional usage:
+ *
  *     // num = z^2 + z + 1 + z^-1 + z^-2 +z^-3
  *     var num = [1, 1, 1, 1, 1, 1];
  *     var nn = num.position(2); // The zero index is at position 2 in num.
@@ -36,6 +45,7 @@ part of convolab;
  * Note that the sequences do not need to be the same length.
  *
  * Returns an object of type DeconvResults if successful:
+ *
  *     print('The quotient is ${qrem.q}');
  *     print('The remainder is ${qrem.r}');
  *     print(qrem.qn);
@@ -51,12 +61,10 @@ part of convolab;
  * See documentation for the DeconvResults class below.
  *
  * Dependencies
+ *
  * * class DeconvResults
  */
 
-/// Performs a deconvolution (polynomial long division) of numerator and
-/// denominator.  Accepts position information.  Returns quotient, remainder,
-/// and position information for each.
 DeconvResults deconv(Sequence _numerator, Sequence _denominator,
                      [Sequence _nn, Sequence _dn])
 => new _Deconvolution(_numerator, _denominator).deconvolve(_nn, _dn);

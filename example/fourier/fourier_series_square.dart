@@ -5,17 +5,14 @@
 /**
  * Example using the function fsps() to compute the partial sum
  * of the Fourier series of a single cycle of a square wave.  The
- * number of partial sums is contained in the list kvals.  The result
- * could be plotted to a canvas (using library convoweb) or saved to
- * a file (using convohio).
+ * number of partial sums is contained in the list kvals.
  *
  */
 
 import 'package:convolab/convolab.dart';
 
 void main() {
-  // TODO When fsps goes to sequences, can stop this conversion.
-  var waveform = square(1).toList();
+  var waveform = square(1);
   var kvals = [1, 16, 80];
   var fourier = fsps(waveform, kvals);
   if (fourier != null) {

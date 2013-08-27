@@ -6,7 +6,9 @@ part of convolab;
 
 /**
  * Computes the partial sums of Fourier Series.
+ *
  * usage:
+ *
  *     var waveform = square(1);
  *     var kvals = [1, 16, 80];
  *     var fourier = fsps(waveform, kArray, [fraction]);
@@ -17,7 +19,10 @@ part of convolab;
  * value is to treat the entire waveform as the period.
  *
  * Returns FspsResults object which includes two differently formatted
- * HashMap<k, list>.  For example:
+ * HashMap<k, Sequence>.
+ *
+ * For example:
+ *
  *     print('We have computed ${fourier.psums.length} Fourier series.');
  *     // We have computed 3 Fourier series.
  *     if (fourier.psums[kvals[0]].every((element) => element is Complex)) {
@@ -32,13 +37,12 @@ part of convolab;
  *
  */
 
-/// The top level function fsps() returns the object FspsResults.
-FspsResults fsps(List waveform, List kArray, [num fraction = 1])
+FspsResults fsps(Sequence waveform, List kArray, [num fraction = 1])
     => new _PartialSums(waveform, kArray).sum(fraction);
 
 /// The private class _PartialSums.
 class _PartialSums {
-  final List waveform;
+  final Sequence waveform;
   final List kArray;
 
   _PartialSums(this.waveform, this.kArray);
@@ -55,13 +59,14 @@ class _PartialSums {
     //User may define a period less than the length of the waveform.
     var N = (L * fraction).toInt();
     //The Fourier series coefficients are computed using a FFT.
-    var coeff = fft(waveform.sublist(0, N));
+    //TODO fft still needs a List
+    var coeff = fft(waveform.toList().sublist(0, N));
     //If the fft returns the complex coefficients, calculate the partial sums.
     if (coeff != null) {
       for (var i = 0; i < kArray.length; i++) {
-        List<Complex> y = new List(L);
-        List real = new List(L);
-        List imag = new List(L);
+        Sequence<Complex> y = sequence(new List(L));
+        Sequence real = sequence(new List(L));
+        Sequence imag = sequence(new List(L));
         for (var n = 0; n < L; n++) {
           var q = complex(0, 0);
           for (var k = 1; k <= kArray[i]; k++) {

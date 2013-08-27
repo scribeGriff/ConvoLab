@@ -19,6 +19,7 @@ part of convolab;
  * is not equal to the larger of either length of a or the length of b.
  *
  * Example usage - Calculate the impulse response of the following filter:
+ *
  *     var x = impseq(141, 20);
  *     var n = x.position(20);
  *     var b = sequence([1]);
