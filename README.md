@@ -40,78 +40,87 @@ Most library access is through top level function calls.
 
 Add the following to your pubspec.yaml:
 
-    convolab:
-      git: git://github.com/scribeGriff/ConvoLab.git
+````dart
+convolab:
+  git: git://github.com/scribeGriff/ConvoLab.git
+````
 
 Then import the library to your app:
 
-    import 'package:convolab/convolab.dart';
-
+````dart
+import 'package:convolab/convolab.dart';
+````
 
 ### Sequences ###
 
 The library is currently moving to using Sequences as the main data structure.  A sequence extends from the `ListBase` class and therefore shares many of the same methods of the List data type.  Some examples of using a Sequence data structure:
 
-    // Creates a List object.
-    var list = [1, 2, 3, 4];
-    // Converts the List into a Sequence.
-    var seq1 = sequence(list);
-    // Check if seq1 is a Sequence.
-    print(seq1 is Sequence);
-    // Print the sequence.
-    print(seq1);
-    // Prints:
-    // true
-    // [1, 2, 3, 4]
+````dart
+// Creates a List object.
+var list = [1, 2, 3, 4];
+// Converts the List into a Sequence.
+var seq1 = sequence(list);
+// Check if seq1 is a Sequence.
+print(seq1 is Sequence);
+// Print the sequence.
+print(seq1);
+// Prints:
+// true
+// [1, 2, 3, 4]
 
-    // Any Iterable, including another sequence, can be passed to the
-    // sequence function.
-    var seq2 = sequence(list.map((element) => element * 2));
+// Any Iterable, including another sequence, can be passed to the
+// sequence function.
+var seq2 = sequence(list.map((element) => element * 2));
 
-    // Sequences can be added, subtracted, multiplied, and divided element
-    // by element:
-    var seq3 = seq1 + seq2;
-    print(seq3);
-    // Prints:
-    // [3, 6, 9, 12]
+// Sequences can be added, subtracted, multiplied, and divided element
+// by element:
+var seq3 = seq1 + seq2;
+print(seq3);
+// Prints:
+// [3, 6, 9, 12]
 
-    // and element by number:
-    var seq4 = seq3 * 2;
-    print(seq4);
-    // Prints: 
-    // [6, 12, 18, 24]
+// and element by number:
+var seq4 = seq3 * 2;
+print(seq4);
+// Prints: 
+// [6, 12, 18, 24]
 
-    // Sequences can be made periodic:
-    print(sequence(seq1, 4));
-    // Prints:
-    // [1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4]
+// Sequences can be made periodic:
+print(sequence(seq1, 4));
+// Prints:
+// [1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4]
+````
 
 Sequences allow us to perform a variety of tasks on sampled data.  For example, suppose we had a sample sequence, x(n), and we wanted to know what x1(n) = 2x(n - 5) - 3x(n + 4) was.
 
-    // x(n)
-    Sequence x = sequence([1, 2, 3, 4, 5, 6, 7, 6, 5, 4, 3, 2, 1]);
-    // n, zeroth position at element 2.
-    Sequence n = x.position(2);
-    // n - 5
-    Sequence nm5 = shiftseq(n, 5);
-    // n + 4
-    Sequence np4 = shiftseq(n, -4);
-    // x1(n) = 2x(n - 5) - 3x(n + 4)
-    var x1 = addseqs(x * 2, x * -3, nm5, np4);
-    print(x1.x);
-    print(x1.n);
-    // Prints:
-    // [-3, -6, -9, -12, -15, -18, -21, -18, -15, -10, -5, 0, 5, 10, 12, 14, 12, 10, 8, 6, 4, 2]
-    // [-6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+````dart
+// x(n)
+Sequence x = sequence([1, 2, 3, 4, 5, 6, 7, 6, 5, 4, 3, 2, 1]);
+// n, zeroth position at element 2.
+Sequence n = x.position(2);
+// n - 5
+Sequence nm5 = shiftseq(n, 5);
+// n + 4
+Sequence np4 = shiftseq(n, -4);
+// x1(n) = 2x(n - 5) - 3x(n + 4)
+var x1 = addseqs(x * 2, x * -3, nm5, np4);
+print(x1.x);
+print(x1.n);
+// Prints:
+// [-3, -6, -9, -12, -15, -18, -21, -18, -15, -10, -5, 0, 5, 10, 12, 14, 12, 10, 8, 6, 4, 2]
+// [-6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+````
 
 The function, `addseqs()`, allows us to add sequences that have position information.  In this example, the n = 0 sample point was the 3rd element in the sequence x(n).  The function `shiftseq()` (as well as `foldseq()`), are also methods of the Sequence class.  Therefore, we could do the following:
 
-    var x2 = position(11, 5);
-    print(x2);
-    print(x2.shiftseq(2).foldseq(negate:true));
-    // Prints:
-    // [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5]
-    // [-7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3] 
+````dart
+var x2 = position(11, 5);
+print(x2);
+print(x2.shiftseq(2).foldseq(negate:true));
+// Prints:
+// [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5]
+// [-7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3] 
+````
 
 The `position()` function creates a sample position sequence 11 samples long and places the 0 position at the 6th position in the sequence (sequences, like all `Iterables` in the Dart programming language, are based on the first element being element 0).
 
@@ -156,10 +165,12 @@ To convert a sequence to a list, simply use the `toList()` method of the `ListBa
 
 The library contains support for complex numbers.  A complex number can be defined as follows:
 
-    var c = complex(1, 2);
-    print(c.string);
-    // Prints:
-    // 1.00 + 2.00j
+````dart
+var c = complex(1, 2);
+print(c.string);
+// Prints:
+// 1.00 + 2.00j
+````
 
 The complex class implements the following methods:
 
@@ -186,12 +197,14 @@ The complex class implements the following methods:
 
 To convert a sequence to a readable polynomial string, the library contains a function called `pstring()`.  The function can generate strings in text, HTML, or Latex format.  In its simplest form, `pstring()` requires only a sequence of polynomial coefficients:
 
-    // Simple case - defaults
-    Sequence coefficients = sequence([2, 5, -3, 7]);
-    String polyString = pstring(coefficients);
-    print(polyString);
-    // prints:
-    // $$f(x) = 2 + 5x^{-1} - 3x^{-2} + 7x^{-3}$$
+````dart
+// Simple case - defaults
+Sequence coefficients = sequence([2, 5, -3, 7]);
+String polyString = pstring(coefficients);
+print(polyString);
+// prints:
+// $$f(x) = 2 + 5x^{-1} - 3x^{-2} + 7x^{-3}$$
+````
 
 The Latex format, for use with MathJax in a browser, is the default.  The `pstring()` function also accepts several named optional parameters:
 
@@ -202,28 +215,30 @@ The Latex format, for use with MathJax in a browser, is the default.  The `pstri
 
 Some additional examples:
 
-    // Setting options - html format.
-    polyString = pstring(coefficients, type: 'html', name: 'y', variable: 'n');
-    print(polyString);
-    // prints:
-    // y(n) = 2 + 5n<sup>-1</sup> - 3n<sup>-2</sup> + 7n<sup>-3</sup>
+````dart
+// Setting options - html format.
+polyString = pstring(coefficients, type: 'html', name: 'y', variable: 'n');
+print(polyString);
+// prints:
+// y(n) = 2 + 5n<sup>-1</sup> - 3n<sup>-2</sup> + 7n<sup>-3</sup>
 
-    // Send the output to element on a webpage
-    query("#myDiv").appendHtml(pstring(test, type:'html'));
+// Send the output to element on a webpage
+query("#myDiv").appendHtml(pstring(test, type:'html'));
 
-    // Working with causal signals.
-    zeroIndex = 2;
-    polyString = pstring(coefficients, index: zeroIndex, type: 'html', name: 'y', variable: 'n');
-    print(polyString);
-    // prints:
-    // y(n) = 2n<sup>2</sup> + 5n - 3 + 7n<sup>-1</sup>
+// Working with causal signals.
+zeroIndex = 2;
+polyString = pstring(coefficients, index: zeroIndex, type: 'html', name: 'y', variable: 'n');
+print(polyString);
+// prints:
+// y(n) = 2n<sup>2</sup> + 5n - 3 + 7n<sup>-1</sup>
 
-    // Another example working with causal signals.
-    coefficients = sequence([1, 1, 1, 1, 1, 1]);
-    polyString = pstring(coefficients, index: zeroIndex, type: 'text');
-    print(polyString);
-    // prints:
-    // f(x) = x^2 + x + 1 + x^-1 + x^-2 + x^-3
+// Another example working with causal signals.
+coefficients = sequence([1, 1, 1, 1, 1, 1]);
+polyString = pstring(coefficients, index: zeroIndex, type: 'text');
+print(polyString);
+// prints:
+// f(x) = x^2 + x + 1 + x^-1 + x^-2 + x^-3
+````
 
 The library functions `conv()` and `deconv()` both implement the `PolyString` class as a `format()` method to the function results.  In the case of `deconv()`, the `format()` method handles remainders.
 
