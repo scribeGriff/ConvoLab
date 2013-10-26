@@ -162,7 +162,7 @@ class Sequence<E> extends ListBase<E> {
   }
 
   /// Convert sequence to complex value.
-  Sequence<Complex> toComplex() {
+  Sequence toComplex() {
     if (this.every((element) => element is num)) {
       var _complexSequence = new Sequence();
       for (var i = 0; i < this.length; i++) {
@@ -178,7 +178,8 @@ class Sequence<E> extends ListBase<E> {
   }
 
   /// Takes the absolute value of each element in the sequence.
-  Sequence abs() => new Sequence()..addAll(this.map((element) => element.abs()));
+  Sequence abs() =>
+      new Sequence()..addAll(this.map((num element) => element.abs()));
 
   /// Calculate the minimum value of a sequence.
   num min() => this.fold(this.first, math.min);

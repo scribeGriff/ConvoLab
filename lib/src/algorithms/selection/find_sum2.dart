@@ -82,7 +82,7 @@ class _FindSum2 {
     /// If sum2find is a list, then only return first
     /// pair of matched addends for each element in the hash.
     if (sum2find is List) {
-      if (sum2find.every((item) => item is int)) {
+      if (sum2find.every((item) => item is num)) {
         sum2find.forEach((element) {
           found = false;
           for (int i = 0; i < sumArray.length; i++) {
@@ -102,11 +102,11 @@ class _FindSum2 {
           if (!found) sumResults.add([null, null]);
         });
       } else {
-        /// sum2find is not of type int.
+        /// sum2find is not of type num.
         throw new DataFormatException();
       }
-    } else if (sum2find is int) {
-      /// If sum2find is an integer, return all matches.
+    } else if (sum2find is num) {
+      /// If sum2find is a num, return all matches.
       for (int i = 0; i < sumArray.length; i++) {
         addend = sum2find - sumArray[i];
         if (sumHashMap.containsKey(addend) && sumHashMap[addend] > 0) {
@@ -125,7 +125,7 @@ class _FindSum2 {
       }
       if (!match) sumResults.add([null, null]);
     } else {
-      /// sum2find is not an integer.
+      /// sum2find is not a num.
       throw new DataFormatException();
     }
 

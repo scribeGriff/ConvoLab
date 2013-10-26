@@ -22,7 +22,7 @@ void main() {
   // h = 2z + 3 - 5z^-2 + 2z^-3 + z^-4
   Sequence h = sequence([2, 3, 0, -5, 2, 1]);
   // The zeroth element is element 1.
-  Sequence nh = x.position(1);
+  Sequence nh = h.position(1);
   // Compute y = x * h
   var y = conv(x, h, n, nh);
   print(y.x);

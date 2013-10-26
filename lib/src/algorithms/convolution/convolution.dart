@@ -175,6 +175,7 @@ class ConvResults extends ConvoLabResults implements _PolyString {
   ConvResults(this.x, this.n);
 
   /// Returns the result of the convolution as a formatted string.
+  // TODO Change this to named parameters like pstring.
   String format([var formatType, var baseVar, var fname]) {
     var firstIndex = 0;
     String polystring;
