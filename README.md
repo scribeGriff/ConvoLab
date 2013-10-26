@@ -136,6 +136,7 @@ To convert a sequence to a list, simply use the `toList()` method of the `ListBa
 - `foldseq()` - folds(ie, reverses) a sequence
 - `toReal()` - converts a complex sequence to a real valued sequence
 - `toComplex()` - converts a real sequence to a complex valued sequence
+- `equals()` - returns a boolean indicating element by element equivalence between two sequences
 - `abs()` - returns a sequence with the absolute value of each element
 - `min()` - returns the minimum of a sequence
 - `max()` - returns the maximum of a sequence

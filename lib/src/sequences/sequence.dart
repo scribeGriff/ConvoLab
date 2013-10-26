@@ -186,6 +186,7 @@ class Sequence<E> extends ListBase<E> {
       return compare[_i] == element;
     });
   }
+
   /// Takes the absolute value of each element in the sequence.
   Sequence abs() =>
       new Sequence()..addAll(this.map((num element) => element.abs()));
