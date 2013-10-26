@@ -94,4 +94,14 @@ void main() {
   // Prints:
   // [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5]
   // [-7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3]
+
+  // The equals method does an element by element comparison of two sequences.
+  // Compare the sequence to itself should return true.
+  print(x2.equals(x2));
+  // Prints:
+  // true
+  // Compare two different sequences should return fals.
+  print(x2.equals(x1.x));
+  // Prints:
+  // false
 }

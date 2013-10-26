@@ -177,6 +177,15 @@ class Sequence<E> extends ListBase<E> {
     }
   }
 
+  /// Compare to another sequence to check for element by element equivalence.
+  bool equals(Sequence compare) {
+    if (this.length != compare.length) return false;
+    var _i = -1;
+    return this.every((element) {
+      _i++;
+      return compare[_i] == element;
+    });
+  }
   /// Takes the absolute value of each element in the sequence.
   Sequence abs() =>
       new Sequence()..addAll(this.map((num element) => element.abs()));
