@@ -63,24 +63,24 @@ ConvResults conv(Sequence _x, Sequence _h, [Sequence _xn, Sequence _hn])
 
 // The private class _Convolution.
 class _Convolution {
-  final xdata;
-  final hdata;
+  final xd;
+  final hd;
 
-  _Convolution(this.xdata, this.hdata);
+  _Convolution(this.xd, this.hd);
 
   ConvResults convolve(Sequence xn, Sequence hn) {
-    if (xdata == null || hdata == null || xdata.isEmpty ||
-        hdata.isEmpty) {
+    if (xd == null || hd == null || xd.isEmpty ||
+        hd.isEmpty) {
       throw new ArgumentError("invalid data");
     } else {
-      if (xn == null) xn = sequence(new List.generate(xdata.length,
+      if (xn == null) xn = sequence(new List.generate(xd.length,
           (var index) => index));
-      if (hn == null) hn = sequence(new List.generate(hdata.length,
+      if (hn == null) hn = sequence(new List.generate(hd.length,
           (var index) => index));
       // Create a local copy of each list.  This is necessary
       // in case xdata and hdata are the same object.
-      Sequence xdata = sequence(this.xdata);
-      Sequence hdata = sequence(this.hdata);
+      Sequence xdata = sequence(this.xd);
+      Sequence hdata = sequence(this.hd);
       bool isInt = false;
       final xLength = xdata.length;
       final hLength = hdata.length;
