@@ -2,10 +2,9 @@
 
 # Convolab #
 
-## A signal processing library for Dart ##
-[![Build Status](https://drone.io/github.com/scribeGriff/ConvoLab/status.png)](https://drone.io/github.com/scribeGriff/ConvoLab/latest)
+### A signal processing library for Dart ##
 
-[![endorse](https://api.coderwall.com/scribegriff/endorsecount.png)](https://coderwall.com/scribegriff)
+***Note: This library is not currently being maintained.***
 
 ## Overview ##
  
@@ -14,8 +13,6 @@ The ability to create 2-dimensional, canvas based plots of signal waveforms is a
 The graph-centric algorithms (ie, scc, 2-sat, Prim's MST, Kruskal's MST, all pairs shortest path and the knapsack algorithm) have been moved to the [graphlab](https://github.com/scribeGriff/graphlab "graphlab library") library.
 
 The library is currently moving its 1-dimensional data structure from `List` to `Sequence`, which extends the `ListBase` class and adds a number of methods and capabilities.
-
-This library is being actively developed and breaking changes are to be expected.
 
 Some features of the library include:
 

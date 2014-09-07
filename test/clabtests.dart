@@ -31,12 +31,12 @@ part 'fft_tests.dart';
 
 void main() {
   group('All Tests:', (){
-    test('test of hyperbolic functions', () => hyperbolicTests());
-    test('test of randomized selection', () => randomSelectTests());
-    test('test of complex number functions', () => complexTests());
-    test('test of finding sum of 2 numbers', () => findSum2Tests());
-    test('test of mergesort', () => mergeSortTests());
-    test('test of quicksort', () => quickSortTests());
-    test('test of fft', () => fftTests());
+    group('test of hyperbolic functions', () => hyperbolicTests());
+    group('test of randomized selection', () => randomSelectTests());
+    group('test of complex number functions', () => complexTests());
+    group('test of finding sum of 2 numbers', () => findSum2Tests());
+    group('test of mergesort', () => mergeSortTests());
+    group('test of quicksort', () => quickSortTests());
+    group('test of fft', () => fftTests());
   });
 }
